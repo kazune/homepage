@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node / TypeScript
+node_modules/
+*.tsbuildinfo
+
+# Build outputs (generated files)
+dist/
+apps/*/dist/
+
+# Test / coverage artifacts
+coverage/
+.nyc_output/
