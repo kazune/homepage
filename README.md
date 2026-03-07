@@ -57,6 +57,7 @@ homepage/
 
 * `/` : トップページ
 * `/apps/<app-name>/` : 各アプリ
+* 公開アプリ一覧: https://kazune.jp/apps/
 
 例:
 
