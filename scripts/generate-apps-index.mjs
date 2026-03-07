@@ -6,6 +6,9 @@ import path from "node:path";
 const ROOT_DIR = process.cwd();
 const APPS_DIR = path.join(ROOT_DIR, "apps");
 const OUTPUT_PATH = path.join(ROOT_DIR, "dist", "apps", "index.html");
+const BUILD_REPO_URL =
+  process.env.BUILD_REPO_URL || "https://github.com/kazune/homepage";
+const BUILD_COMMIT_ID = process.env.BUILD_COMMIT_ID || "unknown";
 
 function toRelativePath(rawPath, appName) {
   if (typeof rawPath !== "string" || !rawPath.trim()) {
@@ -152,6 +155,19 @@ function renderHtml(apps) {
         margin: 6px 0 0;
         color: #334155;
       }
+      .build-meta {
+        margin-top: 28px;
+        padding-top: 14px;
+        border-top: 1px solid #cbd5e1;
+        color: #475569;
+        font-size: 0.92rem;
+      }
+      .build-meta p {
+        margin: 6px 0;
+      }
+      .build-meta a {
+        color: #0f172a;
+      }
     </style>
   </head>
   <body>
@@ -160,6 +176,10 @@ function renderHtml(apps) {
       <ul class="apps">
 ${items}
       </ul>
+      <section class="build-meta" aria-label="build metadata">
+        <p>Repository: <a href="${escapeHtml(BUILD_REPO_URL)}">${escapeHtml(BUILD_REPO_URL)}</a></p>
+        <p>Build commit: <code>${escapeHtml(BUILD_COMMIT_ID)}</code></p>
+      </section>
     </main>
   </body>
 </html>

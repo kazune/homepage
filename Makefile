@@ -45,6 +45,8 @@ collect:
 	done
 
 apps-index:
+	@BUILD_REPO_URL="https://github.com/kazune/homepage" \
+	BUILD_COMMIT_ID="$$(git rev-parse --short=12 HEAD 2>/dev/null || printf unknown)" \
 	node scripts/generate-apps-index.mjs
 
 clean:
