@@ -5,7 +5,7 @@ ROOT_DIST_DIR := dist
 ROOT_DIST_APPS_DIR := $(ROOT_DIST_DIR)/apps
 DEPLOY_BASE ?= /var/www/homepage
 RELEASES_DIR := $(DEPLOY_BASE)/releases
-RELEASE_ID ?= $(shell date +%Y%m%d-%H%M%S)
+RELEASE_ID := $(or $(RELEASE_ID),$(shell date +%Y%m%d-%H%M%S))
 RELEASE_DIR := $(RELEASES_DIR)/$(RELEASE_ID)
 CURRENT_LINK := $(DEPLOY_BASE)/current
 
