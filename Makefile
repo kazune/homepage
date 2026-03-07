@@ -11,11 +11,11 @@ CURRENT_LINK := $(DEPLOY_BASE)/current
 
 APP_NAMES := $(filter-out _template,$(patsubst $(APPS_DIR)/%/app.json,%,$(wildcard $(APPS_DIR)/*/app.json)))
 
-.PHONY: all dist build-apps collect deploy clean list-apps
+.PHONY: all dist build-apps collect apps-index deploy clean list-apps
 
 all: dist
 
-dist: build-apps collect
+dist: build-apps collect apps-index
 
 list-apps:
 	@printf '%s\n' $(APP_NAMES)
@@ -43,6 +43,9 @@ collect:
 			echo "skip: $(APPS_DIR)/$$app/dist not found"; \
 		fi; \
 	done
+
+apps-index:
+	node scripts/generate-apps-index.mjs
 
 clean:
 	rm -rf "$(ROOT_DIST_DIR)"
