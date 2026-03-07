@@ -1,0 +1,118 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --text: #1f2937;
+  --clock-face: #fffefb;
+  --clock-ring: #1f2937;
+  --second: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Avenir Next", "Hiragino Sans", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 20% 20%, #fff8dc 0%, transparent 28%),
+    radial-gradient(circle at 80% 75%, #e0f2fe 0%, transparent 24%),
+    var(--bg);
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+h1 {
+  margin: 0;
+  letter-spacing: 0.04em;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.clock {
+  position: relative;
+  width: min(70vw, 320px);
+  aspect-ratio: 1 / 1;
+  border: 8px solid var(--clock-ring);
+  border-radius: 50%;
+  background: var(--clock-face);
+  box-shadow: 0 20px 30px rgb(0 0 0 / 0.15);
+}
+
+.marker {
+  position: absolute;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.marker-12 {
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.marker-3 {
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.marker-6 {
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.marker-9 {
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: bottom center;
+  border-radius: 999px;
+  transform: rotate(0deg);
+}
+
+.hour {
+  width: 8px;
+  height: 28%;
+  margin-left: -4px;
+  background: #111827;
+}
+
+.minute {
+  width: 6px;
+  height: 38%;
+  margin-left: -3px;
+  background: #1f2937;
+}
+
+.second {
+  width: 2px;
+  height: 42%;
+  margin-left: -1px;
+  background: var(--second);
+}
+
+.center-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #111827;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

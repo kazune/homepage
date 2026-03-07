@@ -94,6 +94,28 @@ apps/<app-name>/
 * リポジトリ全体の公開物はルートの `dist/` に集約する
 * Apache は最終的に `dist/` を配信するだけにする
 
+## ルートビルド
+
+```bash
+make dist
+```
+
+上記で以下を実行する。
+
+* 各アプリの `make build`
+* `apps/<app-name>/dist` を `dist/apps/<app-name>/` に集約
+
+## デプロイ（世代管理 + currentリンク）
+
+```bash
+make deploy DEPLOY_BASE=/var/www/homepage
+```
+
+上記で以下を実行する。
+
+* `dist/` を `/var/www/homepage/releases/yyyyMMdd-HHmmss/` にコピー
+* `/var/www/homepage/current` を `releases/yyyyMMdd-HHmmss` へ向けるシンボリックリンクに切り替え
+
 ## 将来の拡張
 
 将来的にアプリが大きくなった場合は、次の条件で別リポジトリ化を検討する。
@@ -104,5 +126,3 @@ apps/<app-name>/
 * 単独で開発した方が明らかに管理しやすい
 
 ただし、現時点では小ネタアプリの追加を最優先とし、このリポジトリ内で完結させる。
-
-
