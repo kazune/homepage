@@ -1,0 +1,6 @@
+{
+  "name": "git-pr-helper",
+  "title": "Git PR Helper",
+  "path": "/apps/git-pr-helper/",
+  "description": "Generate copy-paste Git/GitHub commands from branch and commit message"
+}
