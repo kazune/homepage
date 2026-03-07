@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Git PR Helper</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1>Git PR Helper</h1>
+      <p class="lead">
+        ブランチ名・コミットメッセージ・変更対象から、github操作前 / github操作 / github操作後 の3つに分けたコピペ用手順を作成します。
+      </p>
+
+      <section class="output-section">
+        <div class="output-head">
+          <label class="output-label" for="outputPrompt">Codex依頼プロンプト</label>
+          <button type="button" data-copy-prompt>Copy Prompt</button>
+        </div>
+        <textarea
+          id="outputPrompt"
+          class="output"
+          data-output-prompt
+          spellcheck="false"
+        ></textarea>
+      </section>
+
+      <form class="panel" data-form>
+        <label class="field">
+          <span>ブランチ名</span>
+          <input
+            type="text"
+            name="branch"
+            placeholder="feature/add-xxx or chore/update-xxx or fix/bug-xxx"
+            required
+          />
+        </label>
+
+        <label class="field">
+          <span>コミットメッセージ</span>
+          <input
+            type="text"
+            name="commitMessage"
+            placeholder="e.g. Add git-pr-helper app for copy-paste workflow commands"
+            required
+          />
+        </label>
+
+        <label class="field">
+          <span>変更対象（git add 用）</span>
+          <textarea
+            name="changedTargets"
+            rows="3"
+            placeholder="apps/git-pr-helper/src/index.html apps/git-pr-helper/src/main.ts (or paste full git add command)"
+            required
+          ></textarea>
+        </label>
+
+        <div class="actions">
+          <button type="submit">Generate</button>
+          <span data-status aria-live="polite"></span>
+        </div>
+      </form>
+
+      <section class="output-section">
+        <div class="output-head">
+          <label class="output-label" for="outputBefore">github操作前</label>
+          <button type="button" data-copy-before>Copy Before</button>
+        </div>
+        <textarea
+          id="outputBefore"
+          class="output"
+          data-output-before
+          spellcheck="false"
+        ></textarea>
+      </section>
+
+      <section class="output-section">
+        <div class="output-head">
+          <label class="output-label" for="outputGithub">github操作</label>
+          <button type="button" data-copy-github>Copy GitHub</button>
+        </div>
+        <textarea
+          id="outputGithub"
+          class="output"
+          data-output-github
+          spellcheck="false"
+        ></textarea>
+      </section>
+
+      <section class="output-section">
+        <div class="output-head">
+          <label class="output-label" for="outputAfter">github操作後</label>
+          <button type="button" data-copy-after>Copy After</button>
+        </div>
+        <textarea
+          id="outputAfter"
+          class="output"
+          data-output-after
+          spellcheck="false"
+        ></textarea>
+      </section>
+    </main>
+
+    <script src="./assets/main.js"></script>
+  </body>
+</html>
