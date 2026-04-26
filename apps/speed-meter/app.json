@@ -1,0 +1,6 @@
+{
+  "name": "speed-meter",
+  "title": "Speed Meter",
+  "path": "/apps/speed-meter/",
+  "description": "Display current movement speed using device location"
+}
