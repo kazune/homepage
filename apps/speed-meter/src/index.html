@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Speed Meter</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="meter" aria-labelledby="appTitle">
+        <div class="topbar">
+          <h1 id="appTitle">Speed Meter</h1>
+          <span class="state" data-state>未開始</span>
+        </div>
+
+        <div class="speed-panel" aria-live="polite">
+          <div class="speed-value" data-speed>0.0</div>
+          <div class="speed-unit">km/h</div>
+        </div>
+
+        <dl class="details">
+          <div>
+            <dt>精度</dt>
+            <dd data-accuracy>--</dd>
+          </div>
+          <div>
+            <dt>更新</dt>
+            <dd data-updated>--</dd>
+          </div>
+        </dl>
+
+        <p class="message" data-message>
+          開始すると位置情報を使って移動速度を表示します。
+        </p>
+
+        <button type="button" class="primary-action" data-toggle>
+          開始
+        </button>
+      </section>
+    </main>
+
+    <script src="./assets/main.js"></script>
+  </body>
+</html>
