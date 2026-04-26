@@ -1,8 +1,10 @@
 SHELL := /bin/sh
 
+ROOT_DIR := ../..
 SRC_DIR := src
 DIST_DIR := dist
 ASSETS_DIR := $(DIST_DIR)/assets
+TSC ?= $(ROOT_DIR)/node_modules/.bin/tsc
 
 TS_SRC := $(SRC_DIR)/main.ts
 HTML_SRC := $(SRC_DIR)/index.html
@@ -31,7 +33,7 @@ $(CSS_OUT): $(CSS_SRC) | $(ASSETS_DIR)
 	cp $(CSS_SRC) $(CSS_OUT)
 
 $(JS_OUT): $(TS_SRC) | $(ASSETS_DIR)
-	tsc --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(ASSETS_DIR) $(TS_SRC)
+	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(ASSETS_DIR) $(TS_SRC)
 
 clean:
 	rm -rf $(DIST_DIR)
