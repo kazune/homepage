@@ -215,14 +215,12 @@ function main() {
       elements.outputBefore.value = "";
       elements.outputGithub.value = "";
       elements.outputAfter.value = "";
-      renderPrompt();
       return;
     }
 
     elements.outputBefore.value = buildBeforeGithubCommands(branch, message, changedTargets);
     elements.outputGithub.value = buildGithubSteps(branch);
     elements.outputAfter.value = buildAfterGithubCommands(branch);
-    renderPrompt();
   };
 
   elements.form.addEventListener("submit", (event) => {
@@ -282,6 +280,7 @@ function main() {
   elements.commitMessage.value = "";
   elements.changedTargets.value = "";
   render();
+  renderPrompt();
 }
 
 main();
