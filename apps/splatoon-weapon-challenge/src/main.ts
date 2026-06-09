@@ -50,6 +50,7 @@ type Progress = {
 };
 
 type StatusFilter = "all" | "complete" | "incomplete" | "unused";
+type SortMode = "default" | "wins" | "losses";
 
 const storageKey = "splatoon3-weapon-challenge:v1";
 const defaultProgress: Progress = {
@@ -64,6 +65,7 @@ let gameVersion = "";
 let searchText = "";
 let classFilter = "all";
 let statusFilter: StatusFilter = "incomplete";
+let sortMode: SortMode = "default";
 let selectedWeaponId: string | null = null;
 
 const targetWinsInput = query<HTMLInputElement>("[data-target-wins]");
@@ -73,6 +75,7 @@ const recordSummaryElement = query("[data-record-summary]");
 const searchInput = query<HTMLInputElement>("[data-search]");
 const classFilterSelect = query<HTMLSelectElement>("[data-class-filter]");
 const statusFilterSelect = query<HTMLSelectElement>("[data-status-filter]");
+const sortSelect = query<HTMLSelectElement>("[data-sort]");
 const randomButton = query<HTMLButtonElement>("[data-random]");
 const selectedEmptyElement = query<HTMLElement>("[data-selected-empty]");
 const selectedDetailElement = query<HTMLElement>("[data-selected-detail]");
@@ -237,11 +240,33 @@ function matchesSearchText(weapon: Weapon) {
 }
 
 function getVisibleWeapons() {
-  return weapons.filter((weapon) => {
+  const visibleWeapons = weapons.filter((weapon) => {
     const classMatches = classFilter === "all" || weapon.class.id === classFilter;
 
     return classMatches && matchesStatusFilter(weapon) && matchesSearchText(weapon);
   });
+
+  return sortWeapons(visibleWeapons);
+}
+
+function sortWeapons(items: Weapon[]) {
+  if (sortMode === "wins") {
+    return items.slice().sort((a, b) => {
+      const winsDelta = getWeaponProgress(b.id).wins - getWeaponProgress(a.id).wins;
+
+      return winsDelta || a.number - b.number;
+    });
+  }
+
+  if (sortMode === "losses") {
+    return items.slice().sort((a, b) => {
+      const lossesDelta = getWeaponProgress(b.id).losses - getWeaponProgress(a.id).losses;
+
+      return lossesDelta || a.number - b.number;
+    });
+  }
+
+  return items;
 }
 
 function getSelectedWeapon() {
@@ -509,6 +534,11 @@ classFilterSelect.addEventListener("change", () => {
 
 statusFilterSelect.addEventListener("change", () => {
   statusFilter = statusFilterSelect.value as StatusFilter;
+  renderList();
+});
+
+sortSelect.addEventListener("change", () => {
+  sortMode = sortSelect.value as SortMode;
   renderList();
 });
 
