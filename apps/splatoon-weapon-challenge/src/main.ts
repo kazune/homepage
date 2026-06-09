@@ -79,14 +79,9 @@ const selectedEmptyElement = query<HTMLElement>("[data-selected-empty]");
 const selectedDetailElement = query<HTMLElement>("[data-selected-detail]");
 const selectedStatusElement = query("[data-selected-status]");
 const selectedNameElement = query("[data-selected-name]");
-const selectedNameEnElement = query("[data-selected-name-en]");
 const selectedWinsElement = query("[data-selected-wins]");
-const selectedMatchesElement = query("[data-selected-matches]");
 const selectedLossesElement = query("[data-selected-losses]");
 const selectedRateElement = query("[data-selected-rate]");
-const selectedClassElement = query("[data-selected-class]");
-const selectedSubElement = query("[data-selected-sub]");
-const selectedSpecialElement = query("[data-selected-special]");
 const selectedActionsElement = query("[data-selected-actions]");
 const visibleCountElement = query("[data-visible-count]");
 const messageElement = query("[data-message]");
@@ -197,12 +192,6 @@ function setWeaponProgress(weaponId: string, nextProgress: WeaponProgress) {
     };
   }
 
-  saveProgress();
-  render();
-}
-
-function resetWeaponProgress(weaponId: string) {
-  delete progress.weapons[weaponId];
   saveProgress();
   render();
 }
@@ -368,14 +357,9 @@ function renderSelectedWeapon() {
   selectedStatusElement.className = `status ${complete ? "complete" : "incomplete"}`;
   selectedStatusElement.textContent = complete ? "達成済み" : "未達成";
   selectedNameElement.textContent = weapon.name.ja;
-  selectedNameEnElement.textContent = `#${weapon.number} ${weapon.name.en}`;
   selectedWinsElement.textContent = String(item.wins);
-  selectedMatchesElement.textContent = String(item.matches);
   selectedLossesElement.textContent = String(losses);
   selectedRateElement.textContent = winRate;
-  selectedClassElement.textContent = weapon.class.ja;
-  selectedSubElement.textContent = `サブ: ${weapon.sub.ja}`;
-  selectedSpecialElement.textContent = `スペシャル: ${weapon.special.ja} ${weapon.specialPoints}p`;
   selectedActionsElement.textContent = "";
   selectedActionsElement.append(
     createActionButton("+勝ち", "win", () => {
@@ -387,12 +371,9 @@ function renderSelectedWeapon() {
     createActionButton("-勝ち", "small", () => {
       setWeaponProgress(weapon.id, { wins: item.wins - 1, matches: item.matches - 1 });
     }, item.wins <= 0),
-    createActionButton("-試合", "small", () => {
+    createActionButton("-負け", "small", () => {
       setWeaponProgress(weapon.id, { wins: item.wins, matches: item.matches - 1 });
-    }, item.matches <= item.wins),
-    createActionButton("このブキをリセット", "reset-one", () => {
-      resetWeaponProgress(weapon.id);
-    }, item.wins === 0 && item.matches === 0),
+    }, losses <= 0),
   );
 }
 

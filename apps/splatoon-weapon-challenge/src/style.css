@@ -164,7 +164,7 @@ h1 {
 
 .selected-detail {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(260px, 0.8fr);
+  grid-template-columns: minmax(220px, 1fr) minmax(240px, 0.7fr);
   gap: 0.9rem;
   padding: 1rem;
 }
@@ -178,20 +178,14 @@ h1 {
 }
 
 .selected-main h2 {
-  margin: 0.45rem 0 0.25rem;
+  margin: 0.45rem 0 0;
   font-size: 1.45rem;
   line-height: 1.2;
 }
 
-.selected-main p {
-  margin: 0;
-  color: var(--muted);
-  font-weight: 700;
-}
-
 .selected-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-column: 1 / -1;
   gap: 0.55rem;
   margin: 0;
@@ -219,22 +213,6 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
-.selected-kit {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  align-content: start;
-}
-
-.selected-kit span {
-  border-radius: 999px;
-  padding: 0.28rem 0.55rem;
-  background: #eef1ec;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 800;
-}
-
 .selected-actions {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -259,11 +237,6 @@ h1 {
 .selected-actions .small {
   color: var(--muted);
   font-size: 0.9rem;
-}
-
-.selected-actions .reset-one {
-  grid-column: 1 / -1;
-  color: var(--danger);
 }
 
 .selected-actions button:disabled {
@@ -425,7 +398,7 @@ h1 {
   }
 
   .selected-stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
