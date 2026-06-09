@@ -415,7 +415,7 @@ function createWeaponRow(weapon: Weapon) {
 
   const status = document.createElement("span");
   status.className = `weapon-row-status ${complete ? "complete" : "incomplete"}`;
-  status.textContent = complete ? "達成" : "未達";
+  status.textContent = complete ? "済" : "未達";
 
   row.append(name, record, status);
 
