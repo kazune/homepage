@@ -67,6 +67,7 @@ let statusFilter: StatusFilter = "incomplete";
 let selectedWeaponId: string | null = null;
 
 const targetWinsInput = query<HTMLInputElement>("[data-target-wins]");
+const challengeTitleElement = query("[data-challenge-title]");
 const completeSummaryElement = query("[data-complete-summary]");
 const recordSummaryElement = query("[data-record-summary]");
 const searchInput = query<HTMLInputElement>("[data-search]");
@@ -286,6 +287,7 @@ function calculateTotals() {
 function renderSummary() {
   const totals = calculateTotals();
 
+  challengeTitleElement.textContent = `全ブキ${progress.targetWins}勝チャレンジ`;
   completeSummaryElement.textContent = `${totals.completeCount} / ${weapons.length} 達成`;
   recordSummaryElement.textContent = `${totals.totalWins}勝 ${totals.totalLosses}負`;
 }
