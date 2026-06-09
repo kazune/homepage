@@ -185,30 +185,7 @@ h1 {
   line-height: 1.2;
 }
 
-.selected-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column: 1 / -1;
-  gap: 0.55rem;
-  margin: 0;
-}
-
-.selected-stats div {
-  min-width: 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0.65rem;
-  background: var(--panel);
-}
-
-.selected-stats dt {
-  margin: 0 0 0.2rem;
-  color: var(--muted);
-  font-size: 0.76rem;
-  font-weight: 800;
-}
-
-.selected-stats dd {
+.selected-record {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 800;
@@ -407,9 +384,6 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .selected-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 520px) {

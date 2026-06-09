@@ -77,8 +77,7 @@ const selectedEmptyElement = query<HTMLElement>("[data-selected-empty]");
 const selectedDetailElement = query<HTMLElement>("[data-selected-detail]");
 const selectedStatusElement = query("[data-selected-status]");
 const selectedNameElement = query("[data-selected-name]");
-const selectedWinsElement = query("[data-selected-wins]");
-const selectedLossesElement = query("[data-selected-losses]");
+const selectedRecordElement = query("[data-selected-record]");
 const selectedActionsElement = query("[data-selected-actions]");
 const visibleCountElement = query("[data-visible-count]");
 const messageElement = query("[data-message]");
@@ -349,8 +348,7 @@ function renderSelectedWeapon() {
   selectedStatusElement.className = `status ${complete ? "complete" : "incomplete"}`;
   selectedStatusElement.textContent = complete ? "達成済み" : "未達成";
   selectedNameElement.textContent = weapon.name.ja;
-  selectedWinsElement.textContent = String(item.wins);
-  selectedLossesElement.textContent = String(item.losses);
+  selectedRecordElement.textContent = `${item.wins}勝 ${item.losses}負`;
   selectedActionsElement.textContent = "";
   selectedActionsElement.append(
     createActionButton("+勝ち", "win", () => {
