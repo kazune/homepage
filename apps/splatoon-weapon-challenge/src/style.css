@@ -99,7 +99,7 @@ h1 {
 
 .summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
@@ -381,10 +381,6 @@ h1 {
 }
 
 @media (max-width: 820px) {
-  .summary {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .toolbar {
     grid-template-columns: 1fr 1fr;
   }

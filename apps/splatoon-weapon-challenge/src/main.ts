@@ -67,10 +67,8 @@ let statusFilter: StatusFilter = "incomplete";
 let selectedWeaponId: string | null = null;
 
 const targetWinsInput = query<HTMLInputElement>("[data-target-wins]");
-const completeCountElement = query("[data-complete-count]");
-const completeRateElement = query("[data-complete-rate]");
-const totalWinsElement = query("[data-total-wins]");
-const totalLossesElement = query("[data-total-losses]");
+const completeSummaryElement = query("[data-complete-summary]");
+const recordSummaryElement = query("[data-record-summary]");
 const searchInput = query<HTMLInputElement>("[data-search]");
 const classFilterSelect = query<HTMLSelectElement>("[data-class-filter]");
 const statusFilterSelect = query<HTMLSelectElement>("[data-status-filter]");
@@ -289,12 +287,9 @@ function calculateTotals() {
 
 function renderSummary() {
   const totals = calculateTotals();
-  const completeRate = weapons.length === 0 ? 0 : (totals.completeCount / weapons.length) * 100;
 
-  completeCountElement.textContent = `${totals.completeCount} / ${weapons.length}`;
-  completeRateElement.textContent = `${completeRate.toFixed(1)}%`;
-  totalWinsElement.textContent = String(totals.totalWins);
-  totalLossesElement.textContent = String(totals.totalLosses);
+  completeSummaryElement.textContent = `${totals.completeCount} / ${weapons.length} 達成`;
+  recordSummaryElement.textContent = `${totals.totalWins}勝 ${totals.totalLosses}負`;
 }
 
 function renderClassOptions() {
