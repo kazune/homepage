@@ -79,7 +79,6 @@ const selectedStatusElement = query("[data-selected-status]");
 const selectedNameElement = query("[data-selected-name]");
 const selectedWinsElement = query("[data-selected-wins]");
 const selectedLossesElement = query("[data-selected-losses]");
-const selectedRateElement = query("[data-selected-rate]");
 const selectedActionsElement = query("[data-selected-actions]");
 const visibleCountElement = query("[data-visible-count]");
 const messageElement = query("[data-message]");
@@ -344,8 +343,6 @@ function renderSelectedWeapon() {
 
   const item = getWeaponProgress(weapon.id);
   const complete = item.wins >= progress.targetWins;
-  const totalResults = item.wins + item.losses;
-  const winRate = totalResults > 0 ? `${((item.wins / totalResults) * 100).toFixed(1)}%` : "--";
 
   selectedEmptyElement.hidden = true;
   selectedDetailElement.hidden = false;
@@ -354,7 +351,6 @@ function renderSelectedWeapon() {
   selectedNameElement.textContent = weapon.name.ja;
   selectedWinsElement.textContent = String(item.wins);
   selectedLossesElement.textContent = String(item.losses);
-  selectedRateElement.textContent = winRate;
   selectedActionsElement.textContent = "";
   selectedActionsElement.append(
     createActionButton("+勝ち", "win", () => {

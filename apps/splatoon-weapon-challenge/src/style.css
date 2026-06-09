@@ -185,7 +185,7 @@ h1 {
 
 .selected-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-column: 1 / -1;
   gap: 0.55rem;
   margin: 0;
@@ -394,7 +394,7 @@ h1 {
   }
 
   .selected-stats {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
