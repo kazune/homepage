@@ -475,6 +475,17 @@ function pickRandomIncompleteWeapon() {
   messageElement.textContent = `${weapon.name.ja} を選択しました。`;
 }
 
+function resetListControls() {
+  searchText = "";
+  classFilter = "all";
+  statusFilter = "incomplete";
+  sortMode = "default";
+  searchInput.value = "";
+  classFilterSelect.value = classFilter;
+  statusFilterSelect.value = statusFilter;
+  sortSelect.value = sortMode;
+}
+
 function exportProgress() {
   const payload = JSON.stringify(progress, null, 2);
   const blob = new Blob([payload], { type: "application/json" });
@@ -572,6 +583,7 @@ resetButton.addEventListener("click", () => {
     targetWins: progress.targetWins,
     weapons: {},
   };
+  resetListControls();
   saveProgress();
   render();
 });
