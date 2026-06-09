@@ -450,15 +450,25 @@ function pickRandomIncompleteWeapon() {
   messageElement.textContent = `${weapon.name.ja} を選択しました。`;
 }
 
-async function exportProgress() {
+function exportProgress() {
   const payload = JSON.stringify(progress, null, 2);
+  const blob = new Blob([payload], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
 
-  try {
-    await navigator.clipboard.writeText(payload);
-    messageElement.textContent = "進捗JSONをクリップボードにコピーしました。";
-  } catch {
-    messageElement.textContent = payload;
-  }
+  link.href = url;
+  link.download = `splatoon-weapon-challenge-${formatDateForFilename(new Date())}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+  messageElement.textContent = "進捗JSONをダウンロードしました。";
+}
+
+function formatDateForFilename(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}${month}${day}`;
 }
 
 async function importProgress(file: File) {
