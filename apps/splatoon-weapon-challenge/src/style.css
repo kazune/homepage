@@ -186,6 +186,7 @@ h1 {
 }
 
 .selected-record {
+  align-self: end;
   margin: 0;
   font-size: 1.2rem;
   font-weight: 800;
@@ -197,6 +198,7 @@ h1 {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
   align-content: start;
+  padding: 0 1rem 1rem;
 }
 
 .selected-actions button {
