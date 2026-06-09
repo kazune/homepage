@@ -64,6 +64,7 @@ let gameVersion = "";
 let searchText = "";
 let classFilter = "all";
 let statusFilter: StatusFilter = "incomplete";
+let selectedWeaponId: string | null = null;
 
 const targetWinsInput = query<HTMLInputElement>("[data-target-wins]");
 const completeCountElement = query("[data-complete-count]");
@@ -74,8 +75,19 @@ const searchInput = query<HTMLInputElement>("[data-search]");
 const classFilterSelect = query<HTMLSelectElement>("[data-class-filter]");
 const statusFilterSelect = query<HTMLSelectElement>("[data-status-filter]");
 const randomButton = query<HTMLButtonElement>("[data-random]");
-const pickedElement = query<HTMLElement>("[data-picked]");
-const pickedNameElement = query("[data-picked-name]");
+const selectedEmptyElement = query<HTMLElement>("[data-selected-empty]");
+const selectedDetailElement = query<HTMLElement>("[data-selected-detail]");
+const selectedStatusElement = query("[data-selected-status]");
+const selectedNameElement = query("[data-selected-name]");
+const selectedNameEnElement = query("[data-selected-name-en]");
+const selectedWinsElement = query("[data-selected-wins]");
+const selectedMatchesElement = query("[data-selected-matches]");
+const selectedLossesElement = query("[data-selected-losses]");
+const selectedRateElement = query("[data-selected-rate]");
+const selectedClassElement = query("[data-selected-class]");
+const selectedSubElement = query("[data-selected-sub]");
+const selectedSpecialElement = query("[data-selected-special]");
+const selectedActionsElement = query("[data-selected-actions]");
 const visibleCountElement = query("[data-visible-count]");
 const messageElement = query("[data-message]");
 const listElement = query("[data-list]");
@@ -189,6 +201,12 @@ function setWeaponProgress(weaponId: string, nextProgress: WeaponProgress) {
   render();
 }
 
+function resetWeaponProgress(weaponId: string) {
+  delete progress.weapons[weaponId];
+  saveProgress();
+  render();
+}
+
 function isComplete(weaponId: string) {
   return getWeaponProgress(weaponId).wins >= progress.targetWins;
 }
@@ -238,6 +256,28 @@ function getVisibleWeapons() {
 
     return classMatches && matchesStatus(weapon) && matchesSearch(weapon);
   });
+}
+
+function getSelectedWeapon() {
+  if (!selectedWeaponId) {
+    return null;
+  }
+
+  return weapons.find((weapon) => weapon.id === selectedWeaponId) ?? null;
+}
+
+function selectWeapon(weaponId: string) {
+  selectedWeaponId = weaponId;
+  render();
+}
+
+function ensureSelectedWeapon() {
+  if (getSelectedWeapon()) {
+    return;
+  }
+
+  const firstIncomplete = weapons.find((weapon) => !isComplete(weapon.id));
+  selectedWeaponId = firstIncomplete?.id ?? weapons[0]?.id ?? null;
 }
 
 function calculateTotals() {
@@ -300,46 +340,44 @@ function renderList() {
   }
 
   for (const weapon of visibleWeapons) {
-    fragment.append(createWeaponCard(weapon));
+    fragment.append(createWeaponRow(weapon));
   }
 
   listElement.append(fragment);
 }
 
-function createWeaponCard(weapon: Weapon) {
+function renderSelectedWeapon() {
+  ensureSelectedWeapon();
+
+  const weapon = getSelectedWeapon();
+
+  if (!weapon) {
+    selectedEmptyElement.hidden = false;
+    selectedDetailElement.hidden = true;
+    selectedActionsElement.textContent = "";
+    return;
+  }
+
   const item = getWeaponProgress(weapon.id);
   const complete = item.wins >= progress.targetWins;
   const losses = Math.max(0, item.matches - item.wins);
   const winRate = item.matches > 0 ? `${((item.wins / item.matches) * 100).toFixed(1)}%` : "--";
-  const card = document.createElement("article");
-  card.className = `weapon-card${complete ? " is-complete" : ""}`;
 
-  const title = document.createElement("div");
-  title.className = "weapon-title";
-  title.innerHTML = `
-    <h2>${escapeHtml(weapon.name.ja)}</h2>
-    <div class="weapon-meta">
-      <span class="pill">#${weapon.number}</span>
-      <span class="pill">${escapeHtml(weapon.class.ja)}</span>
-      <span>${escapeHtml(weapon.name.en)}</span>
-    </div>
-    <div class="kit-meta">
-      <span>サブ: ${escapeHtml(weapon.sub.ja)}</span>
-      <span>スペ: ${escapeHtml(weapon.special.ja)} ${weapon.specialPoints}p</span>
-    </div>
-  `;
-
-  const progressBox = document.createElement("div");
-  progressBox.className = "progress-box";
-  progressBox.innerHTML = `
-    <span class="status ${complete ? "complete" : "incomplete"}">${complete ? "達成済み" : "未達成"}</span>
-    <span class="progress-main">${item.wins}勝 / ${item.matches}試合</span>
-    <span class="progress-sub">負け ${losses} / 勝率 ${winRate}</span>
-  `;
-
-  const actions = document.createElement("div");
-  actions.className = "actions";
-  actions.append(
+  selectedEmptyElement.hidden = true;
+  selectedDetailElement.hidden = false;
+  selectedStatusElement.className = `status ${complete ? "complete" : "incomplete"}`;
+  selectedStatusElement.textContent = complete ? "達成済み" : "未達成";
+  selectedNameElement.textContent = weapon.name.ja;
+  selectedNameEnElement.textContent = `#${weapon.number} ${weapon.name.en}`;
+  selectedWinsElement.textContent = String(item.wins);
+  selectedMatchesElement.textContent = String(item.matches);
+  selectedLossesElement.textContent = String(losses);
+  selectedRateElement.textContent = winRate;
+  selectedClassElement.textContent = weapon.class.ja;
+  selectedSubElement.textContent = `サブ: ${weapon.sub.ja}`;
+  selectedSpecialElement.textContent = `スペシャル: ${weapon.special.ja} ${weapon.specialPoints}p`;
+  selectedActionsElement.textContent = "";
+  selectedActionsElement.append(
     createActionButton("+勝ち", "win", () => {
       setWeaponProgress(weapon.id, { wins: item.wins + 1, matches: item.matches + 1 });
     }),
@@ -352,11 +390,43 @@ function createWeaponCard(weapon: Weapon) {
     createActionButton("-試合", "small", () => {
       setWeaponProgress(weapon.id, { wins: item.wins, matches: item.matches - 1 });
     }, item.matches <= item.wins),
+    createActionButton("このブキをリセット", "reset-one", () => {
+      resetWeaponProgress(weapon.id);
+    }, item.wins === 0 && item.matches === 0),
   );
+}
 
-  card.append(title, progressBox, actions);
+function createWeaponRow(weapon: Weapon) {
+  const item = getWeaponProgress(weapon.id);
+  const complete = item.wins >= progress.targetWins;
+  const row = document.createElement("button");
+  row.type = "button";
+  row.className = [
+    "weapon-row",
+    complete ? "is-complete" : "",
+    weapon.id === selectedWeaponId ? "is-selected" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+  row.addEventListener("click", () => {
+    selectWeapon(weapon.id);
+  });
 
-  return card;
+  const name = document.createElement("span");
+  name.className = "weapon-row-name";
+  name.textContent = weapon.name.ja;
+
+  const record = document.createElement("span");
+  record.className = "weapon-row-record";
+  record.textContent = `${item.wins}勝 / ${item.matches}試合`;
+
+  const status = document.createElement("span");
+  status.className = `weapon-row-status ${complete ? "complete" : "incomplete"}`;
+  status.textContent = complete ? "達成" : "未達";
+
+  row.append(name, record, status);
+
+  return row;
 }
 
 function createActionButton(
@@ -375,16 +445,9 @@ function createActionButton(
   return button;
 }
 
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
 function render() {
   renderSummary();
+  renderSelectedWeapon();
   renderList();
 }
 
@@ -406,14 +469,13 @@ function pickRandomIncompleteWeapon() {
   const candidates = weapons.filter((weapon) => !isComplete(weapon.id));
 
   if (candidates.length === 0) {
-    pickedElement.hidden = false;
-    pickedNameElement.textContent = "全ブキ達成済み";
+    messageElement.textContent = "全ブキ達成済みです。";
     return;
   }
 
   const weapon = candidates[Math.floor(Math.random() * candidates.length)];
-  pickedElement.hidden = false;
-  pickedNameElement.textContent = `${weapon.name.ja} / ${weapon.sub.ja} / ${weapon.special.ja}`;
+  selectWeapon(weapon.id);
+  messageElement.textContent = `${weapon.name.ja} を選択しました。`;
 }
 
 async function exportProgress() {
@@ -499,7 +561,6 @@ resetButton.addEventListener("click", () => {
     weapons: {},
   };
   saveProgress();
-  pickedElement.hidden = true;
   render();
 });
 

@@ -53,9 +53,41 @@
         <button type="button" data-random>ランダム未達成</button>
       </section>
 
-      <section class="picked" data-picked hidden aria-live="polite">
-        <span>次のブキ</span>
-        <strong data-picked-name></strong>
+      <section class="selected-shell" data-selected-shell aria-label="選択中のブキ">
+        <div class="selected-empty" data-selected-empty>
+          ブキを選択すると詳細と記録ボタンを表示します。
+        </div>
+        <div class="selected-detail" data-selected-detail hidden>
+          <div class="selected-main">
+            <span class="status incomplete" data-selected-status>未達成</span>
+            <h2 data-selected-name></h2>
+            <p data-selected-name-en></p>
+          </div>
+          <dl class="selected-stats">
+            <div>
+              <dt>勝利</dt>
+              <dd data-selected-wins>0</dd>
+            </div>
+            <div>
+              <dt>試合</dt>
+              <dd data-selected-matches>0</dd>
+            </div>
+            <div>
+              <dt>負け</dt>
+              <dd data-selected-losses>0</dd>
+            </div>
+            <div>
+              <dt>勝率</dt>
+              <dd data-selected-rate>--</dd>
+            </div>
+          </dl>
+          <div class="selected-kit">
+            <span data-selected-class></span>
+            <span data-selected-sub></span>
+            <span data-selected-special></span>
+          </div>
+          <div class="selected-actions" data-selected-actions></div>
+        </div>
       </section>
 
       <section class="list-shell" aria-label="ブキ一覧">
