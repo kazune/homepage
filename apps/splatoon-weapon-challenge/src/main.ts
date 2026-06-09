@@ -39,7 +39,7 @@ type WeaponsData = {
 
 type WeaponProgress = {
   wins: number;
-  matches: number;
+  losses: number;
   updatedAt?: string;
 };
 
@@ -70,7 +70,7 @@ const targetWinsInput = query<HTMLInputElement>("[data-target-wins]");
 const completeCountElement = query("[data-complete-count]");
 const completeRateElement = query("[data-complete-rate]");
 const totalWinsElement = query("[data-total-wins]");
-const totalMatchesElement = query("[data-total-matches]");
+const totalLossesElement = query("[data-total-losses]");
 const searchInput = query<HTMLInputElement>("[data-search]");
 const classFilterSelect = query<HTMLSelectElement>("[data-class-filter]");
 const statusFilterSelect = query<HTMLSelectElement>("[data-status-filter]");
@@ -134,15 +134,15 @@ function sanitizeWeaponsProgress(value: Record<string, unknown>): Record<string,
 
     const item = rawProgress as Partial<WeaponProgress>;
     const wins = normalizeNonNegativeInteger(item.wins, 0);
-    const matches = Math.max(wins, normalizeNonNegativeInteger(item.matches, 0));
+    const losses = normalizeNonNegativeInteger(item.losses, 0);
 
-    if (wins === 0 && matches === 0) {
+    if (wins === 0 && losses === 0) {
       continue;
     }
 
     result[weaponId] = {
       wins,
-      matches,
+      losses,
       updatedAt: typeof item.updatedAt === "string" ? item.updatedAt : undefined,
     };
   }
@@ -175,19 +175,19 @@ function normalizeNonNegativeInteger(value: unknown, fallback: number) {
 }
 
 function getWeaponProgress(weaponId: string): WeaponProgress {
-  return progress.weapons[weaponId] ?? { wins: 0, matches: 0 };
+  return progress.weapons[weaponId] ?? { wins: 0, losses: 0 };
 }
 
 function setWeaponProgress(weaponId: string, nextProgress: WeaponProgress) {
   const wins = Math.max(0, Math.floor(nextProgress.wins));
-  const matches = Math.max(wins, Math.floor(nextProgress.matches));
+  const losses = Math.max(0, Math.floor(nextProgress.losses));
 
-  if (wins === 0 && matches === 0) {
+  if (wins === 0 && losses === 0) {
     delete progress.weapons[weaponId];
   } else {
     progress.weapons[weaponId] = {
       wins,
-      matches,
+      losses,
       updatedAt: new Date().toISOString(),
     };
   }
@@ -200,7 +200,7 @@ function isComplete(weaponId: string) {
   return getWeaponProgress(weaponId).wins >= progress.targetWins;
 }
 
-function matchesStatus(weapon: Weapon) {
+function matchesStatusFilter(weapon: Weapon) {
   const item = getWeaponProgress(weapon.id);
 
   if (statusFilter === "all") {
@@ -212,13 +212,13 @@ function matchesStatus(weapon: Weapon) {
   }
 
   if (statusFilter === "unused") {
-    return item.wins === 0 && item.matches === 0;
+    return item.wins === 0 && item.losses === 0;
   }
 
   return item.wins < progress.targetWins;
 }
 
-function matchesSearch(weapon: Weapon) {
+function matchesSearchText(weapon: Weapon) {
   if (!searchText) {
     return true;
   }
@@ -243,7 +243,7 @@ function getVisibleWeapons() {
   return weapons.filter((weapon) => {
     const classMatches = classFilter === "all" || weapon.class.id === classFilter;
 
-    return classMatches && matchesStatus(weapon) && matchesSearch(weapon);
+    return classMatches && matchesStatusFilter(weapon) && matchesSearchText(weapon);
   });
 }
 
@@ -272,18 +272,18 @@ function ensureSelectedWeapon() {
 function calculateTotals() {
   const completeCount = weapons.filter((weapon) => isComplete(weapon.id)).length;
   let totalWins = 0;
-  let totalMatches = 0;
+  let totalLosses = 0;
 
   for (const weapon of weapons) {
     const item = getWeaponProgress(weapon.id);
     totalWins += item.wins;
-    totalMatches += item.matches;
+    totalLosses += item.losses;
   }
 
   return {
     completeCount,
     totalWins,
-    totalMatches,
+    totalLosses,
   };
 }
 
@@ -294,7 +294,7 @@ function renderSummary() {
   completeCountElement.textContent = `${totals.completeCount} / ${weapons.length}`;
   completeRateElement.textContent = `${completeRate.toFixed(1)}%`;
   totalWinsElement.textContent = String(totals.totalWins);
-  totalMatchesElement.textContent = String(totals.totalMatches);
+  totalLossesElement.textContent = String(totals.totalLosses);
 }
 
 function renderClassOptions() {
@@ -349,8 +349,8 @@ function renderSelectedWeapon() {
 
   const item = getWeaponProgress(weapon.id);
   const complete = item.wins >= progress.targetWins;
-  const losses = Math.max(0, item.matches - item.wins);
-  const winRate = item.matches > 0 ? `${((item.wins / item.matches) * 100).toFixed(1)}%` : "--";
+  const totalResults = item.wins + item.losses;
+  const winRate = totalResults > 0 ? `${((item.wins / totalResults) * 100).toFixed(1)}%` : "--";
 
   selectedEmptyElement.hidden = true;
   selectedDetailElement.hidden = false;
@@ -358,22 +358,22 @@ function renderSelectedWeapon() {
   selectedStatusElement.textContent = complete ? "達成済み" : "未達成";
   selectedNameElement.textContent = weapon.name.ja;
   selectedWinsElement.textContent = String(item.wins);
-  selectedLossesElement.textContent = String(losses);
+  selectedLossesElement.textContent = String(item.losses);
   selectedRateElement.textContent = winRate;
   selectedActionsElement.textContent = "";
   selectedActionsElement.append(
     createActionButton("+勝ち", "win", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins + 1, matches: item.matches + 1 });
+      setWeaponProgress(weapon.id, { wins: item.wins + 1, losses: item.losses });
     }),
     createActionButton("+負け", "loss", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins, matches: item.matches + 1 });
+      setWeaponProgress(weapon.id, { wins: item.wins, losses: item.losses + 1 });
     }),
     createActionButton("-勝ち", "small", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins - 1, matches: item.matches - 1 });
+      setWeaponProgress(weapon.id, { wins: item.wins - 1, losses: item.losses });
     }, item.wins <= 0),
     createActionButton("-負け", "small", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins, matches: item.matches - 1 });
-    }, losses <= 0),
+      setWeaponProgress(weapon.id, { wins: item.wins, losses: item.losses - 1 });
+    }, item.losses <= 0),
   );
 }
 
@@ -399,7 +399,7 @@ function createWeaponRow(weapon: Weapon) {
 
   const record = document.createElement("span");
   record.className = "weapon-row-record";
-  record.textContent = `${item.wins}勝 / ${item.matches}試合`;
+  record.textContent = `${item.wins}勝 / ${item.losses}敗`;
 
   const status = document.createElement("span");
   status.className = `weapon-row-status ${complete ? "complete" : "incomplete"}`;
