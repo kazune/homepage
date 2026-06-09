@@ -49,7 +49,7 @@ type Progress = {
   weapons: Record<string, WeaponProgress>;
 };
 
-type StatusFilter = "all" | "complete" | "incomplete" | "unused";
+type StatusFilter = "all" | "complete" | "incomplete";
 type SortMode = "default" | "wins" | "losses";
 
 const storageKey = "splatoon3-weapon-challenge:v1";
@@ -209,10 +209,6 @@ function matchesStatusFilter(weapon: Weapon) {
 
   if (statusFilter === "complete") {
     return item.wins >= progress.targetWins;
-  }
-
-  if (statusFilter === "unused") {
-    return item.wins === 0 && item.losses === 0;
   }
 
   return item.wins < progress.targetWins;
