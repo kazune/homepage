@@ -1,12 +1,11 @@
 :root {
-  --bg: #f5f6f1;
+  --bg: #ffffff;
   --panel: #ffffff;
   --text: #17201b;
   --muted: #667067;
   --line: #d9ded6;
   --accent: #0b7f68;
   --accent-strong: #075b4b;
-  --accent-soft: #e4f3ee;
   --danger: #b42318;
   --done: #2f6f3e;
   --pending: #855c00;
@@ -196,7 +195,7 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 0.65rem;
-  background: #fbfcfa;
+  background: var(--panel);
 }
 
 .selected-stats dt {
@@ -231,7 +230,7 @@ h1 {
 }
 
 .selected-actions .loss {
-  background: #f6f7f4;
+  background: var(--panel);
 }
 
 .selected-actions .small {
@@ -288,11 +287,22 @@ h1 {
 
 .weapon-row:hover,
 .weapon-row.is-selected {
-  background: var(--accent-soft);
+  color: #ffffff;
+  background: var(--accent);
+}
+
+.weapon-row:hover .weapon-row-record,
+.weapon-row.is-selected .weapon-row-record {
+  color: #ffffff;
 }
 
 .weapon-row.is-complete {
   color: var(--done);
+}
+
+.weapon-row.is-complete:hover,
+.weapon-row.is-complete.is-selected {
+  color: #ffffff;
 }
 
 .weapon-row-name {
@@ -322,12 +332,12 @@ h1 {
 
 .weapon-row-status.complete {
   color: var(--done);
-  background: #e4f2e7;
+  background: var(--panel);
 }
 
 .weapon-row-status.incomplete {
   color: var(--pending);
-  background: #fff4d7;
+  background: var(--panel);
 }
 
 .status {
@@ -340,12 +350,12 @@ h1 {
 
 .status.complete {
   color: var(--done);
-  background: #e4f2e7;
+  background: var(--panel);
 }
 
 .status.incomplete {
   color: var(--pending);
-  background: #fff4d7;
+  background: var(--panel);
 }
 
 .empty {
