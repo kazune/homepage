@@ -1,0 +1,6429 @@
+{
+  "schemaVersion": 1,
+  "game": "Splatoon 3",
+  "verifiedAt": "2026-06-09",
+  "sources": [
+    {
+      "name": "stat.ink API v3 weapon",
+      "url": "https://stat.ink/api/v3/weapon",
+      "usedFor": [
+        "stable ids",
+        "Japanese and English names",
+        "class ids",
+        "sub/special ids",
+        "matching range"
+      ]
+    },
+    {
+      "name": "Inkipedia List of main weapons in Splatoon 3",
+      "url": "https://splatoonwiki.org/wiki/List_of_main_weapons_in_Splatoon_3",
+      "usedFor": [
+        "weapon kit count",
+        "weapon number order",
+        "special points",
+        "unlock level",
+        "price",
+        "introduced version"
+      ]
+    }
+  ],
+  "summary": {
+    "mainWeaponCount": 65,
+    "weaponKitCount": 173,
+    "gameVersion": "11.1.0"
+  },
+  "weapons": [
+    {
+      "id": "bold",
+      "number": 0,
+      "name": {
+        "en": "Sploosh-o-matic",
+        "ja": "ボールドマーカー"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "bold",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 9,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 8.2,
+      "reskinOf": "bold",
+      "aliases": [
+        "sploosh_o_matic"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "bold_neo",
+      "number": 1,
+      "name": {
+        "en": "Neo Sploosh-o-matic",
+        "ja": "ボールドマーカーネオ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "bold",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 170,
+      "unlockLevel": 13,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 8.2,
+      "reskinOf": "bold_neo",
+      "aliases": [
+        "neo_sploosh_o_matic"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "wakaba",
+      "number": 10,
+      "name": {
+        "en": "Splattershot Jr.",
+        "ja": "わかばシューター"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "wakaba",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 11.3,
+      "reskinOf": "wakaba",
+      "aliases": [
+        "splattershot_jr"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "momiji",
+      "number": 11,
+      "name": {
+        "en": "Custom Splattershot Jr.",
+        "ja": "もみじシューター"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "wakaba",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 6,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.3,
+      "reskinOf": "momiji",
+      "aliases": [
+        "custom_splattershot_jr"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "sharp",
+      "number": 20,
+      "name": {
+        "en": "Splash-o-matic",
+        "ja": "シャープマーカー"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sharp",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 16,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.1,
+      "reskinOf": "sharp",
+      "aliases": [
+        "splash_o_matic"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "sharp_neo",
+      "number": 21,
+      "name": {
+        "en": "Neo Splash-o-matic",
+        "ja": "シャープマーカーネオ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sharp",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 21,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.1,
+      "reskinOf": "sharp_neo",
+      "aliases": [
+        "neo_splash_o_matic"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "sharp_geck",
+      "number": 22,
+      "name": {
+        "en": "Splash-o-matic GCK-O",
+        "ja": "シャープマーカーGECK"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sharp",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 22,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.1,
+      "reskinOf": "sharp_geck",
+      "aliases": [
+        "splash_o_matic_gck_o"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "promodeler_mg",
+      "number": 30,
+      "name": {
+        "en": "Aerospray MG",
+        "ja": "プロモデラーMG"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "promodeler_mg",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "sameride",
+        "en": "Reefslider",
+        "ja": "サメライド"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 5,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.3,
+      "reskinOf": "promodeler_mg",
+      "aliases": [
+        "aerospray_mg"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "promodeler_rg",
+      "number": 31,
+      "name": {
+        "en": "Aerospray RG",
+        "ja": "プロモデラーRG"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "promodeler_mg",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 18,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.3,
+      "reskinOf": "promodeler_rg",
+      "aliases": [
+        "aerospray_rg"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "promodeler_sai",
+      "number": 32,
+      "name": {
+        "en": "Colorz Aerospray",
+        "ja": "プロモデラー彩"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "promodeler_mg",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.3,
+      "reskinOf": "promodeler_sai",
+      "aliases": [
+        "colorz_aerospray"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "sshooter",
+      "number": 40,
+      "name": {
+        "en": "Splattershot",
+        "ja": "スプラシューター"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sshooter",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 2,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.9,
+      "reskinOf": "sshooter",
+      "aliases": [
+        "splattershot"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "sshooter_collabo",
+      "number": 41,
+      "name": {
+        "en": "Tentatek Splattershot",
+        "ja": "スプラシューターコラボ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sshooter",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.9,
+      "reskinOf": "sshooter_collabo",
+      "aliases": [
+        "tentatek_splattershot"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "sshooter_kou",
+      "number": 42,
+      "name": {
+        "en": "Glamorz Splattershot",
+        "ja": "スプラシューター煌"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sshooter",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 12,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.9,
+      "reskinOf": "sshooter_kou",
+      "aliases": [
+        "glamorz_splattershot"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "heroshooter_replica",
+      "number": 45,
+      "name": {
+        "en": "Hero Shot Replica",
+        "ja": "ヒーローシューター レプリカ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sshooter",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 12.9,
+      "reskinOf": "sshooter",
+      "aliases": [
+        "hero_shot_replica"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "octoshooter_replica",
+      "number": 46,
+      "name": {
+        "en": "Octo Shot Replica",
+        "ja": "オクタシューター レプリカ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sshooter",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 12.9,
+      "reskinOf": "sshooter_collabo",
+      "aliases": [
+        "octo_shot_replica"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "order_shooter_replica",
+      "number": 47,
+      "name": {
+        "en": "Order Shot Replica",
+        "ja": "オーダーシューター レプリカ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sshooter",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 12.9,
+      "reskinOf": "sshooter",
+      "aliases": [
+        "order_shot_replica"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "52gal",
+      "number": 50,
+      "name": {
+        "en": ".52 Gal",
+        "ja": ".52ガロン"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "52gal",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 11,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.3,
+      "reskinOf": "52gal",
+      "aliases": [
+        "52_gal"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "52gal_deco",
+      "number": 51,
+      "name": {
+        "en": ".52 Gal Deco",
+        "ja": ".52ガロンデコ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "52gal",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 14,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.3,
+      "reskinOf": "52gal_deco",
+      "aliases": [
+        "52_gal_deco"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "nzap85",
+      "number": 60,
+      "name": {
+        "en": "N-ZAP '85",
+        "ja": "N-ZAP85"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "nzap85",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 6,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "nzap85",
+      "aliases": [
+        "n_zap_85"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "nzap89",
+      "number": 61,
+      "name": {
+        "en": "N-ZAP '89",
+        "ja": "N-ZAP89"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "nzap85",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 170,
+      "unlockLevel": 11,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "nzap89",
+      "aliases": [
+        "n_zap_89"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "prime",
+      "number": 70,
+      "name": {
+        "en": "Splattershot Pro",
+        "ja": "プライムシューター"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "prime",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 9,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "prime",
+      "aliases": [
+        "splattershot_pro"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "prime_collabo",
+      "number": 71,
+      "name": {
+        "en": "Forge Splattershot Pro",
+        "ja": "プライムシューターコラボ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "prime",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "prime_collabo",
+      "aliases": [
+        "forge_splattershot_pro"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "prime_frzn",
+      "number": 72,
+      "name": {
+        "en": "Splattershot Pro FRZ-N",
+        "ja": "プライムシューターFRZN"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "prime",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "missile",
+        "en": "Tenta Missiles",
+        "ja": "マルチミサイル"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 23,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "prime_frzn",
+      "aliases": [
+        "splattershot_pro_frz_n"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "96gal",
+      "number": 80,
+      "name": {
+        "en": ".96 Gal",
+        "ja": ".96ガロン"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "96gal",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 17,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18,
+      "reskinOf": "96gal",
+      "aliases": [
+        "96_gal"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "96gal_deco",
+      "number": 81,
+      "name": {
+        "en": ".96 Gal Deco",
+        "ja": ".96ガロンデコ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "96gal",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 23,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18,
+      "reskinOf": "96gal_deco",
+      "aliases": [
+        "96_gal_deco"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "96gal_sou",
+      "number": 82,
+      "name": {
+        "en": "Clawz .96 Gal",
+        "ja": ".96ガロン爪"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "96gal",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 24,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18,
+      "reskinOf": "96gal_sou",
+      "aliases": [
+        "clawz_96_gal"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "jetsweeper",
+      "number": 90,
+      "name": {
+        "en": "Jet Squelcher",
+        "ja": "ジェットスイーパー"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "jetsweeper",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 22.5,
+      "reskinOf": "jetsweeper",
+      "aliases": [
+        "jet_squelcher"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "jetsweeper_custom",
+      "number": 91,
+      "name": {
+        "en": "Custom Jet Squelcher",
+        "ja": "ジェットスイーパーカスタム"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "jetsweeper",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 22.5,
+      "reskinOf": "jetsweeper_custom",
+      "aliases": [
+        "custom_jet_squelcher"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "jetsweeper_cobr",
+      "number": 92,
+      "name": {
+        "en": "Jet Squelcher COB-R",
+        "ja": "ジェットスイーパーCOBR"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "jetsweeper",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "ultra_chakuchi",
+        "en": "Triple Splashdown",
+        "ja": "ウルトラチャクチ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 21,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 22.5,
+      "reskinOf": "jetsweeper_cobr",
+      "aliases": [
+        "jet_squelcher_cob_r"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "spaceshooter",
+      "number": 100,
+      "name": {
+        "en": "Splattershot Nova",
+        "ja": "スペースシューター"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "spaceshooter",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 8,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16,
+      "reskinOf": "spaceshooter",
+      "aliases": [
+        "splattershot_nova"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "spaceshooter_collabo",
+      "number": 101,
+      "name": {
+        "en": "Annaki Splattershot Nova",
+        "ja": "スペースシューターコラボ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "spaceshooter",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 12,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16,
+      "reskinOf": "spaceshooter_collabo",
+      "aliases": [
+        "annaki_splattershot_nova"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "nova",
+      "number": 200,
+      "name": {
+        "en": "Luna Blaster",
+        "ja": "ノヴァブラスター"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "nova",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 170,
+      "unlockLevel": 13,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.2,
+      "reskinOf": "nova",
+      "aliases": [
+        "luna_blaster"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "nova_neo",
+      "number": 201,
+      "name": {
+        "en": "Luna Blaster Neo",
+        "ja": "ノヴァブラスターネオ"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "nova",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 24,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.2,
+      "reskinOf": "nova_neo",
+      "aliases": [
+        "luna_blaster_neo"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "order_blaster_replica",
+      "number": 205,
+      "name": {
+        "en": "Order Blaster Replica",
+        "ja": "オーダーブラスター レプリカ"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "nova",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 170,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 11.2,
+      "reskinOf": "nova",
+      "aliases": [],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "hotblaster",
+      "number": 210,
+      "name": {
+        "en": "Blaster",
+        "ja": "ホットブラスター"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "hotblaster",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 3,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.3,
+      "reskinOf": "hotblaster",
+      "aliases": [
+        "blaster"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "hotblaster_custom",
+      "number": 211,
+      "name": {
+        "en": "Custom Blaster",
+        "ja": "ホットブラスターカスタム"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "hotblaster",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "ultra_chakuchi",
+        "en": "Triple Splashdown",
+        "ja": "ウルトラチャクチ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 8,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.3,
+      "reskinOf": "hotblaster_custom",
+      "aliases": [
+        "custom_blaster"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "hotblaster_en",
+      "number": 212,
+      "name": {
+        "en": "Gleamz Blaster",
+        "ja": "ホットブラスター艶"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "hotblaster",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 9,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.3,
+      "reskinOf": "hotblaster_en",
+      "aliases": [
+        "gleamz_blaster"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "longblaster",
+      "number": 220,
+      "name": {
+        "en": "Range Blaster",
+        "ja": "ロングブラスター"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "longblaster",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 11,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "longblaster",
+      "aliases": [
+        "range_blaster"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "longblaster_custom",
+      "number": 221,
+      "name": {
+        "en": "Custom Range Blaster",
+        "ja": "ロングブラスターカスタム"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "longblaster",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "longblaster_custom",
+      "aliases": [
+        "custom_range_blaster"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "clashblaster",
+      "number": 230,
+      "name": {
+        "en": "Clash Blaster",
+        "ja": "クラッシュブラスター"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "clashblaster",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 22,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11,
+      "reskinOf": "clashblaster",
+      "aliases": [
+        "clash_blaster"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "clashblaster_neo",
+      "number": 231,
+      "name": {
+        "en": "Clash Blaster Neo",
+        "ja": "クラッシュブラスターネオ"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "clashblaster",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 170,
+      "unlockLevel": 25,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11,
+      "reskinOf": "clashblaster_neo",
+      "aliases": [
+        "clash_blaster_neo"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "rapid",
+      "number": 240,
+      "name": {
+        "en": "Rapid Blaster",
+        "ja": "ラピッドブラスター"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "rapid",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 7,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16.7,
+      "reskinOf": "rapid",
+      "aliases": [
+        "rapid_blaster"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "rapid_deco",
+      "number": 241,
+      "name": {
+        "en": "Rapid Blaster Deco",
+        "ja": "ラピッドブラスターデコ"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "rapid",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16.7,
+      "reskinOf": "rapid_deco",
+      "aliases": [
+        "rapid_blaster_deco"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "rapid_elite",
+      "number": 250,
+      "name": {
+        "en": "Rapid Blaster Pro",
+        "ja": "Rブラスターエリート"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "rapid_elite",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 26,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 19.2,
+      "reskinOf": "rapid_elite",
+      "aliases": [
+        "rapid_blaster_pro"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "rapid_elite_deco",
+      "number": 251,
+      "name": {
+        "en": "Rapid Blaster Pro Deco",
+        "ja": "Rブラスターエリートデコ"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "rapid_elite",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 29,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 19.2,
+      "reskinOf": "rapid_elite_deco",
+      "aliases": [
+        "rapid_blaster_pro_deco"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "rapid_elite_wntr",
+      "number": 252,
+      "name": {
+        "en": "Rapid Blaster Pro WNT-R",
+        "ja": "RブラスターエリートWNTR"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "rapid_elite",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 30,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 19.2,
+      "reskinOf": "rapid_elite_wntr",
+      "aliases": [
+        "rapid_blaster_pro_wnt_r"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "sblast92",
+      "number": 260,
+      "name": {
+        "en": "S-BLAST '92",
+        "ja": "S-BLAST92"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "sblast92",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "sameride",
+        "en": "Reefslider",
+        "ja": "サメライド"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16.5,
+      "reskinOf": "sblast92",
+      "aliases": [
+        "s_blast_92"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "sblast91",
+      "number": 261,
+      "name": {
+        "en": "S-BLAST '91",
+        "ja": "S-BLAST91"
+      },
+      "class": {
+        "id": "blaster",
+        "en": "Blasters",
+        "ja": "ブラスター",
+        "displayEn": "Blaster"
+      },
+      "mainWeaponId": "sblast92",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 27,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16.5,
+      "reskinOf": "sblast91",
+      "aliases": [
+        "s_blast_91"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "l3reelgun",
+      "number": 300,
+      "name": {
+        "en": "L-3 Nozzlenose",
+        "ja": "L3リールガン"
+      },
+      "class": {
+        "id": "reelgun",
+        "en": "Nozzlenoses",
+        "ja": "リールガン",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "l3reelgun",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 13,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.5,
+      "reskinOf": "l3reelgun",
+      "aliases": [
+        "l_3_nozzlenose"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "l3reelgun_d",
+      "number": 301,
+      "name": {
+        "en": "L-3 Nozzlenose D",
+        "ja": "L3リールガンD"
+      },
+      "class": {
+        "id": "reelgun",
+        "en": "Nozzlenoses",
+        "ja": "リールガン",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "l3reelgun",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.5,
+      "reskinOf": "l3reelgun_d",
+      "aliases": [
+        "l_3_nozzlenose_d"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "l3reelgun_haku",
+      "number": 302,
+      "name": {
+        "en": "Glitterz L-3 Nozzlenose",
+        "ja": "L3リールガン箔"
+      },
+      "class": {
+        "id": "reelgun",
+        "en": "Nozzlenoses",
+        "ja": "リールガン",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "l3reelgun",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.5,
+      "reskinOf": "l3reelgun_haku",
+      "aliases": [
+        "glitterz_l_3_nozzlenose"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "h3reelgun",
+      "number": 310,
+      "name": {
+        "en": "H-3 Nozzlenose",
+        "ja": "H3リールガン"
+      },
+      "class": {
+        "id": "reelgun",
+        "en": "Nozzlenoses",
+        "ja": "リールガン",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "h3reelgun",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 24,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "h3reelgun",
+      "aliases": [
+        "h_3_nozzlenose"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "h3reelgun_d",
+      "number": 311,
+      "name": {
+        "en": "H-3 Nozzlenose D",
+        "ja": "H3リールガンD"
+      },
+      "class": {
+        "id": "reelgun",
+        "en": "Nozzlenoses",
+        "ja": "リールガン",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "h3reelgun",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 27,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "h3reelgun_d",
+      "aliases": [
+        "h_3_nozzlenose_d"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "h3reelgun_snak",
+      "number": 312,
+      "name": {
+        "en": "H-3 Nozzlenose VIP-R",
+        "ja": "H3リールガンSNAK"
+      },
+      "class": {
+        "id": "reelgun",
+        "en": "Nozzlenoses",
+        "ja": "リールガン",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "h3reelgun",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 29,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "h3reelgun_snak",
+      "aliases": [
+        "h_3_nozzlenose_vip_r"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "bottlegeyser",
+      "number": 400,
+      "name": {
+        "en": "Squeezer",
+        "ja": "ボトルガイザー"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "bottlegeyser",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 220,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 20,
+      "reskinOf": "bottlegeyser",
+      "aliases": [
+        "squeezer"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "bottlegeyser_foil",
+      "number": 401,
+      "name": {
+        "en": "Foil Squeezer",
+        "ja": "ボトルガイザーフォイル"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "bottlegeyser",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 25,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 20,
+      "reskinOf": "bottlegeyser_foil",
+      "aliases": [
+        "foil_squeezer"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "carbon",
+      "number": 1000,
+      "name": {
+        "en": "Carbon Roller",
+        "ja": "カーボンローラー"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "carbon",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 160,
+      "unlockLevel": 6,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 9.5,
+      "reskinOf": "carbon",
+      "aliases": [
+        "carbon_roller"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "carbon_deco",
+      "number": 1001,
+      "name": {
+        "en": "Carbon Roller Deco",
+        "ja": "カーボンローラーデコ"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "carbon",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 22,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 9.5,
+      "reskinOf": "carbon_deco",
+      "aliases": [
+        "carbon_roller_deco"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "carbon_angl",
+      "number": 1002,
+      "name": {
+        "en": "Carbon Roller ANG-L",
+        "ja": "カーボンローラーANGL"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "carbon",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 170,
+      "unlockLevel": 23,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 9.5,
+      "reskinOf": "carbon_angl",
+      "aliases": [
+        "carbon_roller_ang_l"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "splatroller",
+      "number": 1010,
+      "name": {
+        "en": "Splat Roller",
+        "ja": "スプラローラー"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "splatroller",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 2,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.8,
+      "reskinOf": "splatroller",
+      "aliases": [
+        "splat_roller"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "splatroller_collabo",
+      "number": 1011,
+      "name": {
+        "en": "Krak-On Splat Roller",
+        "ja": "スプラローラーコラボ"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "splatroller",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 170,
+      "unlockLevel": 7,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.8,
+      "reskinOf": "splatroller_collabo",
+      "aliases": [
+        "krak_on_splat_roller"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "order_roller_replica",
+      "number": 1015,
+      "name": {
+        "en": "Order Roller Replica",
+        "ja": "オーダーローラー レプリカ"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "splatroller",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 11.8,
+      "reskinOf": "splatroller",
+      "aliases": [],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "dynamo",
+      "number": 1020,
+      "name": {
+        "en": "Dynamo Roller",
+        "ja": "ダイナモローラー"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "dynamo",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 12,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18.5,
+      "reskinOf": "dynamo",
+      "aliases": [
+        "dynamo_roller"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "dynamo_tesla",
+      "number": 1021,
+      "name": {
+        "en": "Gold Dynamo Roller",
+        "ja": "ダイナモローラーテスラ"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "dynamo",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 17,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18.5,
+      "reskinOf": "dynamo_tesla",
+      "aliases": [
+        "gold_dynamo_roller"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "dynamo_mei",
+      "number": 1022,
+      "name": {
+        "en": "Starz Dynamo Roller",
+        "ja": "ダイナモローラー冥"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "dynamo",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 18,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18.5,
+      "reskinOf": "dynamo_mei",
+      "aliases": [
+        "starz_dynamo_roller"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "variableroller",
+      "number": 1030,
+      "name": {
+        "en": "Flingza Roller",
+        "ja": "ヴァリアブルローラー"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "variableroller",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "missile",
+        "en": "Tenta Missiles",
+        "ja": "マルチミサイル"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14,
+      "reskinOf": "variableroller",
+      "aliases": [
+        "flingza_roller"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "variableroller_foil",
+      "number": 1031,
+      "name": {
+        "en": "Foil Flingza Roller",
+        "ja": "ヴァリアブルローラーフォイル"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "variableroller",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 24,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14,
+      "reskinOf": "variableroller_foil",
+      "aliases": [
+        "foil_flingza_roller"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "wideroller",
+      "number": 1040,
+      "name": {
+        "en": "Big Swig Roller",
+        "ja": "ワイドローラー"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "wideroller",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 16,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "wideroller",
+      "aliases": [
+        "big_swig_roller"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "wideroller_collabo",
+      "number": 1041,
+      "name": {
+        "en": "Big Swig Roller Express",
+        "ja": "ワイドローラーコラボ"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "wideroller",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 18,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "wideroller_collabo",
+      "aliases": [
+        "big_swig_roller_express"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "wideroller_waku",
+      "number": 1042,
+      "name": {
+        "en": "Planetz Big Swig Roller",
+        "ja": "ワイドローラー惑"
+      },
+      "class": {
+        "id": "roller",
+        "en": "Rollers",
+        "ja": "ローラー",
+        "displayEn": "Roller"
+      },
+      "mainWeaponId": "wideroller",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "ultra_chakuchi",
+        "en": "Triple Splashdown",
+        "ja": "ウルトラチャクチ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 21,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "wideroller_waku",
+      "aliases": [
+        "planetz_big_swig_roller"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "pablo",
+      "number": 1100,
+      "name": {
+        "en": "Inkbrush",
+        "ja": "パブロ"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "pablo",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 7,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 7,
+      "reskinOf": "pablo",
+      "aliases": [
+        "inkbrush"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "pablo_hue",
+      "number": 1101,
+      "name": {
+        "en": "Inkbrush Nouveau",
+        "ja": "パブロ・ヒュー"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "pablo",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 7,
+      "reskinOf": "pablo_hue",
+      "aliases": [
+        "inkbrush_nouveau"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "hokusai",
+      "number": 1110,
+      "name": {
+        "en": "Octobrush",
+        "ja": "ホクサイ"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "hokusai",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 4,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 10.5,
+      "reskinOf": "hokusai",
+      "aliases": [
+        "octobrush"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "hokusai_hue",
+      "number": 1111,
+      "name": {
+        "en": "Octobrush Nouveau",
+        "ja": "ホクサイ・ヒュー"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "hokusai",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 9,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 10.5,
+      "reskinOf": "hokusai_hue",
+      "aliases": [
+        "octobrush_nouveau"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "hokusai_sui",
+      "number": 1112,
+      "name": {
+        "en": "Cometz Octobrush",
+        "ja": "ホクサイ彗"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "hokusai",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 11,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 10.5,
+      "reskinOf": "hokusai_sui",
+      "aliases": [
+        "cometz_octobrush"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "order_brush_replica",
+      "number": 1115,
+      "name": {
+        "en": "Orderbrush Replica",
+        "ja": "オーダーブラシ レプリカ"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "hokusai",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 10.5,
+      "reskinOf": "hokusai",
+      "aliases": [
+        "orderbrush_replica"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "fincent",
+      "number": 1120,
+      "name": {
+        "en": "Painbrush",
+        "ja": "フィンセント"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "fincent",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 14,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.1,
+      "reskinOf": "fincent",
+      "aliases": [
+        "painbrush",
+        "vincent"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "fincent_hue",
+      "number": 1121,
+      "name": {
+        "en": "Painbrush Nouveau",
+        "ja": "フィンセント・ヒュー"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "fincent",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "missile",
+        "en": "Tenta Missiles",
+        "ja": "マルチミサイル"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 16,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.1,
+      "reskinOf": "fincent_hue",
+      "aliases": [
+        "painbrush_nouveau",
+        "vincent_hue"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "fincent_brnz",
+      "number": 1122,
+      "name": {
+        "en": "Painbrush BRN-Z",
+        "ja": "フィンセントBRNZ"
+      },
+      "class": {
+        "id": "brush",
+        "en": "Brushes",
+        "ja": "フデ",
+        "displayEn": "Brush"
+      },
+      "mainWeaponId": "fincent",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 18,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13.1,
+      "reskinOf": "fincent_brnz",
+      "aliases": [
+        "painbrush_brn_z"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "squiclean_a",
+      "number": 2000,
+      "name": {
+        "en": "Classic Squiffer",
+        "ja": "スクイックリンα"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "squiclean_a",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 8,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18.5,
+      "reskinOf": "squiclean_a",
+      "aliases": [
+        "classic_squiffer"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "squiclean_b",
+      "number": 2001,
+      "name": {
+        "en": "New Squiffer",
+        "ja": "スクイックリンβ"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "squiclean_a",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 11,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18.5,
+      "reskinOf": "squiclean_b",
+      "aliases": [
+        "new_squiffer"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "splatcharger",
+      "number": 2010,
+      "name": {
+        "en": "Splat Charger",
+        "ja": "スプラチャージャー"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "splatcharger",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 2,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26,
+      "reskinOf": "splatcharger",
+      "aliases": [
+        "splat_charger"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "splatcharger_collabo",
+      "number": 2011,
+      "name": {
+        "en": "Z+F Splat Charger",
+        "ja": "スプラチャージャーコラボ"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "splatcharger",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 9,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26,
+      "reskinOf": "splatcharger_collabo",
+      "aliases": [
+        "z_f_splat_charger"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "splatcharger_frst",
+      "number": 2012,
+      "name": {
+        "en": "Splat Charger CAM-O",
+        "ja": "スプラチャージャーFRST"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "splatcharger",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26,
+      "reskinOf": "splatcharger_frst",
+      "aliases": [
+        "splat_charger_cam_o"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "order_charger_replica",
+      "number": 2015,
+      "name": {
+        "en": "Order Charger Replica",
+        "ja": "オーダーチャージャー レプリカ"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "splatcharger",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 26,
+      "reskinOf": "splatcharger",
+      "aliases": [],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "splatscope",
+      "number": 2020,
+      "name": {
+        "en": "Splatterscope",
+        "ja": "スプラスコープ"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "splatscope",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26.5,
+      "reskinOf": "splatscope",
+      "aliases": [
+        "splatterscope"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "splatscope_collabo",
+      "number": 2021,
+      "name": {
+        "en": "Z+F Splatterscope",
+        "ja": "スプラスコープコラボ"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "splatscope",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26.5,
+      "reskinOf": "splatscope_collabo",
+      "aliases": [
+        "z_f_splatterscope"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "splatscope_frst",
+      "number": 2022,
+      "name": {
+        "en": "Splatterscope CAM-O",
+        "ja": "スプラスコープFRST"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "splatscope",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 17,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26.5,
+      "reskinOf": "splatscope_frst",
+      "aliases": [
+        "splatterscope_cam_o"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "liter4k",
+      "number": 2030,
+      "name": {
+        "en": "E-liter 4K",
+        "ja": "リッター4K"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "liter4k",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 18,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 31,
+      "reskinOf": "liter4k",
+      "aliases": [
+        "e_liter_4k"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "liter4k_custom",
+      "number": 2031,
+      "name": {
+        "en": "Custom E-liter 4K",
+        "ja": "リッター4Kカスタム"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "liter4k",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 31,
+      "reskinOf": "liter4k_custom",
+      "aliases": [
+        "custom_e_liter_4k"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "liter4k_scope",
+      "number": 2040,
+      "name": {
+        "en": "E-liter 4K Scope",
+        "ja": "4Kスコープ"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "liter4k_scope",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 27,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 33,
+      "reskinOf": "liter4k_scope",
+      "aliases": [
+        "e_liter_4k_scope"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "liter4k_scope_custom",
+      "number": 2041,
+      "name": {
+        "en": "Custom E-liter 4K Scope",
+        "ja": "4Kスコープカスタム"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "liter4k_scope",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 28,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 33,
+      "reskinOf": "liter4k_scope_custom",
+      "aliases": [
+        "custom_e_liter_4k_scope"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "bamboo14mk1",
+      "number": 2050,
+      "name": {
+        "en": "Bamboozler 14 Mk I",
+        "ja": "14式竹筒銃・甲"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "bamboo14mk1",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 23,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 21,
+      "reskinOf": "bamboo14mk1",
+      "aliases": [
+        "bamboozler_14_mk_i"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "bamboo14mk2",
+      "number": 2051,
+      "name": {
+        "en": "Bamboozler 14 Mk II",
+        "ja": "14式竹筒銃・乙"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "bamboo14mk1",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 26,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 21,
+      "reskinOf": "bamboo14mk2",
+      "aliases": [
+        "bamboozler_14_mk_ii"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "soytuber",
+      "number": 2060,
+      "name": {
+        "en": "Goo Tuber",
+        "ja": "ソイチューバー"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "soytuber",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "missile",
+        "en": "Tenta Missiles",
+        "ja": "マルチミサイル"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 25,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 21,
+      "reskinOf": "soytuber",
+      "aliases": [
+        "goo_tuber"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "soytuber_custom",
+      "number": 2061,
+      "name": {
+        "en": "Custom Goo Tuber",
+        "ja": "ソイチューバーカスタム"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "soytuber",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 28,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 21,
+      "reskinOf": "soytuber_custom",
+      "aliases": [
+        "custom_goo_tuber"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "rpen_5h",
+      "number": 2070,
+      "name": {
+        "en": "Snipewriter 5H",
+        "ja": "R-PEN/5H"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "rpen_5h",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 220,
+      "unlockLevel": 14,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26,
+      "reskinOf": "rpen_5h",
+      "aliases": [
+        "snipewriter_5h"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "rpen_5b",
+      "number": 2071,
+      "name": {
+        "en": "Snipewriter 5B",
+        "ja": "R-PEN/5B"
+      },
+      "class": {
+        "id": "charger",
+        "en": "Chargers",
+        "ja": "チャージャー",
+        "displayEn": "Charger"
+      },
+      "mainWeaponId": "rpen_5h",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 26,
+      "reskinOf": "rpen_5b",
+      "aliases": [
+        "snipewriter_5b"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "bucketslosher",
+      "number": 3000,
+      "name": {
+        "en": "Slosher",
+        "ja": "バケットスロッシャー"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "bucketslosher",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 3,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14.5,
+      "reskinOf": "bucketslosher",
+      "aliases": [
+        "slosher"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "bucketslosher_deco",
+      "number": 3001,
+      "name": {
+        "en": "Slosher Deco",
+        "ja": "バケットスロッシャーデコ"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "bucketslosher",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 12,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14.5,
+      "reskinOf": "bucketslosher_deco",
+      "aliases": [
+        "slosher_deco"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "order_slosher_replica",
+      "number": 3005,
+      "name": {
+        "en": "Order Slosher Replica",
+        "ja": "オーダースロッシャー レプリカ"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "bucketslosher",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 14.5,
+      "reskinOf": "bucketslosher",
+      "aliases": [],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "hissen",
+      "number": 3010,
+      "name": {
+        "en": "Tri-Slosher",
+        "ja": "ヒッセン"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "hissen",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11,
+      "reskinOf": "hissen",
+      "aliases": [
+        "tri_slosher"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "hissen_hue",
+      "number": 3011,
+      "name": {
+        "en": "Tri-Slosher Nouveau",
+        "ja": "ヒッセン・ヒュー"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "hissen",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 17,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11,
+      "reskinOf": "hissen_hue",
+      "aliases": [
+        "tri_slosher_nouveau"
+      ],
+      "introduced": {
+        "version": "3.0.0",
+        "season": "Fresh Season 2023"
+      }
+    },
+    {
+      "id": "hissen_ash",
+      "number": 3012,
+      "name": {
+        "en": "Tri-Slosher ASH-N",
+        "ja": "ヒッセンASH"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "hissen",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11,
+      "reskinOf": "hissen_ash",
+      "aliases": [
+        "tri_slosher_ash_n"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "screwslosher",
+      "number": 3020,
+      "name": {
+        "en": "Sloshing Machine",
+        "ja": "スクリュースロッシャー"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "screwslosher",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 14,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14.7,
+      "reskinOf": "screwslosher",
+      "aliases": [
+        "sloshing_machine"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "screwslosher_neo",
+      "number": 3021,
+      "name": {
+        "en": "Sloshing Machine Neo",
+        "ja": "スクリュースロッシャーネオ"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "screwslosher",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 21,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14.7,
+      "reskinOf": "screwslosher_neo",
+      "aliases": [
+        "sloshing_machine_neo"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "furo",
+      "number": 3030,
+      "name": {
+        "en": "Bloblobber",
+        "ja": "オーバーフロッシャー"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "furo",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "furo",
+      "aliases": [
+        "bloblobber"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "furo_deco",
+      "number": 3031,
+      "name": {
+        "en": "Bloblobber Deco",
+        "ja": "オーバーフロッシャーデコ"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "furo",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 23,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "furo_deco",
+      "aliases": [
+        "bloblobber_deco"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "explosher",
+      "number": 3040,
+      "name": {
+        "en": "Explosher",
+        "ja": "エクスプロッシャー"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "explosher",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 29,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 20.7,
+      "reskinOf": "explosher",
+      "aliases": [],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "explosher_custom",
+      "number": 3041,
+      "name": {
+        "en": "Custom Explosher",
+        "ja": "エクスプロッシャーカスタム"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "explosher",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "ultra_chakuchi",
+        "en": "Triple Splashdown",
+        "ja": "ウルトラチャクチ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 30,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 20.7,
+      "reskinOf": "explosher_custom",
+      "aliases": [
+        "custom_explosher"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "moprin",
+      "number": 3050,
+      "name": {
+        "en": "Dread Wringer",
+        "ja": "モップリン"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "moprin",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "sameride",
+        "en": "Reefslider",
+        "ja": "サメライド"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15.5,
+      "reskinOf": "moprin",
+      "aliases": [
+        "dread_wringer"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "moprin_d",
+      "number": 3051,
+      "name": {
+        "en": "Dread Wringer D",
+        "ja": "モップリンD"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "moprin",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 18,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15.5,
+      "reskinOf": "moprin_d",
+      "aliases": [
+        "dread_wringer_d"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "moprin_kaku",
+      "number": 3052,
+      "name": {
+        "en": "Hornz Dread Wringer",
+        "ja": "モップリン角"
+      },
+      "class": {
+        "id": "slosher",
+        "en": "Sloshers",
+        "ja": "スロッシャー",
+        "displayEn": "Slosher"
+      },
+      "mainWeaponId": "moprin",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15.5,
+      "reskinOf": "moprin_kaku",
+      "aliases": [
+        "hornz_dread_wringer"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "splatspinner",
+      "number": 4000,
+      "name": {
+        "en": "Mini Splatling",
+        "ja": "スプラスピナー"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "splatspinner",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 12,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "splatspinner",
+      "aliases": [
+        "mini_splatling"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "splatspinner_collabo",
+      "number": 4001,
+      "name": {
+        "en": "Zink Mini Splatling",
+        "ja": "スプラスピナーコラボ"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "splatspinner",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 25,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "splatspinner_collabo",
+      "aliases": [
+        "zink_mini_splatling"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "splatspinner_pytn",
+      "number": 4002,
+      "name": {
+        "en": "Mini Splatling RTL-R",
+        "ja": "スプラスピナーPYTN"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "splatspinner",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 27,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "splatspinner_pytn",
+      "aliases": [
+        "mini_splatling_rtl_r"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "barrelspinner",
+      "number": 4010,
+      "name": {
+        "en": "Heavy Splatling",
+        "ja": "バレルスピナー"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "barrelspinner",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 4,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 21,
+      "reskinOf": "barrelspinner",
+      "aliases": [
+        "heavy_splatling"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "barrelspinner_deco",
+      "number": 4011,
+      "name": {
+        "en": "Heavy Splatling Deco",
+        "ja": "バレルスピナーデコ"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "barrelspinner",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "teioika",
+        "en": "Kraken Royale",
+        "ja": "テイオウイカ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 21,
+      "reskinOf": "barrelspinner_deco",
+      "aliases": [
+        "heavy_splatling_deco"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "order_spinner_replica",
+      "number": 4015,
+      "name": {
+        "en": "Order Splatling Replica",
+        "ja": "オーダースピナー レプリカ"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "barrelspinner",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 21,
+      "reskinOf": "barrelspinner",
+      "aliases": [
+        "order_splatling_replica"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "hydra",
+      "number": 4020,
+      "name": {
+        "en": "Hydra Splatling",
+        "ja": "ハイドラント"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "hydra",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 24.5,
+      "reskinOf": "hydra",
+      "aliases": [
+        "hydra_splatling"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "hydra_custom",
+      "number": 4021,
+      "name": {
+        "en": "Custom Hydra Splatling",
+        "ja": "ハイドラントカスタム"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "hydra",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 23,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 24.5,
+      "reskinOf": "hydra_custom",
+      "aliases": [
+        "custom_hydra_splatling"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "hydra_atsu",
+      "number": 4022,
+      "name": {
+        "en": "Torrentz Hydra Splatling",
+        "ja": "ハイドラント圧"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "hydra",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 26,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 24.5,
+      "reskinOf": "hydra_atsu",
+      "aliases": [
+        "torrentz_hydra_splatling"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "kugelschreiber",
+      "number": 4030,
+      "name": {
+        "en": "Ballpoint Splatling",
+        "ja": "クーゲルシュライバー"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "kugelschreiber",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 30,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 24.5,
+      "reskinOf": "kugelschreiber",
+      "aliases": [
+        "ballpoint_splatling"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "kugelschreiber_hue",
+      "number": 4031,
+      "name": {
+        "en": "Ballpoint Splatling Nouveau",
+        "ja": "クーゲルシュライバー・ヒュー"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "kugelschreiber",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 30,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 24.5,
+      "reskinOf": "kugelschreiber_hue",
+      "aliases": [
+        "ballpoint_splatling_nouveau"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "nautilus47",
+      "number": 4040,
+      "name": {
+        "en": "Nautilus 47",
+        "ja": "ノーチラス47"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "nautilus47",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "amefurashi",
+        "en": "Ink Storm",
+        "ja": "アメフラシ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 28,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18,
+      "reskinOf": "nautilus47",
+      "aliases": [
+        "nautilus_47"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "nautilus79",
+      "number": 4041,
+      "name": {
+        "en": "Nautilus 79",
+        "ja": "ノーチラス79"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "nautilus47",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "ultra_chakuchi",
+        "en": "Triple Splashdown",
+        "ja": "ウルトラチャクチ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 29,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 18,
+      "reskinOf": "nautilus79",
+      "aliases": [
+        "nautilus_79"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "examiner",
+      "number": 4050,
+      "name": {
+        "en": "Heavy Edit Splatling",
+        "ja": "イグザミナー"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "examiner",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 13,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "examiner",
+      "aliases": [
+        "heavy_edit_splatling"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "examiner_hue",
+      "number": 4051,
+      "name": {
+        "en": "Heavy Edit Splatling Nouveau",
+        "ja": "イグザミナー・ヒュー"
+      },
+      "class": {
+        "id": "spinner",
+        "en": "Splatlings",
+        "ja": "スピナー",
+        "displayEn": "Splatling"
+      },
+      "mainWeaponId": "examiner",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 17,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "examiner_hue",
+      "aliases": [
+        "heavy_edit_splatling_nouveau"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "sputtery",
+      "number": 5000,
+      "name": {
+        "en": "Dapple Dualies",
+        "ja": "スパッタリー"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "sputtery",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "energystand",
+        "en": "Tacticooler",
+        "ja": "エナジースタンド"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 14,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 9.8,
+      "reskinOf": "sputtery",
+      "aliases": [
+        "dapple_dualies"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "sputtery_hue",
+      "number": 5001,
+      "name": {
+        "en": "Dapple Dualies Nouveau",
+        "ja": "スパッタリー・ヒュー"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "sputtery",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "sameride",
+        "en": "Reefslider",
+        "ja": "サメライド"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 26,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 9.8,
+      "reskinOf": "sputtery_hue",
+      "aliases": [
+        "dapple_dualies_nouveau"
+      ],
+      "introduced": {
+        "version": "2.0.0",
+        "season": "Chill Season 2022"
+      }
+    },
+    {
+      "id": "sputtery_owl",
+      "number": 5002,
+      "name": {
+        "en": "Dapple Dualies NOC-T",
+        "ja": "スパッタリーOWL"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "sputtery",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 28,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 9.8,
+      "reskinOf": "sputtery_owl",
+      "aliases": [
+        "dapple_dualies_noc_t"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "maneuver",
+      "number": 5010,
+      "name": {
+        "en": "Splat Dualies",
+        "ja": "スプラマニューバー"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "maneuver",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 3,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "maneuver",
+      "aliases": [
+        "splat_dualies"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "maneuver_collabo",
+      "number": 5011,
+      "name": {
+        "en": "Enperry Splat Dualies",
+        "ja": "スプラマニューバーコラボ"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "maneuver",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "ultra_chakuchi",
+        "en": "Triple Splashdown",
+        "ja": "ウルトラチャクチ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "maneuver_collabo",
+      "aliases": [
+        "enperry_splat_dualies"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "maneuver_you",
+      "number": 5012,
+      "name": {
+        "en": "Twinklez Splat Dualies",
+        "ja": "スプラマニューバー耀"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "maneuver",
+      "sub": {
+        "id": "tansanbomb",
+        "en": "Fizzy Bomb",
+        "ja": "タンサンボム"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "maneuver_you",
+      "aliases": [
+        "twinklez_splat_dualies"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "order_maneuver_replica",
+      "number": 5015,
+      "name": {
+        "en": "Order Dualie Replicas",
+        "ja": "オーダーマニューバー レプリカ"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "maneuver",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 12.5,
+      "reskinOf": "maneuver",
+      "aliases": [
+        "order_dualie_replicas"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "kelvin525",
+      "number": 5020,
+      "name": {
+        "en": "Glooga Dualies",
+        "ja": "ケルビン525"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "kelvin525",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 21,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16,
+      "reskinOf": "kelvin525",
+      "aliases": [
+        "glooga_dualies"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "kelvin525_deco",
+      "number": 5021,
+      "name": {
+        "en": "Glooga Dualies Deco",
+        "ja": "ケルビン525デコ"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "kelvin525",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 26,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16,
+      "reskinOf": "kelvin525_deco",
+      "aliases": [
+        "glooga_dualies_deco"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "dualsweeper",
+      "number": 5030,
+      "name": {
+        "en": "Dualie Squelchers",
+        "ja": "デュアルスイーパー"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "dualsweeper",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 8,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "dualsweeper",
+      "aliases": [
+        "dualie_squelchers"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "dualsweeper_custom",
+      "number": 5031,
+      "name": {
+        "en": "Custom Dualie Squelchers",
+        "ja": "デュアルスイーパーカスタム"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "dualsweeper",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 16,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "dualsweeper_custom",
+      "aliases": [
+        "custom_dualie_squelchers"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "dualsweeper_tei",
+      "number": 5032,
+      "name": {
+        "en": "Hoofz Dualie Squelchers",
+        "ja": "デュアルスイーパー蹄"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "dualsweeper",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 17,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 17,
+      "reskinOf": "dualsweeper_tei",
+      "aliases": [
+        "hoofz_dualie_squelchers"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "quadhopper_black",
+      "number": 5040,
+      "name": {
+        "en": "Dark Tetra Dualies",
+        "ja": "クアッドホッパーブラック"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "quadhopper_black",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "sameride",
+        "en": "Reefslider",
+        "ja": "サメライド"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 17,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14,
+      "reskinOf": "quadhopper_black",
+      "aliases": [
+        "dark_tetra_dualies"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "quadhopper_white",
+      "number": 5041,
+      "name": {
+        "en": "Light Tetra Dualies",
+        "ja": "クアッドホッパーホワイト"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "quadhopper_black",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 24,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14,
+      "reskinOf": "quadhopper_white",
+      "aliases": [
+        "light_tetra_dualies"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "gaen_ff",
+      "number": 5050,
+      "name": {
+        "en": "Douser Dualies FF",
+        "ja": "ガエンFF"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "gaen_ff",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 22,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 19.1,
+      "reskinOf": "gaen_ff",
+      "aliases": [
+        "douser_dualies_ff"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "gaen_ff_custom",
+      "number": 5051,
+      "name": {
+        "en": "Custom Douser Dualies FF",
+        "ja": "ガエンFFカスタム"
+      },
+      "class": {
+        "id": "maneuver",
+        "en": "Dualies",
+        "ja": "マニューバー",
+        "displayEn": "Dualie"
+      },
+      "mainWeaponId": "gaen_ff",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 27,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 19.1,
+      "reskinOf": "gaen_ff_custom",
+      "aliases": [
+        "custom_douser_dualies_ff"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "parashelter",
+      "number": 6000,
+      "name": {
+        "en": "Splat Brella",
+        "ja": "パラシェルター"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "parashelter",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 5,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "parashelter",
+      "aliases": [
+        "splat_brella"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "parashelter_sorella",
+      "number": 6001,
+      "name": {
+        "en": "Sorella Brella",
+        "ja": "パラシェルターソレーラ"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "parashelter",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 12.5,
+      "reskinOf": "parashelter_sorella",
+      "aliases": [
+        "sorella_brella"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "order_shelter_replica",
+      "number": 6005,
+      "name": {
+        "en": "Order Brella Replica",
+        "ja": "オーダーシェルター レプリカ"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "parashelter",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 12.5,
+      "reskinOf": "parashelter",
+      "aliases": [
+        "order_brella_replica"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "campingshelter",
+      "number": 6010,
+      "name": {
+        "en": "Tenta Brella",
+        "ja": "キャンピングシェルター"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "campingshelter",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "kyuinki",
+        "en": "Ink Vac",
+        "ja": "キューインキ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 16,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "campingshelter",
+      "aliases": [
+        "tenta_brella"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "campingshelter_sorella",
+      "number": 6011,
+      "name": {
+        "en": "Tenta Sorella Brella",
+        "ja": "キャンピングシェルターソレーラ"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "campingshelter",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 22,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "campingshelter_sorella",
+      "aliases": [
+        "tenta_sorella_brella"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "campingshelter_crem",
+      "number": 6012,
+      "name": {
+        "en": "Tenta Brella CRE-M",
+        "ja": "キャンピングシェルターCREM"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "campingshelter",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 25,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "campingshelter_crem",
+      "aliases": [
+        "tenta_brella_cre_m"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "spygadget",
+      "number": 6020,
+      "name": {
+        "en": "Undercover Brella",
+        "ja": "スパイガジェット"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "spygadget",
+      "sub": {
+        "id": "trap",
+        "en": "Ink Mine",
+        "ja": "トラップ"
+      },
+      "special": {
+        "id": "sameride",
+        "en": "Reefslider",
+        "ja": "サメライド"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 18,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.8,
+      "reskinOf": "spygadget",
+      "aliases": [
+        "undercover_brella"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "spygadget_sorella",
+      "number": 6021,
+      "name": {
+        "en": "Undercover Sorella Brella",
+        "ja": "スパイガジェットソレーラ"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "spygadget",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "suminagasheet",
+        "en": "Splattercolor Screen",
+        "ja": "スミナガシート"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 23,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.8,
+      "reskinOf": "spygadget_sorella",
+      "aliases": [
+        "undercover_sorella_brella"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "spygadget_ryo",
+      "number": 6022,
+      "name": {
+        "en": "Patternz Undercover Brella",
+        "ja": "スパイガジェット繚"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "spygadget",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 180,
+      "unlockLevel": 27,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 11.8,
+      "reskinOf": "spygadget_ryo",
+      "aliases": [
+        "patternz_undercover_brella"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "brella24mk1",
+      "number": 6030,
+      "name": {
+        "en": "Recycled Brella 24 Mk I",
+        "ja": "24式張替傘・甲"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "brella24mk1",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 13,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14.5,
+      "reskinOf": "brella24mk1",
+      "aliases": [
+        "recycled_brella_24_mk_i"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Fresh Season 2024"
+      }
+    },
+    {
+      "id": "brella24mk2",
+      "number": 6031,
+      "name": {
+        "en": "Recycled Brella 24 Mk II",
+        "ja": "24式張替傘・乙"
+      },
+      "class": {
+        "id": "brella",
+        "en": "Brellas",
+        "ja": "シェルター",
+        "displayEn": "Brella"
+      },
+      "mainWeaponId": "brella24mk1",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "ultra_chakuchi",
+        "en": "Triple Splashdown",
+        "ja": "ウルトラチャクチ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 14.5,
+      "reskinOf": "brella24mk2",
+      "aliases": [
+        "recycled_brella_24_mk_ii"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "tristringer",
+      "number": 7010,
+      "name": {
+        "en": "Tri-Stringer",
+        "ja": "トライストリンガー"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "tristringer",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 4,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 25,
+      "reskinOf": "tristringer",
+      "aliases": [
+        "tri_stringer"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "tristringer_collabo",
+      "number": 7011,
+      "name": {
+        "en": "Inkline Tri-Stringer",
+        "ja": "トライストリンガーコラボ"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "tristringer",
+      "sub": {
+        "id": "sprinkler",
+        "en": "Sprinkler",
+        "ja": "スプリンクラー"
+      },
+      "special": {
+        "id": "decoy",
+        "en": "Super Chump",
+        "ja": "デコイチラシ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 11,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 25,
+      "reskinOf": "tristringer_collabo",
+      "aliases": [
+        "inkline_tri_stringer"
+      ],
+      "introduced": {
+        "version": "5.0.0",
+        "season": "Drizzle Season 2023"
+      }
+    },
+    {
+      "id": "tristringer_tou",
+      "number": 7012,
+      "name": {
+        "en": "Bulbz Tri-Stringer",
+        "ja": "トライストリンガー燈"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "tristringer",
+      "sub": {
+        "id": "linemarker",
+        "en": "Angle Shooter",
+        "ja": "ラインマーカー"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 13,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 25,
+      "reskinOf": "tristringer_tou",
+      "aliases": [
+        "bulbz_tri_stringer"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "order_stringer_replica",
+      "number": 7015,
+      "name": {
+        "en": "Order Stringer Replica",
+        "ja": "オーダーストリンガー レプリカ"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "tristringer",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "megaphone51",
+        "en": "Killer Wail 5.1",
+        "ja": "メガホンレーザー5.1ch"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 25,
+      "reskinOf": "tristringer",
+      "aliases": [],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "lact450",
+      "number": 7020,
+      "name": {
+        "en": "REEF-LUX 450",
+        "ja": "LACT-450"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "lact450",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "missile",
+        "en": "Tenta Missiles",
+        "ja": "マルチミサイル"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "lact450",
+      "aliases": [
+        "reef_lux_450"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "lact450_deco",
+      "number": 7021,
+      "name": {
+        "en": "REEF-LUX 450 Deco",
+        "ja": "LACT-450デコ"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "lact450",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "sameride",
+        "en": "Reefslider",
+        "ja": "サメライド"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 12,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "lact450_deco",
+      "aliases": [
+        "reef_lux_450_deco"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "lact450_milk",
+      "number": 7022,
+      "name": {
+        "en": "REEF-LUX 450 MIL-K",
+        "ja": "LACT-450MILK"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "lact450",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 16,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "lact450_milk",
+      "aliases": [
+        "reef_lux_450_mil_k"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "furuido",
+      "number": 7030,
+      "name": {
+        "en": "Wellstring V",
+        "ja": "フルイドV"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "furuido",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 19,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 23,
+      "reskinOf": "furuido",
+      "aliases": [
+        "wellstring_v"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "furuido_custom",
+      "number": 7031,
+      "name": {
+        "en": "Custom Wellstring V",
+        "ja": "フルイドVカスタム"
+      },
+      "class": {
+        "id": "stringer",
+        "en": "Stringers",
+        "ja": "ストリンガー",
+        "displayEn": "Stringer"
+      },
+      "mainWeaponId": "furuido",
+      "sub": {
+        "id": "pointsensor",
+        "en": "Point Sensor",
+        "ja": "ポイントセンサー"
+      },
+      "special": {
+        "id": "hopsonar",
+        "en": "Wave Breaker",
+        "ja": "ホップソナー"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 24,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 23,
+      "reskinOf": "furuido_custom",
+      "aliases": [
+        "custom_wellstring_v"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "jimuwiper",
+      "number": 8000,
+      "name": {
+        "en": "Splatana Stamper",
+        "ja": "ジムワイパー"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "jimuwiper",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 15,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16.5,
+      "reskinOf": "jimuwiper",
+      "aliases": [
+        "splatana_stamper"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "jimuwiper_hue",
+      "number": 8001,
+      "name": {
+        "en": "Splatana Stamper Nouveau",
+        "ja": "ジムワイパー・ヒュー"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "jimuwiper",
+      "sub": {
+        "id": "poisonmist",
+        "en": "Toxic Mist",
+        "ja": "ポイズンミスト"
+      },
+      "special": {
+        "id": "kanitank",
+        "en": "Crab Tank",
+        "ja": "カニタンク"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 20,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16.5,
+      "reskinOf": "jimuwiper_hue",
+      "aliases": [
+        "neo_splatana_stamper",
+        "splatana_stamper_nouveau"
+      ],
+      "introduced": {
+        "version": "6.0.0",
+        "season": "Chill Season 2023"
+      }
+    },
+    {
+      "id": "jimuwiper_fuu",
+      "number": 8002,
+      "name": {
+        "en": "Stickerz Splatana Stamper",
+        "ja": "ジムワイパー封"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "jimuwiper",
+      "sub": {
+        "id": "robotbomb",
+        "en": "Autobomb",
+        "ja": "ロボットボム"
+      },
+      "special": {
+        "id": "nicedama",
+        "en": "Booyah Bomb",
+        "ja": "ナイスダマ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 22,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 16.5,
+      "reskinOf": "jimuwiper_fuu",
+      "aliases": [
+        "stickerz_splatana_stamper"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "order_wiper_replica",
+      "number": 8005,
+      "name": {
+        "en": "Order Splatana Replica",
+        "ja": "オーダーワイパー レプリカ"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "jimuwiper",
+      "sub": {
+        "id": "quickbomb",
+        "en": "Burst Bomb",
+        "ja": "クイックボム"
+      },
+      "special": {
+        "id": "shokuwander",
+        "en": "Zipcaster",
+        "ja": "ショクワンダー"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 16.5,
+      "reskinOf": "jimuwiper",
+      "aliases": [
+        "order_splatana_replica"
+      ],
+      "introduced": {
+        "version": "7.0.0",
+        "season": "Side Order"
+      }
+    },
+    {
+      "id": "drivewiper",
+      "number": 8010,
+      "name": {
+        "en": "Splatana Wiper",
+        "ja": "ドライブワイパー"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "drivewiper",
+      "sub": {
+        "id": "torpedo",
+        "en": "Torpedo",
+        "ja": "トーピード"
+      },
+      "special": {
+        "id": "ultrahanko",
+        "en": "Ultra Stamp",
+        "ja": "ウルトラハンコ"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 5,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13,
+      "reskinOf": "drivewiper",
+      "aliases": [
+        "splatana_wiper"
+      ],
+      "introduced": {
+        "version": "1.0.0",
+        "season": "Drizzle Season 2022"
+      }
+    },
+    {
+      "id": "drivewiper_deco",
+      "number": 8011,
+      "name": {
+        "en": "Splatana Wiper Deco",
+        "ja": "ドライブワイパーデコ"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "drivewiper",
+      "sub": {
+        "id": "jumpbeacon",
+        "en": "Squid Beakon",
+        "ja": "ジャンプビーコン"
+      },
+      "special": {
+        "id": "missile",
+        "en": "Tenta Missiles",
+        "ja": "マルチミサイル"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 10,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13,
+      "reskinOf": "drivewiper_deco",
+      "aliases": [
+        "splatana_wiper_deco"
+      ],
+      "introduced": {
+        "version": "4.0.0",
+        "season": "Sizzle Season 2023"
+      }
+    },
+    {
+      "id": "drivewiper_rust",
+      "number": 8012,
+      "name": {
+        "en": "Splatana Wiper RUS-T",
+        "ja": "ドライブワイパーRUST"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "drivewiper",
+      "sub": {
+        "id": "curlingbomb",
+        "en": "Curling Bomb",
+        "ja": "カーリングボム"
+      },
+      "special": {
+        "id": "ultrashot",
+        "en": "Trizooka",
+        "ja": "ウルトラショット"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 14,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 13,
+      "reskinOf": "drivewiper_rust",
+      "aliases": [
+        "splatana_wiper_rus_t"
+      ],
+      "introduced": {
+        "version": "10.0.0",
+        "season": "Splatlands Collection"
+      }
+    },
+    {
+      "id": "dentalwiper_mint",
+      "number": 8020,
+      "name": {
+        "en": "Mint Decavitator",
+        "ja": "デンタルワイパーミント"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "dentalwiper_mint",
+      "sub": {
+        "id": "kyubanbomb",
+        "en": "Suction Bomb",
+        "ja": "キューバンボム"
+      },
+      "special": {
+        "id": "greatbarrier",
+        "en": "Big Bubbler",
+        "ja": "グレートバリア"
+      },
+      "specialPoints": 210,
+      "unlockLevel": 21,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "dentalwiper_mint",
+      "aliases": [
+        "mint_decavitator"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    },
+    {
+      "id": "dentalwiper_sumi",
+      "number": 8021,
+      "name": {
+        "en": "Charcoal Decavitator",
+        "ja": "デンタルワイパースミ"
+      },
+      "class": {
+        "id": "wiper",
+        "en": "Splatanas",
+        "ja": "ワイパー",
+        "displayEn": "Splatana"
+      },
+      "mainWeaponId": "dentalwiper_mint",
+      "sub": {
+        "id": "splashshield",
+        "en": "Splash Wall",
+        "ja": "スプラッシュシールド"
+      },
+      "special": {
+        "id": "jetpack",
+        "en": "Inkjet",
+        "ja": "ジェットパック"
+      },
+      "specialPoints": 200,
+      "unlockLevel": 25,
+      "priceSheldonLicenses": 1,
+      "matchingRange": 15,
+      "reskinOf": "dentalwiper_sumi",
+      "aliases": [
+        "charcoal_decavitator"
+      ],
+      "introduced": {
+        "version": "8.0.0",
+        "season": "Sizzle Season 2024"
+      }
+    }
+  ]
+}
