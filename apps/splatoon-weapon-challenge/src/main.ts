@@ -37,6 +37,12 @@ type WeaponsData = {
   weapons: Weapon[];
 };
 
+type WeaponClassOrderData = {
+  order: Array<{
+    id: string;
+  }>;
+};
+
 type WeaponProgress = {
   wins: number;
   losses: number;
@@ -60,6 +66,7 @@ const defaultProgress: Progress = {
 };
 
 let weapons: Weapon[] = [];
+let weaponClassOrder = new Map<string, number>();
 let progress: Progress = loadProgress();
 let gameVersion = "";
 let searchText = "";
@@ -250,7 +257,7 @@ function sortWeapons(items: Weapon[]) {
     return items.slice().sort((a, b) => {
       const winsDelta = getWeaponProgress(b.id).wins - getWeaponProgress(a.id).wins;
 
-      return winsDelta || a.number - b.number;
+      return winsDelta || compareByDefaultOrder(a, b);
     });
   }
 
@@ -258,11 +265,21 @@ function sortWeapons(items: Weapon[]) {
     return items.slice().sort((a, b) => {
       const lossesDelta = getWeaponProgress(b.id).losses - getWeaponProgress(a.id).losses;
 
-      return lossesDelta || a.number - b.number;
+      return lossesDelta || compareByDefaultOrder(a, b);
     });
   }
 
-  return items;
+  return items.slice().sort(compareByDefaultOrder);
+}
+
+function compareByDefaultOrder(a: Weapon, b: Weapon) {
+  const classOrderDelta = getClassOrder(a.class.id) - getClassOrder(b.class.id);
+
+  return classOrderDelta || a.number - b.number;
+}
+
+function getClassOrder(classId: string) {
+  return weaponClassOrder.get(classId) ?? Number.MAX_SAFE_INTEGER;
 }
 
 function getSelectedWeapon() {
@@ -445,14 +462,23 @@ function render() {
 }
 
 async function loadWeapons() {
-  const response = await fetch("./data/weapons.json");
+  const [weaponsResponse, classOrderResponse] = await Promise.all([
+    fetch("./data/weapons.json"),
+    fetch("./data/weapon-class-order.json"),
+  ]);
 
-  if (!response.ok) {
-    throw new Error(`Failed to load weapons: ${response.status}`);
+  if (!weaponsResponse.ok) {
+    throw new Error(`Failed to load weapons: ${weaponsResponse.status}`);
   }
 
-  const data = (await response.json()) as WeaponsData;
-  weapons = data.weapons.slice().sort((a, b) => a.number - b.number);
+  if (!classOrderResponse.ok) {
+    throw new Error(`Failed to load weapon class order: ${classOrderResponse.status}`);
+  }
+
+  const data = (await weaponsResponse.json()) as WeaponsData;
+  const classOrderData = (await classOrderResponse.json()) as WeaponClassOrderData;
+  weaponClassOrder = new Map(classOrderData.order.map((item, index) => [item.id, index]));
+  weapons = data.weapons.slice().sort(compareByDefaultOrder);
   gameVersion = data.summary.gameVersion;
   renderClassOptions();
   render();

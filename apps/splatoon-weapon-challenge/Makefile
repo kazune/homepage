@@ -11,17 +11,19 @@ TS_SRC := $(SRC_DIR)/main.ts
 HTML_SRC := $(SRC_DIR)/index.html
 CSS_SRC := $(SRC_DIR)/style.css
 WEAPONS_SRC := $(ROOT_DIR)/data/splatoon3/weapons.json
+WEAPON_CLASS_ORDER_SRC := $(ROOT_DIR)/data/splatoon3/weapon-class-order.json
 
 JS_OUT := $(ASSETS_DIR)/main.js
 HTML_OUT := $(DIST_DIR)/index.html
 CSS_OUT := $(ASSETS_DIR)/style.css
 WEAPONS_OUT := $(DATA_DIR)/weapons.json
+WEAPON_CLASS_ORDER_OUT := $(DATA_DIR)/weapon-class-order.json
 
 .PHONY: all build clean
 
 all: build
 
-build: $(HTML_OUT) $(CSS_OUT) $(JS_OUT) $(WEAPONS_OUT)
+build: $(HTML_OUT) $(CSS_OUT) $(JS_OUT) $(WEAPONS_OUT) $(WEAPON_CLASS_ORDER_OUT)
 
 $(DIST_DIR):
 	mkdir -p $(DIST_DIR)
@@ -43,6 +45,9 @@ $(JS_OUT): $(TS_SRC) | $(ASSETS_DIR)
 
 $(WEAPONS_OUT): $(WEAPONS_SRC) | $(DATA_DIR)
 	cp $(WEAPONS_SRC) $(WEAPONS_OUT)
+
+$(WEAPON_CLASS_ORDER_OUT): $(WEAPON_CLASS_ORDER_SRC) | $(DATA_DIR)
+	cp $(WEAPON_CLASS_ORDER_SRC) $(WEAPON_CLASS_ORDER_OUT)
 
 clean:
 	rm -rf $(DIST_DIR)

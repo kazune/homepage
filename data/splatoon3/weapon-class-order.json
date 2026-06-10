@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "game": "Splatoon 3",
+  "name": "weapon-class-default-order",
+  "description": "Default in-game weapon class order for Splatoon 3 weapon lists.",
+  "order": [
+    {
+      "id": "shooter",
+      "nameJa": "シューター",
+      "nameEn": "Shooters"
+    },
+    {
+      "id": "reelgun",
+      "nameJa": "リールガン",
+      "nameEn": "Nozzlenoses",
+      "groupId": "shooter"
+    },
+    {
+      "id": "roller",
+      "nameJa": "ローラー",
+      "nameEn": "Rollers"
+    },
+    {
+      "id": "charger",
+      "nameJa": "チャージャー",
+      "nameEn": "Chargers"
+    },
+    {
+      "id": "slosher",
+      "nameJa": "スロッシャー",
+      "nameEn": "Sloshers"
+    },
+    {
+      "id": "spinner",
+      "nameJa": "スピナー",
+      "nameEn": "Splatlings"
+    },
+    {
+      "id": "maneuver",
+      "nameJa": "マニューバー",
+      "nameEn": "Dualies"
+    },
+    {
+      "id": "brella",
+      "nameJa": "シェルター",
+      "nameEn": "Brellas"
+    },
+    {
+      "id": "blaster",
+      "nameJa": "ブラスター",
+      "nameEn": "Blasters"
+    },
+    {
+      "id": "brush",
+      "nameJa": "フデ",
+      "nameEn": "Brushes"
+    },
+    {
+      "id": "stringer",
+      "nameJa": "ストリンガー",
+      "nameEn": "Stringers"
+    },
+    {
+      "id": "wiper",
+      "nameJa": "ワイパー",
+      "nameEn": "Splatanas"
+    }
+  ]
+}

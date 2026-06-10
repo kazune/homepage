@@ -3,6 +3,10 @@
 `weapons.json` contains Splatoon 3 weapon kits for small static apps in this
 repository.
 
+`weapon-class-order.json` contains the default in-game weapon class order for
+weapon list displays. The `reelgun` data class is placed with shooters because
+Nozzlenoses are treated as part of the shooter family in-game.
+
 ## Shape
 
 - `weapons[]` is one entry per weapon kit, not one entry per base main weapon.
