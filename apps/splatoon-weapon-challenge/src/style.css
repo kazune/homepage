@@ -89,6 +89,85 @@ h1 {
   font-weight: 800;
 }
 
+.target-tools {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.help-toggle {
+  width: 42px;
+  min-height: 42px;
+  border-color: var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  background: var(--panel);
+  font-weight: 900;
+}
+
+.help-popover {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: min(340px, calc(100vw - 2rem));
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background: var(--panel);
+  box-shadow: 0 12px 30px rgba(23, 32, 27, 0.14);
+}
+
+.help-popover[hidden] {
+  display: none;
+}
+
+.help-popover h2,
+.help-popover h3,
+.help-popover p,
+.help-popover dl {
+  margin: 0;
+}
+
+.help-popover h2 {
+  font-size: 1rem;
+}
+
+.help-popover h3 {
+  margin-top: 0.8rem;
+  font-size: 0.86rem;
+}
+
+.help-popover p {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.help-popover dl {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+}
+
+.help-popover dl div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 0.5rem;
+}
+
+.help-popover dt {
+  color: var(--accent-strong);
+  font-weight: 900;
+}
+
+.help-popover dd {
+  margin: 0;
+  color: var(--muted);
+}
+
 .target-control input {
   width: 100%;
   min-height: 36px;
@@ -396,6 +475,10 @@ h1 {
   .hero {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .target-tools {
+    order: -1;
   }
 
   .summary,

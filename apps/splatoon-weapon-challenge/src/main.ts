@@ -96,6 +96,8 @@ const listElement = query("[data-list]");
 const exportButton = query<HTMLButtonElement>("[data-export]");
 const importInput = query<HTMLInputElement>("[data-import]");
 const resetButton = query<HTMLButtonElement>("[data-reset]");
+const helpToggleButton = query<HTMLButtonElement>("[data-help-toggle]");
+const helpPopoverElement = query<HTMLElement>("[data-help-popover]");
 
 function query<T extends HTMLElement = HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -201,6 +203,28 @@ function setWeaponProgress(weaponId: string, nextProgress: WeaponProgress) {
 
   saveProgress();
   render();
+}
+
+function adjustWeaponProgress(weaponId: string, winsDelta: number, lossesDelta: number) {
+  const item = getWeaponProgress(weaponId);
+  const wins = Math.max(0, item.wins + winsDelta);
+  const losses = Math.max(0, item.losses + lossesDelta);
+
+  if (wins === item.wins && losses === item.losses) {
+    return;
+  }
+
+  setWeaponProgress(weaponId, { wins, losses });
+}
+
+function adjustSelectedWeaponProgress(winsDelta: number, lossesDelta: number) {
+  const weapon = getSelectedWeapon();
+
+  if (!weapon) {
+    return;
+  }
+
+  adjustWeaponProgress(weapon.id, winsDelta, lossesDelta);
 }
 
 function isComplete(weaponId: string) {
@@ -392,16 +416,16 @@ function renderSelectedWeapon() {
   selectedActionsElement.textContent = "";
   selectedActionsElement.append(
     createActionButton("+勝ち", "win", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins + 1, losses: item.losses });
+      adjustWeaponProgress(weapon.id, 1, 0);
     }),
     createActionButton("+負け", "loss", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins, losses: item.losses + 1 });
+      adjustWeaponProgress(weapon.id, 0, 1);
     }),
     createActionButton("-勝ち", "small", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins - 1, losses: item.losses });
+      adjustWeaponProgress(weapon.id, -1, 0);
     }, item.wins <= 0),
     createActionButton("-負け", "small", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins, losses: item.losses - 1 });
+      adjustWeaponProgress(weapon.id, 0, -1);
     }, item.losses <= 0),
   );
 }
@@ -497,6 +521,41 @@ function pickRandomIncompleteWeapon() {
   messageElement.textContent = `${weapon.name.ja} を選択しました。`;
 }
 
+function selectFirstVisibleWeapon() {
+  const weapon = getVisibleWeapons()[0];
+
+  if (!weapon) {
+    messageElement.textContent = "表示中のブキがありません。";
+    return;
+  }
+
+  selectWeapon(weapon.id);
+  messageElement.textContent = `${weapon.name.ja} を選択しました。`;
+}
+
+function selectAdjacentVisibleWeapon(direction: 1 | -1) {
+  const visibleWeapons = getVisibleWeapons();
+
+  if (visibleWeapons.length === 0) {
+    messageElement.textContent = "表示中のブキがありません。";
+    return;
+  }
+
+  const currentIndex = selectedWeaponId
+    ? visibleWeapons.findIndex((weapon) => weapon.id === selectedWeaponId)
+    : -1;
+  const nextIndex =
+    currentIndex === -1
+      ? direction === 1
+        ? 0
+        : visibleWeapons.length - 1
+      : Math.min(visibleWeapons.length - 1, Math.max(0, currentIndex + direction));
+  const weapon = visibleWeapons[nextIndex];
+
+  selectWeapon(weapon.id);
+  messageElement.textContent = `${weapon.name.ja} を選択しました。`;
+}
+
 function resetListControls() {
   searchText = "";
   classFilter = "all";
@@ -506,6 +565,102 @@ function resetListControls() {
   classFilterSelect.value = classFilter;
   statusFilterSelect.value = statusFilter;
   sortSelect.value = sortMode;
+}
+
+function isKeyboardShortcutDisabled(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+
+  return Boolean(target.closest("input, select, textarea, [contenteditable='true']"));
+}
+
+function closeHelp() {
+  helpPopoverElement.hidden = true;
+  helpToggleButton.setAttribute("aria-expanded", "false");
+}
+
+function toggleHelp() {
+  const isOpen = !helpPopoverElement.hidden;
+
+  helpPopoverElement.hidden = isOpen;
+  helpToggleButton.setAttribute("aria-expanded", String(!isOpen));
+}
+
+function handleDocumentClick(event: MouseEvent) {
+  if (!(event.target instanceof HTMLElement)) {
+    return;
+  }
+
+  if (!event.target.closest("[data-help]")) {
+    closeHelp();
+  }
+}
+
+function handleKeyboardShortcut(event: KeyboardEvent) {
+  if (event.key === "Escape") {
+    closeHelp();
+
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
+    return;
+  }
+
+  if (isKeyboardShortcutDisabled(event.target)) {
+    return;
+  }
+
+  if (event.key === "w") {
+    adjustSelectedWeaponProgress(1, 0);
+    return;
+  }
+
+  if (event.key === "l") {
+    adjustSelectedWeaponProgress(0, 1);
+    return;
+  }
+
+  if (event.key === "W") {
+    adjustSelectedWeaponProgress(-1, 0);
+    return;
+  }
+
+  if (event.key === "L") {
+    adjustSelectedWeaponProgress(0, -1);
+    return;
+  }
+
+  if (event.key === "r" || event.key === "R") {
+    pickRandomIncompleteWeapon();
+    return;
+  }
+
+  if (event.key === "n" || event.key === "N") {
+    selectFirstVisibleWeapon();
+    return;
+  }
+
+  if (event.key === "j" || event.key === "J") {
+    selectAdjacentVisibleWeapon(1);
+    return;
+  }
+
+  if (event.key === "k" || event.key === "K") {
+    selectAdjacentVisibleWeapon(-1);
+    return;
+  }
+
+  if (event.key === "/") {
+    event.preventDefault();
+    searchInput.focus();
+    return;
+  }
+
+  if (event.key === "?") {
+    toggleHelp();
+  }
 }
 
 function exportProgress() {
@@ -577,6 +732,12 @@ sortSelect.addEventListener("change", () => {
 
 randomButton.addEventListener("click", pickRandomIncompleteWeapon);
 exportButton.addEventListener("click", exportProgress);
+helpToggleButton.addEventListener("click", (event) => {
+  event.stopPropagation();
+  toggleHelp();
+});
+document.addEventListener("click", handleDocumentClick);
+document.addEventListener("keydown", handleKeyboardShortcut);
 
 importInput.addEventListener("change", async () => {
   const file = importInput.files?.[0];
