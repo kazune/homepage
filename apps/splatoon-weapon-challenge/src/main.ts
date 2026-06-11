@@ -531,6 +531,29 @@ function selectFirstVisibleWeapon() {
   messageElement.textContent = `${weapon.name.ja} を選択しました。`;
 }
 
+function selectAdjacentVisibleWeapon(direction: 1 | -1) {
+  const visibleWeapons = getVisibleWeapons();
+
+  if (visibleWeapons.length === 0) {
+    messageElement.textContent = "表示中のブキがありません。";
+    return;
+  }
+
+  const currentIndex = selectedWeaponId
+    ? visibleWeapons.findIndex((weapon) => weapon.id === selectedWeaponId)
+    : -1;
+  const nextIndex =
+    currentIndex === -1
+      ? direction === 1
+        ? 0
+        : visibleWeapons.length - 1
+      : Math.min(visibleWeapons.length - 1, Math.max(0, currentIndex + direction));
+  const weapon = visibleWeapons[nextIndex];
+
+  selectWeapon(weapon.id);
+  messageElement.textContent = `${weapon.name.ja} を選択しました。`;
+}
+
 function resetListControls() {
   searchText = "";
   classFilter = "all";
@@ -547,10 +570,18 @@ function isKeyboardShortcutDisabled(target: EventTarget | null) {
     return false;
   }
 
-  return Boolean(target.closest("input, select, textarea, button, [contenteditable='true']"));
+  return Boolean(target.closest("input, select, textarea, [contenteditable='true']"));
 }
 
 function handleKeyboardShortcut(event: KeyboardEvent) {
+  if (event.key === "Escape") {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
+    return;
+  }
+
   if (isKeyboardShortcutDisabled(event.target)) {
     return;
   }
@@ -582,6 +613,22 @@ function handleKeyboardShortcut(event: KeyboardEvent) {
 
   if (event.key === "n" || event.key === "N") {
     selectFirstVisibleWeapon();
+    return;
+  }
+
+  if (event.key === "j" || event.key === "J") {
+    selectAdjacentVisibleWeapon(1);
+    return;
+  }
+
+  if (event.key === "k" || event.key === "K") {
+    selectAdjacentVisibleWeapon(-1);
+    return;
+  }
+
+  if (event.key === "/") {
+    event.preventDefault();
+    searchInput.focus();
   }
 }
 
