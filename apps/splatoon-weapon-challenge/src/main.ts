@@ -519,6 +519,18 @@ function pickRandomIncompleteWeapon() {
   messageElement.textContent = `${weapon.name.ja} を選択しました。`;
 }
 
+function selectFirstVisibleWeapon() {
+  const weapon = getVisibleWeapons()[0];
+
+  if (!weapon) {
+    messageElement.textContent = "表示中のブキがありません。";
+    return;
+  }
+
+  selectWeapon(weapon.id);
+  messageElement.textContent = `${weapon.name.ja} を選択しました。`;
+}
+
 function resetListControls() {
   searchText = "";
   classFilter = "all";
@@ -565,6 +577,11 @@ function handleKeyboardShortcut(event: KeyboardEvent) {
 
   if (event.key === "r" || event.key === "R") {
     pickRandomIncompleteWeapon();
+    return;
+  }
+
+  if (event.key === "n" || event.key === "N") {
+    selectFirstVisibleWeapon();
   }
 }
 
