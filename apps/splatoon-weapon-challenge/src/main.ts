@@ -655,6 +655,11 @@ function handleKeyboardShortcut(event: KeyboardEvent) {
   if (event.key === "/") {
     event.preventDefault();
     searchInput.focus();
+    return;
+  }
+
+  if (event.key === "?") {
+    toggleHelp();
   }
 }
 
