@@ -203,6 +203,28 @@ function setWeaponProgress(weaponId: string, nextProgress: WeaponProgress) {
   render();
 }
 
+function adjustWeaponProgress(weaponId: string, winsDelta: number, lossesDelta: number) {
+  const item = getWeaponProgress(weaponId);
+  const wins = Math.max(0, item.wins + winsDelta);
+  const losses = Math.max(0, item.losses + lossesDelta);
+
+  if (wins === item.wins && losses === item.losses) {
+    return;
+  }
+
+  setWeaponProgress(weaponId, { wins, losses });
+}
+
+function adjustSelectedWeaponProgress(winsDelta: number, lossesDelta: number) {
+  const weapon = getSelectedWeapon();
+
+  if (!weapon) {
+    return;
+  }
+
+  adjustWeaponProgress(weapon.id, winsDelta, lossesDelta);
+}
+
 function isComplete(weaponId: string) {
   return getWeaponProgress(weaponId).wins >= progress.targetWins;
 }
@@ -392,16 +414,16 @@ function renderSelectedWeapon() {
   selectedActionsElement.textContent = "";
   selectedActionsElement.append(
     createActionButton("+勝ち", "win", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins + 1, losses: item.losses });
+      adjustWeaponProgress(weapon.id, 1, 0);
     }),
     createActionButton("+負け", "loss", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins, losses: item.losses + 1 });
+      adjustWeaponProgress(weapon.id, 0, 1);
     }),
     createActionButton("-勝ち", "small", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins - 1, losses: item.losses });
+      adjustWeaponProgress(weapon.id, -1, 0);
     }, item.wins <= 0),
     createActionButton("-負け", "small", () => {
-      setWeaponProgress(weapon.id, { wins: item.wins, losses: item.losses - 1 });
+      adjustWeaponProgress(weapon.id, 0, -1);
     }, item.losses <= 0),
   );
 }
@@ -508,6 +530,44 @@ function resetListControls() {
   sortSelect.value = sortMode;
 }
 
+function isKeyboardShortcutDisabled(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+
+  return Boolean(target.closest("input, select, textarea, button, [contenteditable='true']"));
+}
+
+function handleKeyboardShortcut(event: KeyboardEvent) {
+  if (isKeyboardShortcutDisabled(event.target)) {
+    return;
+  }
+
+  if (event.key === "w") {
+    adjustSelectedWeaponProgress(1, 0);
+    return;
+  }
+
+  if (event.key === "l") {
+    adjustSelectedWeaponProgress(0, 1);
+    return;
+  }
+
+  if (event.key === "W") {
+    adjustSelectedWeaponProgress(-1, 0);
+    return;
+  }
+
+  if (event.key === "L") {
+    adjustSelectedWeaponProgress(0, -1);
+    return;
+  }
+
+  if (event.key === "r" || event.key === "R") {
+    pickRandomIncompleteWeapon();
+  }
+}
+
 function exportProgress() {
   const payload = JSON.stringify(progress, null, 2);
   const blob = new Blob([payload], { type: "application/json" });
@@ -577,6 +637,7 @@ sortSelect.addEventListener("change", () => {
 
 randomButton.addEventListener("click", pickRandomIncompleteWeapon);
 exportButton.addEventListener("click", exportProgress);
+document.addEventListener("keydown", handleKeyboardShortcut);
 
 importInput.addEventListener("change", async () => {
   const file = importInput.files?.[0];
