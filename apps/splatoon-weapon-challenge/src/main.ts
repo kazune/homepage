@@ -96,6 +96,8 @@ const listElement = query("[data-list]");
 const exportButton = query<HTMLButtonElement>("[data-export]");
 const importInput = query<HTMLInputElement>("[data-import]");
 const resetButton = query<HTMLButtonElement>("[data-reset]");
+const helpToggleButton = query<HTMLButtonElement>("[data-help-toggle]");
+const helpPopoverElement = query<HTMLElement>("[data-help-popover]");
 
 function query<T extends HTMLElement = HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -573,8 +575,32 @@ function isKeyboardShortcutDisabled(target: EventTarget | null) {
   return Boolean(target.closest("input, select, textarea, [contenteditable='true']"));
 }
 
+function closeHelp() {
+  helpPopoverElement.hidden = true;
+  helpToggleButton.setAttribute("aria-expanded", "false");
+}
+
+function toggleHelp() {
+  const isOpen = !helpPopoverElement.hidden;
+
+  helpPopoverElement.hidden = isOpen;
+  helpToggleButton.setAttribute("aria-expanded", String(!isOpen));
+}
+
+function handleDocumentClick(event: MouseEvent) {
+  if (!(event.target instanceof HTMLElement)) {
+    return;
+  }
+
+  if (!event.target.closest("[data-help]")) {
+    closeHelp();
+  }
+}
+
 function handleKeyboardShortcut(event: KeyboardEvent) {
   if (event.key === "Escape") {
+    closeHelp();
+
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
@@ -701,6 +727,11 @@ sortSelect.addEventListener("change", () => {
 
 randomButton.addEventListener("click", pickRandomIncompleteWeapon);
 exportButton.addEventListener("click", exportProgress);
+helpToggleButton.addEventListener("click", (event) => {
+  event.stopPropagation();
+  toggleHelp();
+});
+document.addEventListener("click", handleDocumentClick);
 document.addEventListener("keydown", handleKeyboardShortcut);
 
 importInput.addEventListener("change", async () => {

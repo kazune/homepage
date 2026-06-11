@@ -13,11 +13,42 @@
           <p class="eyebrow">Splatoon 3</p>
           <h1 data-challenge-title>全ブキ1勝チャレンジ</h1>
         </div>
-        <label class="target-control">
-          <span>目標</span>
-          <input type="number" min="1" step="1" value="1" data-target-wins />
-          <span>勝</span>
-        </label>
+        <div class="target-tools">
+          <label class="target-control">
+            <span>目標</span>
+            <input type="number" min="1" step="1" value="1" data-target-wins />
+            <span>勝</span>
+          </label>
+          <div class="help-menu" data-help>
+            <button
+              type="button"
+              class="help-toggle"
+              aria-label="ヘルプ"
+              aria-expanded="false"
+              aria-controls="helpPopover"
+              data-help-toggle
+            >
+              ?
+            </button>
+            <div class="help-popover" id="helpPopover" data-help-popover hidden>
+              <h2>ヘルプ</h2>
+              <p>
+                目標は、全ブキで何勝したら達成扱いにするかの設定です。
+                変更しても記録済みの勝敗数は消えません。
+              </p>
+              <h3>ショートカット</h3>
+              <dl>
+                <div><dt>w / l</dt><dd>勝ち / 負けを追加</dd></div>
+                <div><dt>W / L</dt><dd>勝ち / 負けを取り消し</dd></div>
+                <div><dt>j / k</dt><dd>表示中リストを上下移動</dd></div>
+                <div><dt>n</dt><dd>表示中リストの先頭を選択</dd></div>
+                <div><dt>r</dt><dd>未達成ブキをランダム選択</dd></div>
+                <div><dt>/</dt><dd>検索欄にフォーカス</dd></div>
+                <div><dt>Esc</dt><dd>フォーカス解除</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
       </header>
 
       <section class="summary" aria-label="進捗">
