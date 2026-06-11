@@ -477,6 +477,10 @@ h1 {
     flex-direction: column;
   }
 
+  .target-tools {
+    order: -1;
+  }
+
   .summary,
   .toolbar {
     grid-template-columns: 1fr;
