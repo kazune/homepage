@@ -103,6 +103,10 @@ fieldset,
   padding: 0.8rem;
 }
 
+.field-wide {
+  grid-column: 1 / -1;
+}
+
 .field span,
 legend {
   color: var(--muted);

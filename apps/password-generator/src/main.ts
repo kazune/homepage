@@ -1,10 +1,14 @@
 type CharacterSetName = "lower" | "upper" | "number" | "symbol";
+type CharacterSet = {
+  name: CharacterSetName;
+  characters: string[];
+};
 
-const characterSets: Record<CharacterSetName, string> = {
+const defaultSymbolCharacters = "!@#$%_-+=?";
+const characterSets: Record<Exclude<CharacterSetName, "symbol">, string> = {
   lower: "abcdefghijklmnopqrstuvwxyz",
   upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   number: "0123456789",
-  symbol: "!@#$%_-+=?",
 };
 
 const ambiguousCharacters = new Set("0O1lI");
@@ -12,10 +16,13 @@ const ambiguousCharacters = new Set("0O1lI");
 const form = query<HTMLFormElement>("[data-form]");
 const lengthInput = query<HTMLInputElement>("[data-length]");
 const countInput = query<HTMLInputElement>("[data-count]");
+const symbolsInput = query<HTMLInputElement>("[data-symbols]");
 const excludeAmbiguousInput = query<HTMLInputElement>("[data-exclude-ambiguous]");
 const generateButton = query<HTMLButtonElement>("[data-generate]");
 const resultsElement = query("[data-results]");
 const messageElement = query("[data-message]");
+
+symbolsInput.value = defaultSymbolCharacters;
 
 function query<T extends HTMLElement = HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -69,8 +76,13 @@ function selectedCharacterSets() {
   return inputs.map((input) => input.dataset.charset as CharacterSetName);
 }
 
+function uniqueCharacters(value: string) {
+  return Array.from(new Set(Array.from(value).filter((character) => !/\s/u.test(character))));
+}
+
 function charactersForSet(setName: CharacterSetName, excludeAmbiguous: boolean) {
-  const characters = characterSets[setName].split("");
+  const source = setName === "symbol" ? symbolsInput.value : characterSets[setName];
+  const characters = uniqueCharacters(source);
 
   if (!excludeAmbiguous) {
     return characters;
@@ -79,14 +91,16 @@ function charactersForSet(setName: CharacterSetName, excludeAmbiguous: boolean) 
   return characters.filter((character) => !ambiguousCharacters.has(character));
 }
 
-function generatePassword(length: number, setNames: CharacterSetName[], excludeAmbiguous: boolean) {
-  const requiredCharacters = setNames.map((setName) => {
-    const setCharacters = charactersForSet(setName, excludeAmbiguous);
-    return setCharacters[randomIndex(setCharacters.length)];
-  });
-  const allCharacters = setNames.flatMap((setName) =>
-    charactersForSet(setName, excludeAmbiguous),
-  );
+function selectedCharacterSetData(setNames: CharacterSetName[], excludeAmbiguous: boolean) {
+  return setNames.map((name) => ({
+    name,
+    characters: charactersForSet(name, excludeAmbiguous),
+  }));
+}
+
+function generatePassword(length: number, sets: CharacterSet[]) {
+  const requiredCharacters = sets.map((set) => set.characters[randomIndex(set.characters.length)]);
+  const allCharacters = sets.flatMap((set) => set.characters);
   const passwordCharacters = [...requiredCharacters];
 
   while (passwordCharacters.length < length) {
@@ -134,22 +148,34 @@ function renderPasswords(passwords: string[]) {
 
 function generate() {
   const setNames = selectedCharacterSets();
+  const sets = selectedCharacterSetData(setNames, excludeAmbiguousInput.checked);
+  const emptySet = sets.find((set) => set.characters.length === 0);
 
   if (setNames.length === 0) {
+    resultsElement.replaceChildren();
     messageElement.textContent = "文字種を1つ以上選択してください。";
+    return;
+  }
+
+  if (emptySet) {
+    resultsElement.replaceChildren();
+    messageElement.textContent =
+      emptySet.name === "symbol"
+        ? "記号を使う場合は、使用できる記号を1文字以上入力してください。"
+        : "選択した文字種に使用できる文字がありません。";
     return;
   }
 
   const length = clamp(lengthInput.valueAsNumber, 4, 128);
   const count = clamp(countInput.valueAsNumber, 1, 20);
-  const minimumLength = Math.max(4, setNames.length);
+  const minimumLength = Math.max(4, sets.length);
   const safeLength = Math.max(length, minimumLength);
 
   lengthInput.value = String(safeLength);
   countInput.value = String(count);
 
   const passwords = Array.from({ length: count }, () =>
-    generatePassword(safeLength, setNames, excludeAmbiguousInput.checked),
+    generatePassword(safeLength, sets),
   );
 
   renderPasswords(passwords);
@@ -157,6 +183,7 @@ function generate() {
 }
 
 form.addEventListener("change", generate);
+form.addEventListener("input", generate);
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   generate();
