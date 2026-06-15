@@ -1,0 +1,6 @@
+{
+  "name": "password-generator",
+  "title": "Password Generator",
+  "path": "/apps/password-generator/",
+  "description": "Generate random passwords in the browser"
+}
