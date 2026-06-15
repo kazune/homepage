@@ -36,6 +36,11 @@
             <label><input type="checkbox" checked data-charset="symbol" /> 記号</label>
           </fieldset>
 
+          <label class="check">
+            <input type="checkbox" checked data-exclude-ambiguous />
+            <span>紛らわしい文字を除外する</span>
+          </label>
+
           <label class="field field-wide">
             <span>使用できる記号</span>
             <input
@@ -45,11 +50,6 @@
               spellcheck="false"
               data-symbols
             />
-          </label>
-
-          <label class="check">
-            <input type="checkbox" checked data-exclude-ambiguous />
-            <span>紛らわしい文字を除外する</span>
           </label>
         </form>
 
