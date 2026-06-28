@@ -11,6 +11,8 @@ CONTENT_SRC := $(SRC_DIR)/content.md
 TEMPLATE_SRC := $(SRC_DIR)/template.html
 CSS_SRC := $(SRC_DIR)/style.css
 TS_SRC := $(SRC_DIR)/main.ts
+OPENAPI_SRC := $(SRC_DIR)/openapi.yaml
+INCLUDE_CODE_FILTER := $(SRC_DIR)/include-code.lua
 
 HTML_OUT := $(DIST_DIR)/index.html
 CSS_OUT := $(ASSETS_DIR)/style.css
@@ -32,7 +34,7 @@ $(DIST_DIR):
 $(ASSETS_DIR):
 	mkdir -p $(ASSETS_DIR)
 
-$(HTML_OUT): $(CONTENT_SRC) $(TEMPLATE_SRC) | $(DIST_DIR)
+$(HTML_OUT): $(CONTENT_SRC) $(TEMPLATE_SRC) $(OPENAPI_SRC) $(INCLUDE_CODE_FILTER) | $(DIST_DIR)
 	$(PANDOC) $(CONTENT_SRC) \
 		--from markdown \
 		--to html5 \
@@ -41,6 +43,7 @@ $(HTML_OUT): $(CONTENT_SRC) $(TEMPLATE_SRC) | $(DIST_DIR)
 		--toc-depth=2 \
 		--section-divs \
 		--mathml \
+		--lua-filter $(INCLUDE_CODE_FILTER) \
 		--template $(TEMPLATE_SRC) \
 		--output $(HTML_OUT)
 

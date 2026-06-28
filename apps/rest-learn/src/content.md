@@ -344,6 +344,106 @@ $$
 <strong>よくある誤解:</strong> ページネーションだけを指定しても、安定した並び順が自動的に得られるとは限りません。同じソート値を持つ要素がある場合は、`id` などを第2キーにして順序を一意にすると、ページ間の重複や欠落を抑えられます。
 </div>
 
+# 6. OpenAPIで契約を記述する
+
+## 実装とは別にインターフェースを記述する
+
+OpenAPIはHTTP APIのインターフェースを、プログラミング言語に依存しない文書として記述する仕様です。人が読むドキュメントだけでなく、入力検証、クライアント生成、モック、テストなどの入力として利用できます。
+
+この教材では、広く対応されているOpenAPI 3.1形式で仮想APIを記述します。
+
+```yaml
+openapi: 3.1.0
+info:
+  title: REST Learn Users API
+  version: 1.0.0
+paths:
+  /users/{id}:
+    get:
+      operationId: getUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: ユーザー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+```
+
+主な構成要素は次の通りです。
+
+| 要素 | 記述するもの |
+|---|---|
+| `info` | APIの名前やバージョン |
+| `paths` | パスと、そのパスで使えるHTTPメソッド |
+| `parameters` | パス、クエリ、ヘッダーなどの入力 |
+| `requestBody` | リクエストボディのメディアタイプと構造 |
+| `responses` | ステータスコードごとのレスポンス |
+| `components` | 再利用するスキーマやレスポンス |
+
+## スキーマを再利用する
+
+```yaml
+components:
+  schemas:
+    User:
+      type: object
+      additionalProperties: false
+      required: [id, name, email]
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+```
+
+`$ref` を使うと、同じ `User` 定義を一覧取得、単体取得、更新結果から参照できます。実装と仕様の重複を完全になくすものではありませんが、API利用者が参照する契約を一箇所にできます。
+
+<details class="formal-note">
+<summary>数学的に見る: 仕様が許す入出力関係</summary>
+
+前章までのリクエスト集合を $Q$、レスポンス集合を $A$ とします。OpenAPI文書が記述する契約を、許可されたリクエストとレスポンスの関係
+
+$$
+\mathcal{O} \subseteq Q \times A
+$$
+
+として捉えます。状態遷移 $\delta$ に対し、ある状態 $s$ と契約上有効なリクエスト $q$ について
+
+$$
+\delta(s,q)=(s',a) \implies (q,a)\in\mathcal{O}
+$$
+
+が成り立つなら、実装がその入出力について契約に適合していると考えられます。ただし、OpenAPIだけでは状態に依存するすべての業務規則を表現できません。例えば「同じメールアドレスは登録できない」という制約は、文章や別の形式による補足が必要です。
+
+</details>
+
+<div class="misconception">
+<strong>よくある誤解:</strong> OpenAPI文書が存在するだけでは、実装との一致は保証されません。CIで仕様ファイルを検査し、契約テストによって実際のレスポンスを照合して初めて、不一致を継続的に検出できます。
+</div>
+
+<details class="formal-note source-note">
+<summary>完全なopenapi.yamlを表示</summary>
+
+```{.yaml include="src/openapi.yaml"}
+```
+
+</details>
+
 # APIシミュレーター
 
 次の仮想APIはブラウザ内だけで動き、外部へ通信しません。メソッドとパスを変え、操作前後の状態を比較してください。`GET /users?q=ali&sort=name&order=asc&page=1&per_page=10` のような一覧クエリも試せます。
@@ -425,6 +525,17 @@ $$
     <button type="button" data-quiz-option>サーバーはデータを保存してはならない</button>
     <button type="button" data-quiz-option data-correct="true">各リクエストが処理に必要な文脈を持つ</button>
     <button type="button" data-quiz-option>すべてのメソッドが安全でなければならない</button>
+  </div>
+  <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+</section>
+
+<section class="quiz" data-quiz>
+  <h2>問4</h2>
+  <p>OpenAPI文書について正しい説明はどれですか。</p>
+  <div class="quiz-options quiz-options-long">
+    <button type="button" data-quiz-option>文書を作れば実装との一致も自動的に保証される</button>
+    <button type="button" data-quiz-option data-correct="true">APIの入出力契約を記述できるが、実装との一致には検査が必要である</button>
+    <button type="button" data-quiz-option>サーバー内部の業務ロジックをすべて記述する仕様である</button>
   </div>
   <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
 </section>

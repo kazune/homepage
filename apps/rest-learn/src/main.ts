@@ -92,6 +92,11 @@ function parseUserInput(value: unknown): UserInput | null {
     return null;
   }
 
+  const allowedProperties = new Set(["name", "email"]);
+  if (Object.keys(value).some((name) => !allowedProperties.has(name))) {
+    return null;
+  }
+
   const input: UserInput = {};
   if (typeof value.name === "string") {
     input.name = value.name.trim();
@@ -109,6 +114,15 @@ function validateUserInput(input: UserInput, requireAll: boolean): ApiResponse |
       "Unprocessable Content",
       "VALIDATION_ERROR",
       "nameとemailを指定してください。",
+    );
+  }
+
+  if (!requireAll && input.name === undefined && input.email === undefined) {
+    return errorResponse(
+      422,
+      "Unprocessable Content",
+      "VALIDATION_ERROR",
+      "nameまたはemailを1つ以上指定してください。",
     );
   }
 
@@ -234,27 +248,40 @@ function handleRequest(method: HttpMethod, path: string, rawBody: unknown): ApiR
   }
 
   const normalizedPath = url.pathname.replace(/\/+$/, "") || "/";
-  const match = normalizedPath.match(/^\/users(?:\/(\d+))?$/);
+  const match = normalizedPath.match(/^\/users(?:\/([^/]+))?$/);
 
   if (!match) {
     return errorResponse(404, "Not Found", "ROUTE_NOT_FOUND", "このパスは定義されていません。");
   }
 
-  const id = match[1] === undefined ? null : Number(match[1]);
+  const idPart = match[1];
+  if (
+    idPart !== undefined &&
+    (!/^\d+$/.test(idPart) || !Number.isSafeInteger(Number(idPart)) || Number(idPart) < 1)
+  ) {
+    return errorResponse(
+      400,
+      "Bad Request",
+      "INVALID_USER_ID",
+      "user idは1以上の整数で指定してください。",
+    );
+  }
+  const id = idPart === undefined ? null : Number(idPart);
+
+  if (url.search !== "" && (id !== null || method !== "GET")) {
+    return errorResponse(
+      400,
+      "Bad Request",
+      "QUERY_NOT_ALLOWED",
+      "この操作ではクエリパラメータを使用できません。",
+    );
+  }
 
   if (method === "GET" && id === null) {
     return listUsers(url.searchParams);
   }
 
   if (method === "GET" && id !== null) {
-    if (url.search !== "") {
-      return errorResponse(
-        400,
-        "Bad Request",
-        "QUERY_NOT_ALLOWED",
-        "単体取得ではクエリパラメータを使用できません。",
-      );
-    }
     const user = state.users.find((candidate) => candidate.id === id);
     return user
       ? {

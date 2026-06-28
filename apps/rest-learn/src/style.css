@@ -243,6 +243,11 @@ th {
   margin-left: 1rem;
 }
 
+.source-note pre {
+  max-height: 34rem;
+  overflow: auto;
+}
+
 math[display="block"] {
   display: block;
   max-width: 100%;
