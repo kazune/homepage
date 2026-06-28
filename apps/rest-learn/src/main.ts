@@ -27,6 +27,21 @@ const initialState: ApiState = {
       name: "Alice",
       email: "alice@example.com",
     },
+    {
+      id: 2,
+      name: "Bob",
+      email: "bob@example.com",
+    },
+    {
+      id: 3,
+      name: "Carol",
+      email: "carol@example.com",
+    },
+    {
+      id: 4,
+      name: "Alicia",
+      email: "alicia@example.com",
+    },
   ],
 };
 
@@ -118,8 +133,107 @@ function validateUserInput(input: UserInput, requireAll: boolean): ApiResponse |
   return null;
 }
 
+function positiveInteger(value: string | null, fallback: number): number | null {
+  if (value === null || value === "") {
+    return fallback;
+  }
+
+  if (!/^\d+$/.test(value)) {
+    return null;
+  }
+
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : null;
+}
+
+function listUsers(parameters: URLSearchParams): ApiResponse {
+  const allowedParameters = new Set(["q", "sort", "order", "page", "per_page"]);
+  const unknownParameter = Array.from(parameters.keys()).find(
+    (name) => !allowedParameters.has(name),
+  );
+  if (unknownParameter) {
+    return errorResponse(
+      400,
+      "Bad Request",
+      "UNKNOWN_QUERY_PARAMETER",
+      `query parameter ${unknownParameter} は定義されていません。`,
+    );
+  }
+
+  const duplicateParameter = Array.from(allowedParameters).find(
+    (name) => parameters.getAll(name).length > 1,
+  );
+  if (duplicateParameter) {
+    return errorResponse(
+      400,
+      "Bad Request",
+      "DUPLICATE_QUERY_PARAMETER",
+      `query parameter ${duplicateParameter} は複数指定できません。`,
+    );
+  }
+
+  const sort = parameters.get("sort") ?? "id";
+  const order = parameters.get("order") ?? "asc";
+  const page = positiveInteger(parameters.get("page"), 1);
+  const perPage = positiveInteger(parameters.get("per_page"), 10);
+
+  if (!["id", "name", "email"].includes(sort)) {
+    return errorResponse(400, "Bad Request", "INVALID_SORT", "sortにはid、name、emailを指定してください。");
+  }
+  if (order !== "asc" && order !== "desc") {
+    return errorResponse(400, "Bad Request", "INVALID_ORDER", "orderにはascまたはdescを指定してください。");
+  }
+  if (page === null || perPage === null || perPage > 100) {
+    return errorResponse(
+      400,
+      "Bad Request",
+      "INVALID_PAGINATION",
+      "pageは1以上、per_pageは1以上100以下の整数で指定してください。",
+    );
+  }
+
+  const query = (parameters.get("q") ?? "").trim().toLocaleLowerCase();
+  const filtered = state.users.filter((user) =>
+    query === "" ||
+    user.name.toLocaleLowerCase().includes(query) ||
+    user.email.toLocaleLowerCase().includes(query),
+  );
+
+  const sorted = [...filtered].sort((left, right) => {
+    const leftValue = left[sort as keyof User];
+    const rightValue = right[sort as keyof User];
+    const comparison = typeof leftValue === "number" && typeof rightValue === "number"
+      ? leftValue - rightValue
+      : String(leftValue).localeCompare(String(rightValue), "ja");
+    const ordered = order === "asc" ? comparison : -comparison;
+    return ordered || left.id - right.id;
+  });
+
+  const total = sorted.length;
+  const totalPages = total === 0 ? 0 : Math.ceil(total / perPage);
+  const start = (page - 1) * perPage;
+
+  return {
+    status: 200,
+    statusText: "OK",
+    headers: { "Content-Type": "application/json" },
+    body: {
+      data: sorted.slice(start, start + perPage),
+      meta: { page, perPage, total, totalPages },
+    },
+    effect: "フィルタリング、ソート、ページネーションの順に適用しました。状態は変更していません。",
+  };
+}
+
 function handleRequest(method: HttpMethod, path: string, rawBody: unknown): ApiResponse {
-  const normalizedPath = path.replace(/\/+$/, "") || "/";
+  let url: URL;
+  try {
+    url = new URL(path, "https://rest-learn.invalid");
+  } catch {
+    return errorResponse(400, "Bad Request", "INVALID_URI", "URIを解釈できません。");
+  }
+
+  const normalizedPath = url.pathname.replace(/\/+$/, "") || "/";
   const match = normalizedPath.match(/^\/users(?:\/(\d+))?$/);
 
   if (!match) {
@@ -129,16 +243,18 @@ function handleRequest(method: HttpMethod, path: string, rawBody: unknown): ApiR
   const id = match[1] === undefined ? null : Number(match[1]);
 
   if (method === "GET" && id === null) {
-    return {
-      status: 200,
-      statusText: "OK",
-      headers: { "Content-Type": "application/json" },
-      body: state.users,
-      effect: "GETは安全なメソッドです。状態を変更していません。",
-    };
+    return listUsers(url.searchParams);
   }
 
   if (method === "GET" && id !== null) {
+    if (url.search !== "") {
+      return errorResponse(
+        400,
+        "Bad Request",
+        "QUERY_NOT_ALLOWED",
+        "単体取得ではクエリパラメータを使用できません。",
+      );
+    }
     const user = state.users.find((candidate) => candidate.id === id);
     return user
       ? {

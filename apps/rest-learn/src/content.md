@@ -268,9 +268,85 @@ $$
 
 </details>
 
+# 5. 検索・ソート・ページネーション
+
+## コレクションをクエリで変換する
+
+一覧取得では、URIのクエリパラメータを使って返す要素と順序を指定します。操作ごとに別のパスを作るより、`/users` という同じコレクションに対する条件として表すと一貫します。
+
+```http
+GET /users?q=ali&sort=name&order=asc&page=1&per_page=20 HTTP/1.1
+Accept: application/json
+```
+
+この教材の仮想APIでは、次のパラメータを扱います。
+
+| パラメータ | 意味 | 例 |
+|---|---|---|
+| `q` | `name` または `email` の部分一致検索 | `q=ali` |
+| `sort` | ソート対象 | `sort=name` |
+| `order` | 昇順または降順 | `order=asc` |
+| `page` | 1から始まるページ番号 | `page=2` |
+| `per_page` | 1ページの最大件数 | `per_page=20` |
+
+パラメータ名やページ番号の起点はHTTPで標準化されていません。API内で一貫させ、OpenAPIなどで契約として明示する必要があります。
+
+## レスポンスにページ情報を含める
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Alice",
+      "email": "alice@example.com"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "perPage": 20,
+    "total": 1,
+    "totalPages": 1
+  }
+}
+```
+
+現在位置だけでなく総件数や総ページ数も返すと、クライアントがページ操作を構築できます。ただし、巨大なデータに対する総件数の計算は高価な場合があるため、常に必要とは限りません。
+
+<details class="formal-note">
+<summary>数学的に見る: 選択・順序付け・部分列</summary>
+
+コレクションを有限列 $X=(x_1,\ldots,x_n)$ とします。検索やフィルタリング条件を述語
+
+$$
+\varphi: R \to \{\operatorname{true},\operatorname{false}\}
+$$
+
+で表すと、条件に合う要素の列は
+
+$$
+\operatorname{filter}_{\varphi}(X)=(x_i \mid \varphi(x_i)=\operatorname{true})
+$$
+
+です。ソート条件を全順序 $\preceq$ とすると、これを $\operatorname{sort}_{\preceq}$ で並べ替えます。
+
+1から始まるページ番号を $p$、1ページの件数を $k$ とすると、ページネーションは変換後の列から添字
+
+$$
+(p-1)k+1,\ldots,\min(pk,n)
+$$
+
+の要素を取り出す操作です。実装順序は原則として、フィルタリング、ソート、ページネーションです。先にページを切り出すと、ページごとに検索結果や順序が変わってしまいます。
+
+</details>
+
+<div class="misconception">
+<strong>よくある誤解:</strong> ページネーションだけを指定しても、安定した並び順が自動的に得られるとは限りません。同じソート値を持つ要素がある場合は、`id` などを第2キーにして順序を一意にすると、ページ間の重複や欠落を抑えられます。
+</div>
+
 # APIシミュレーター
 
-次の仮想APIはブラウザ内だけで動き、外部へ通信しません。メソッドとパスを変え、操作前後の状態を比較してください。
+次の仮想APIはブラウザ内だけで動き、外部へ通信しません。メソッドとパスを変え、操作前後の状態を比較してください。`GET /users?q=ali&sort=name&order=asc&page=1&per_page=10` のような一覧クエリも試せます。
 
 ```{=html}
 <section class="simulator" aria-labelledby="simulator-title">
