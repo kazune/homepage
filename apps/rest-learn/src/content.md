@@ -24,14 +24,39 @@ HTTPとRESTを、`users` APIの具体例から学びます。本文だけで基�
 - $P$: 表現（Representation）の集合
 - $S$: サーバー状態の集合
 
-さらに、ヘッダー集合を $H$、HTTPステータスコードの集合を $C$、ボディがないことを表す値を $\varepsilon$ とします。リクエスト集合 $Q$ とレスポンス集合 $A$ を、単純化して
+この教材ではスキームやホストを固定して捨象し、HTTP APIで扱うURIをパスとクエリパラメータに分解します。厳密には、ここでモデル化しているのはURI全体ではなく、そのパスとクエリ部分です。
+
+- $L$: パスの集合
+- $K$: クエリパラメータ名の集合
+- $V$: クエリパラメータ値の集合
+- $\Theta$: $K$ から $V$ への有限部分写像全体の集合
 
 $$
-Q = M \times U \times H \times (P \cup \{\varepsilon\})
+\Theta = \{\theta \mid \theta: K \rightharpoonup_{\mathrm{fin}} V\}
 $$
 
 $$
-A = C \times H \times (P \cup \{\varepsilon\})
+U = L \times \Theta
+$$
+
+したがって、個々のURIを $(l, \theta) \in U$ と表せます。例えば `/users?role=admin` は、パス $l=\mathtt{/users}$ と、$\theta(\mathtt{role})=\mathtt{admin}$ を満たす有限部分写像の組です。
+
+このモデルでは、同じ名前を複数回使う `tag=a&tag=b` を単純化のため扱いません。扱う場合は、値域を有限列の集合 $V^*$ に置き換えます。
+
+さらに、ヘッダー集合を $H$、HTTPステータスコードの集合を $C$ とします。$\operatorname{Option}(P)$ は、表現を持つ場合とボディがない場合を合わせた集合です。
+
+$$
+\operatorname{Option}(P) = P \sqcup \{\operatorname{None}\}
+$$
+
+リクエスト集合 $Q$ とレスポンス集合 $A$ を、単純化して
+
+$$
+Q = M \times U \times H \times \operatorname{Option}(P)
+$$
+
+$$
+A = C \times H \times \operatorname{Option}(P)
 $$
 
 と定義します。HTTPリクエストの処理は、現在の状態とリクエストから次の状態とレスポンスを求める状態遷移
