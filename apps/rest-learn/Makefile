@@ -1,0 +1,54 @@
+SHELL := /bin/sh
+
+ROOT_DIR := ../..
+SRC_DIR := src
+DIST_DIR := dist
+ASSETS_DIR := $(DIST_DIR)/assets
+PANDOC ?= pandoc
+TSC ?= $(ROOT_DIR)/node_modules/.bin/tsc
+
+CONTENT_SRC := $(SRC_DIR)/content.md
+TEMPLATE_SRC := $(SRC_DIR)/template.html
+CSS_SRC := $(SRC_DIR)/style.css
+TS_SRC := $(SRC_DIR)/main.ts
+
+HTML_OUT := $(DIST_DIR)/index.html
+CSS_OUT := $(ASSETS_DIR)/style.css
+JS_OUT := $(ASSETS_DIR)/main.js
+
+.PHONY: all build clean check-tools
+
+all: build
+
+build: check-tools $(HTML_OUT) $(CSS_OUT) $(JS_OUT)
+
+check-tools:
+	@command -v $(PANDOC) >/dev/null 2>&1 || { echo "error: pandoc is required"; exit 1; }
+	@test -x $(TSC) || { echo "error: TypeScript compiler not found; run npm install"; exit 1; }
+
+$(DIST_DIR):
+	mkdir -p $(DIST_DIR)
+
+$(ASSETS_DIR):
+	mkdir -p $(ASSETS_DIR)
+
+$(HTML_OUT): $(CONTENT_SRC) $(TEMPLATE_SRC) | $(DIST_DIR)
+	$(PANDOC) $(CONTENT_SRC) \
+		--from markdown \
+		--to html5 \
+		--standalone \
+		--toc \
+		--toc-depth=2 \
+		--section-divs \
+		--mathml \
+		--template $(TEMPLATE_SRC) \
+		--output $(HTML_OUT)
+
+$(CSS_OUT): $(CSS_SRC) | $(ASSETS_DIR)
+	cp $(CSS_SRC) $(CSS_OUT)
+
+$(JS_OUT): $(TS_SRC) | $(ASSETS_DIR)
+	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(ASSETS_DIR) $(TS_SRC)
+
+clean:
+	rm -rf $(DIST_DIR)
