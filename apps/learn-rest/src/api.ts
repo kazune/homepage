@@ -1,4 +1,4 @@
-namespace RestLearn {
+namespace LearnRest {
   export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
   export type User = {
@@ -176,7 +176,7 @@ namespace RestLearn {
     handleRequest(method: HttpMethod, path: string, rawBody: unknown): ApiResponse {
       let url: URL;
       try {
-        url = new URL(path, "https://rest-learn.invalid");
+        url = new URL(path, "https://learn-rest.invalid");
       } catch {
         return errorResponse(400, "Bad Request", "INVALID_URI", "URIを解釈できません。");
       }

@@ -1,11 +1,11 @@
 ---
 openapi: 3.1.0
 info:
-  title: REST Learn Users API
+  title: Learn REST Users API
   version: 1.0.0
-  description: REST Learnのブラウザ内シミュレーターが実装する仮想API
+  description: Learn RESTのブラウザ内シミュレーターが実装する仮想API
 servers:
-  - url: https://rest-learn.invalid
+  - url: https://learn-rest.invalid
     description: 説明用の仮想サーバー。実際の通信先ではありません。
 paths:
   /users:

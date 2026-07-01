@@ -355,7 +355,7 @@ OpenAPIはHTTP APIのインターフェースを、プログラミング言語�
 ```yaml
 openapi: 3.1.0
 info:
-  title: REST Learn Users API
+  title: Learn REST Users API
   version: 1.0.0
 paths:
   /users/{id}:

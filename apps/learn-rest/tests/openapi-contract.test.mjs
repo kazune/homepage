@@ -45,7 +45,7 @@ const openapi = Object.fromEntries(
 const apiSource = await readFile(`${appDirectory}/dist/assets/api.js`, "utf8");
 const context = vm.createContext({ URL, URLSearchParams, Set });
 vm.runInContext(
-  `${apiSource}\nglobalThis.ApiSimulator = RestLearn.ApiSimulator;`,
+  `${apiSource}\nglobalThis.ApiSimulator = LearnRest.ApiSimulator;`,
   context,
 );
 const ApiSimulator = context.ApiSimulator;

@@ -1,4 +1,4 @@
-const api = new RestLearn.ApiSimulator();
+const api = new LearnRest.ApiSimulator();
 
 const form = query<HTMLFormElement>("[data-request-form]");
 const methodInput = query<HTMLSelectElement>("[data-method]");
@@ -48,7 +48,7 @@ function inspectJwt(token: string): unknown {
   };
 }
 
-function parseBody(method: RestLearn.HttpMethod): unknown {
+function parseBody(method: LearnRest.HttpMethod): unknown {
   if (method === "GET" || method === "DELETE") {
     return undefined;
   }
@@ -60,7 +60,7 @@ function parseBody(method: RestLearn.HttpMethod): unknown {
   return JSON.parse(source) as unknown;
 }
 
-function formatResponse(response: RestLearn.ApiResponse): string {
+function formatResponse(response: LearnRest.ApiResponse): string {
   const lines = [`HTTP/1.1 ${response.status} ${response.statusText}`];
   for (const [name, value] of Object.entries(response.headers ?? {})) {
     lines.push(`${name}: ${value}`);
@@ -76,7 +76,7 @@ function renderState(): void {
 }
 
 function updateMethodHint(): void {
-  const method = methodInput.value as RestLearn.HttpMethod;
+  const method = methodInput.value as LearnRest.HttpMethod;
   const usesBody = method === "POST" || method === "PUT" || method === "PATCH";
   bodyInput.disabled = !usesBody;
   hintElement.textContent = usesBody
@@ -86,7 +86,7 @@ function updateMethodHint(): void {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const method = methodInput.value as RestLearn.HttpMethod;
+  const method = methodInput.value as LearnRest.HttpMethod;
 
   try {
     const response = api.handleRequest(method, pathInput.value.trim(), parseBody(method));

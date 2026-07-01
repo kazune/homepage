@@ -10,7 +10,7 @@ const apiSource = await readFile(
 
 const context = vm.createContext({ URL, URLSearchParams, Set });
 vm.runInContext(
-  `${apiSource}\nglobalThis.ApiSimulator = RestLearn.ApiSimulator;`,
+  `${apiSource}\nglobalThis.ApiSimulator = LearnRest.ApiSimulator;`,
   context,
 );
 

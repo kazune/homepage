@@ -1,6 +1,6 @@
 {
-  "name": "rest-learn",
+  "name": "learn-rest",
   "title": "REST APIを設計する",
-  "path": "/apps/rest-learn/",
+  "path": "/apps/learn-rest/",
   "description": "HTTPとREST API設計を、具体例と数学的な補足で学ぶ読み物"
 }
