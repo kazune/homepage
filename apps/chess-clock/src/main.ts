@@ -27,8 +27,6 @@ const separateSettings = document.querySelector<HTMLElement>("[data-separate-set
 const settingsSections = Array.from(document.querySelectorAll<HTMLElement>("[data-settings-player]"));
 
 let configs: ClockConfig[] = [0, 1].map(() => ({ mode: "fischer", initialMs: 5 * 60_000, incrementMs: 3_000, byoyomiMs: 0 }));
-let soundEnabled = true;
-let vibrationEnabled = true;
 let separateInitialized = false;
 let players: Player[] = [];
 let active: number | null = null;
@@ -94,7 +92,6 @@ function pressPlayer(index: number): void {
   if (config.mode === "byoyomi" && player.inByoyomi) player.byoMs = config.byoyomiMs;
   active = index === 0 ? 1 : 0;
   turnStartedAt = now;
-  beep(540, 0.035);
   render(now);
 }
 
@@ -107,7 +104,6 @@ function tick(): void {
       Object.assign(players[active], value);
       expired = active;
       paused = true;
-      alarm();
       void releaseWakeLock();
     }
   }
@@ -161,28 +157,6 @@ function togglePause(): void {
     void releaseWakeLock();
     render();
   }
-}
-
-function beep(frequency: number, duration: number): void {
-  if (!soundEnabled) return;
-  try {
-    const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    const context = new AudioContextClass();
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    oscillator.frequency.value = frequency;
-    gain.gain.setValueAtTime(0.08, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
-    oscillator.connect(gain).connect(context.destination);
-    oscillator.start();
-    oscillator.stop(context.currentTime + duration);
-    oscillator.addEventListener("ended", () => void context.close());
-  } catch { /* Audio is optional. */ }
-}
-
-function alarm(): void {
-  beep(190, 0.7);
-  if (vibrationEnabled && "vibrate" in navigator) navigator.vibrate([250, 100, 500]);
 }
 
 async function requestWakeLock(): Promise<void> {
@@ -274,13 +248,10 @@ document.querySelector<HTMLButtonElement>("[data-cancel]")!.addEventListener("cl
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
-  const data = new FormData(form);
   const enabledSections = separateInput.checked
     ? settingsSections.filter((section) => section.dataset.settingsPlayer !== "shared")
     : [settingsSections.find((section) => section.dataset.settingsPlayer === "shared")!];
   const nextConfigs = enabledSections.map(readConfig);
-  soundEnabled = data.get("sound") === "on";
-  vibrationEnabled = data.get("vibration") === "on";
   const invalidPlayer = nextConfigs.findIndex((config) => config.initialMs === 0 && config.byoyomiMs === 0);
   if (invalidPlayer >= 0) {
     const label = separateInput.checked ? `PLAYER ${invalidPlayer + 1}の` : "";
