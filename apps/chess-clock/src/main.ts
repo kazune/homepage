@@ -18,6 +18,8 @@ const dialog = document.querySelector<HTMLDialogElement>("[data-settings]")!;
 const form = document.querySelector<HTMLFormElement>("[data-settings-form]")!;
 const fischerFields = document.querySelector<HTMLElement>("[data-fischer]")!;
 const byoyomiFields = document.querySelector<HTMLElement>("[data-byoyomi]")!;
+const incrementInput = form.elements.namedItem("increment") as HTMLInputElement;
+const byoyomiInput = form.elements.namedItem("byoyomi") as HTMLInputElement;
 
 let mode: Mode = "fischer";
 let initialMs = 5 * 60_000;
@@ -195,6 +197,8 @@ function updateModeFields(): void {
   const nextMode = selectedMode();
   fischerFields.hidden = nextMode !== "fischer";
   byoyomiFields.hidden = nextMode !== "byoyomi";
+  incrementInput.disabled = nextMode !== "fischer";
+  byoyomiInput.disabled = nextMode !== "byoyomi";
 }
 
 playerButtons.forEach((button) => button.addEventListener("click", () => pressPlayer(Number(button.dataset.player))));
@@ -230,4 +234,5 @@ document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible" && active !== null && !paused) void requestWakeLock();
 });
 
+updateModeFields();
 resetState();
