@@ -26,7 +26,7 @@ all: build
 build: check-tools $(HTML_OUT) $(CSS_OUT) $(API_JS_OUT) $(JS_OUT)
 
 test: build
-	node --test tests/api.test.mjs
+	node --test tests/*.test.mjs
 
 check-tools:
 	@command -v $(PANDOC) >/dev/null 2>&1 || { echo "error: pandoc is required"; exit 1; }

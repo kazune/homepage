@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: REST Learn Users API
@@ -255,3 +256,4 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
+...
