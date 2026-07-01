@@ -13,7 +13,6 @@ type Player = {
 
 const playerButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-player]"));
 const timeElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-time="${index}"]`)!);
-const phaseElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-phase="${index}"]`)!);
 const turnElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-turn="${index}"]`)!);
 const statusElement = document.querySelector<HTMLElement>("[data-status]")!;
 const pauseButton = document.querySelector<HTMLButtonElement>("[data-action=pause]")!;
@@ -130,11 +129,9 @@ function formatTime(ms: number): string {
 function render(now = performance.now()): void {
   players.forEach((_, index) => {
     const value = currentValues(index, now);
-    const config = configs[index];
     const shownMs = value.inByoyomi ? value.byoMs : value.mainMs;
     timeElements[index].textContent = formatTime(shownMs);
-    phaseElements[index].textContent = value.inByoyomi && config.mode === "byoyomi" && config.byoyomiMs > 0 ? "秒読み" : "持ち時間";
-    turnElements[index].textContent = active === index && expired === null ? "手番" : "";
+    turnElements[index].textContent = expired === index ? "切れ負け" : active === index ? "手番" : "";
     playerButtons.find((button) => Number(button.dataset.player) === index)?.classList.toggle("active", active === index && !paused);
     playerButtons.find((button) => Number(button.dataset.player) === index)?.classList.toggle("expired", expired === index);
   });
@@ -144,7 +141,7 @@ function render(now = performance.now()): void {
   pauseIcon.classList.toggle("d-none", paused);
   resumeIcon.classList.toggle("d-none", !paused);
   settingsButton.disabled = active !== null && !paused;
-  if (expired !== null) statusElement.textContent = `PLAYER ${expired + 1} 時間切れ`;
+  if (expired !== null) statusElement.textContent = `PLAYER ${expired + 1} 切れ負け`;
   else if (active === null) statusElement.textContent = "時計をタップして相手側を開始";
   else if (paused) statusElement.textContent = "一時停止中";
   else statusElement.textContent = `PLAYER ${active + 1} の手番`;
