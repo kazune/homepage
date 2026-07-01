@@ -268,7 +268,7 @@ function readConfig(section: HTMLElement): ClockConfig {
 playerButtons.forEach((button) => button.addEventListener("click", () => pressPlayer(Number(button.dataset.player))));
 pauseButton.addEventListener("click", togglePause);
 resetButton.addEventListener("click", () => {
-  if (active === null || confirm("時計をリセットしますか？")) resetState();
+  resetState();
 });
 settingsButton.addEventListener("click", () => dialog.showModal());
 form.addEventListener("change", (event) => {
