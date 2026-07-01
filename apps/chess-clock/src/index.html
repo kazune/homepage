@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#111827" />
+    <title>Chess Clock</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="clock" data-clock>
+      <button class="player player-top" type="button" data-player="1" aria-label="プレイヤー2の時計">
+        <span class="player-name">PLAYER 2</span>
+        <span class="time" data-time="1">05:00</span>
+        <span class="phase" data-phase="1">持ち時間</span>
+        <span class="moves" data-moves="1">0手</span>
+      </button>
+
+      <section class="controls" aria-label="時計の操作">
+        <button type="button" data-action="pause" disabled>一時停止</button>
+        <p class="status" data-status>時計をタップして開始</p>
+        <button type="button" data-action="settings">設定</button>
+        <button type="button" data-action="reset">リセット</button>
+      </section>
+
+      <button class="player player-bottom" type="button" data-player="0" aria-label="プレイヤー1の時計">
+        <span class="player-name">PLAYER 1</span>
+        <span class="time" data-time="0">05:00</span>
+        <span class="phase" data-phase="0">持ち時間</span>
+        <span class="moves" data-moves="0">0手</span>
+      </button>
+    </main>
+
+    <dialog data-settings>
+      <form method="dialog" data-settings-form>
+        <h1>時計の設定</h1>
+        <label>持ち時間
+          <span class="input-row"><input name="minutes" type="number" min="0" max="180" value="5" inputmode="numeric" required /> 分
+          <input name="seconds" type="number" min="0" max="59" value="0" inputmode="numeric" required /> 秒</span>
+        </label>
+        <fieldset>
+          <legend>方式</legend>
+          <label class="radio"><input type="radio" name="mode" value="fischer" checked /> フィッシャー</label>
+          <label class="radio"><input type="radio" name="mode" value="byoyomi" /> 秒読み</label>
+        </fieldset>
+        <label data-fischer>着手ごとの加算
+          <span class="input-row"><input name="increment" type="number" min="0" max="300" value="3" inputmode="numeric" required /> 秒</span>
+        </label>
+        <label data-byoyomi hidden>持ち時間終了後の秒読み
+          <span class="input-row"><input name="byoyomi" type="number" min="0" max="300" value="10" inputmode="numeric" required /> 秒</span>
+          <small>0秒ならサドンデスです</small>
+        </label>
+        <label class="check"><input name="sound" type="checkbox" checked /> 音を鳴らす</label>
+        <label class="check"><input name="vibration" type="checkbox" checked /> 振動させる</label>
+        <menu>
+          <button type="button" data-cancel>キャンセル</button>
+          <button type="submit" value="save" class="primary">適用</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="./assets/main.js"></script>
+  </body>
+</html>
