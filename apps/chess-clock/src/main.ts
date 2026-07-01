@@ -240,10 +240,10 @@ function updateSettingsVisibility(): void {
     copySharedSettings();
     separateInitialized = true;
   }
-  separateSettings.hidden = !separate;
+  separateSettings.classList.toggle("d-none", !separate);
   settingsSections.forEach((section) => {
     const isShared = section.dataset.settingsPlayer === "shared";
-    section.hidden = separate ? isShared : !isShared;
+    section.classList.toggle("d-none", separate ? isShared : !isShared);
     updateSection(section, separate ? !isShared : isShared);
   });
 }
