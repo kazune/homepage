@@ -546,6 +546,91 @@ JWTを受け取ったAPIは、少なくとも用途に応じて次を確認し�
 <strong>よくある誤解:</strong> JWTを使えばサーバーが完全に「状態を持たない」わけではありません。鍵のローテーション、ユーザーの無効化、トークン失効など、運用上の状態管理が必要になる場合があります。また、REST APIにJWTは必須ではありません。
 </div>
 
+# 8. APIバージョニングと後方互換性
+
+## バージョンを増やす前に互換性を考える
+
+APIバージョンは、同じ目的を持つ複数の契約を並行して提供する仕組みです。変更のたびにバージョンを増やすのではなく、既存クライアントを壊す変更が避けられない場合に使います。
+
+| 変更 | 一般的な判定 | 注意点 |
+|---|---|---|
+| 新しいエンドポイントを追加する | 非破壊的 | 既存操作の意味を変えない |
+| 任意のリクエスト項目を追加する | 非破壊的 | 省略時の挙動を維持する |
+| 必須のリクエスト項目を追加する | 破壊的 | 既存リクエストが検証に失敗する |
+| 項目を削除・改名する | 破壊的 | 既存クライアントが値を取得できない |
+| 項目の型を変更する | 破壊的 | デシリアライズに失敗し得る |
+| 入力の許容値を減らす | 破壊的 | 以前有効だった入力が無効になる |
+| レスポンスの列挙値を増やす | 破壊的になり得る | 網羅的に分岐するクライアントが壊れ得る |
+| 任意のレスポンス項目を追加する | 条件付き | 未知項目を拒否するクライアントには破壊的 |
+| ステータスコードや意味を変える | 破壊的 | 構造が同じでも振る舞いが変わる |
+
+互換性はJSONの形だけでは決まりません。ソート順、丸め方、権限判定など、観測できる意味の変更も契約の変更です。
+
+## バージョンを指定する場所
+
+バージョンの指定方法はHTTPで一つに標準化されていません。APIの利用者、キャッシュ、ルーティング、ドキュメント生成との相性を考えて一つの方式を選び、一貫して使います。
+
+| 方式 | 例 | 特徴 |
+|---|---|---|
+| パス | `/v1/users` | 発見・ルーティングが容易だが、バージョンごとにURIが変わる |
+| 独自ヘッダー | `API-Version: 1` | URIを維持できるが、ブラウザやキャッシュから見えにくい |
+| メディアタイプ | `Accept: application/vnd.example.v1+json` | 表現の版を明示できるが、運用とツール設定が複雑 |
+| クエリ | `/users?version=1` | 試しやすいが、省略時の規則やキャッシュキーに注意が必要 |
+
+小規模な公開APIでは、明示的で扱いやすいパス方式が現実的です。ただし、URLに版を置くこと自体がRESTの必須条件ではありません。
+
+```http
+GET /v1/users/1 HTTP/1.1
+Accept: application/json
+```
+
+<details class="formal-note">
+<summary>数学的に見る: 後方互換性を契約の精緻化として捉える</summary>
+
+APIバージョンの集合を $\mathcal{V}$ とし、バージョン $v\in\mathcal{V}$ が受理するリクエスト集合を $D_v\subseteq Q$ とします。リクエスト $q$ に対して契約が許すレスポンス集合を $A_v(q)\subseteq A$ とします。
+
+新しいバージョン $w$ が古いバージョン $v$ に強い意味で後方互換である条件を
+
+$$
+D_v\subseteq D_w
+$$
+
+かつ
+
+$$
+\forall q\in D_v,\quad A_w(q)\subseteq A_v(q)
+$$
+
+と表せます。新しい版は古い入力を引き続き受理し、その入力に対して古い契約が許していないレスポンスを返さない、という条件です。
+
+レスポンス側の包含方向が逆に見える点が重要です。新しい契約が返し得る結果を増やすと、古いクライアントが想定していない結果が現れるためです。実務では、クライアントが観測する項目や副作用も含めて互換性を評価します。
+
+</details>
+
+## 廃止から停止までを分ける
+
+古いバージョンを即座に停止せず、次の順序で移行します。
+
+1. 後継バージョンと移行手順を公開する
+2. OpenAPIで対象操作を `deprecated: true` にする
+3. レスポンスで廃止予定を通知する
+4. 利用状況を計測し、利用者を移行する
+5. 告知した日時以降に停止する
+
+```http
+HTTP/1.1 200 OK
+Deprecation: @1798761600
+Sunset: Thu, 01 Jul 2027 00:00:00 GMT
+Link: <https://example.com/migrations/v2>; rel="deprecation"
+Content-Type: application/json
+```
+
+`Deprecation` はそのリソースが非推奨になる、またはなったことを示します。`Sunset` は応答しなくなる可能性のある将来日時を示します。非推奨になっても直ちに挙動は変えず、停止日と移行先を別途伝えます。
+
+<div class="misconception">
+<strong>よくある誤解:</strong> `v2` を作っただけでは移行は完了しません。旧版の利用者、期限、移行手順、監視、停止後の応答まで決めることがバージョニング運用です。
+</div>
+
 # APIシミュレーター
 
 次の仮想APIはブラウザ内だけで動き、外部へ通信しません。メソッドとパスを変え、操作前後の状態を比較してください。`GET /users?q=ali&sort=name&order=asc&page=1&per_page=10` のような一覧クエリも試せます。
@@ -663,6 +748,28 @@ JWTを受け取ったAPIは、少なくとも用途に応じて次を確認し�
   </div>
   <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
 </section>
+
+<section class="quiz" data-quiz>
+  <h2>問7</h2>
+  <p>既存APIへの変更として、一般に破壊的なのはどれですか。</p>
+  <div class="quiz-options quiz-options-long">
+    <button type="button" data-quiz-option>新しいエンドポイントを追加する</button>
+    <button type="button" data-quiz-option data-correct="true">既存リクエストに必須項目を追加する</button>
+    <button type="button" data-quiz-option>既存の任意項目を維持したまま説明を詳しくする</button>
+  </div>
+  <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+</section>
+
+<section class="quiz" data-quiz>
+  <h2>問8</h2>
+  <p>古いAPIが非推奨になったが、まだ利用可能であることを通知する目的に対応するヘッダーはどれですか。</p>
+  <div class="quiz-options">
+    <button type="button" data-quiz-option data-correct="true">Deprecation</button>
+    <button type="button" data-quiz-option>Content-Encoding</button>
+    <button type="button" data-quiz-option>Retry-After</button>
+  </div>
+  <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+</section>
 ```
 
 # まとめ
@@ -673,4 +780,4 @@ JWTを受け取ったAPIは、少なくとも用途に応じて次を確認し�
 - 安全性と冪等性は異なる性質
 - HTTPステータスとアプリケーション固有エラーを組み合わせる
 
-次の段階では、APIバージョニングとテストへ進みます。
+次の段階では、ユニットテスト、統合テスト、契約テストへ進みます。
