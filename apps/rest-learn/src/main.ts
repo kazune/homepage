@@ -56,6 +56,9 @@ const hintElement = query("[data-request-hint]");
 const summaryElement = query("[data-response-summary]");
 const responseElement = query("[data-response]");
 const stateElement = query("[data-state]");
+const jwtInput = query<HTMLTextAreaElement>("[data-jwt-input]");
+const decodeJwtButton = query<HTMLButtonElement>("[data-decode-jwt]");
+const jwtOutput = query("[data-jwt-output]");
 
 function query<T extends HTMLElement = HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -67,6 +70,33 @@ function query<T extends HTMLElement = HTMLElement>(selector: string): T {
 
 function cloneState(source: ApiState): ApiState {
   return { users: source.users.map((user) => ({ ...user })) };
+}
+
+function decodeJwtPart(segment: string): unknown {
+  if (!/^[A-Za-z0-9_-]+$/.test(segment)) {
+    throw new Error("JWTにBase64url以外の文字が含まれています。");
+  }
+
+  const normalized = segment.replace(/-/g, "+").replace(/_/g, "/");
+  const padded = normalized.padEnd(normalized.length + ((4 - normalized.length % 4) % 4), "=");
+  const binary = atob(padded);
+  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes)) as unknown;
+}
+
+function inspectJwt(token: string): unknown {
+  const parts = token.trim().split(".");
+  if (parts.length !== 3 || parts.some((part) => part.length === 0)) {
+    throw new Error("JWTはピリオドで区切られた3つの部分が必要です。");
+  }
+
+  return {
+    header: decodeJwtPart(parts[0]),
+    payload: decodeJwtPart(parts[1]),
+    signaturePresent: parts[2].length > 0,
+    signatureVerified: false,
+    warning: "署名は検証していません。この内容を信用しないでください。",
+  };
 }
 
 function errorResponse(
@@ -430,6 +460,16 @@ resetButton.addEventListener("click", () => {
   summaryElement.textContent = "状態を初期化しました。";
   summaryElement.removeAttribute("data-kind");
   renderState();
+});
+
+decodeJwtButton.addEventListener("click", () => {
+  try {
+    jwtOutput.textContent = JSON.stringify(inspectJwt(jwtInput.value), null, 2);
+    jwtOutput.dataset.kind = "success";
+  } catch (error) {
+    jwtOutput.textContent = error instanceof Error ? error.message : "JWTをデコードできませんでした。";
+    jwtOutput.dataset.kind = "error";
+  }
 });
 
 for (const quiz of document.querySelectorAll<HTMLElement>("[data-quiz]")) {

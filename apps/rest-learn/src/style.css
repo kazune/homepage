@@ -264,7 +264,8 @@ math[display="block"] {
 }
 
 .simulator,
-.quiz {
+.quiz,
+.jwt-tool {
   padding: clamp(1rem, 4vw, 1.4rem);
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -272,7 +273,8 @@ math[display="block"] {
 }
 
 .simulator h2,
-.quiz h2 {
+.quiz h2,
+.jwt-tool h2 {
   margin-top: 0;
 }
 
@@ -318,6 +320,31 @@ textarea {
 textarea:disabled {
   color: var(--muted);
   background: #eef0ef;
+}
+
+.jwt-tool label {
+  display: grid;
+  gap: 0.35rem;
+  margin: 1rem 0;
+}
+
+.jwt-tool label > span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.jwt-tool pre {
+  min-height: 12rem;
+}
+
+.jwt-warning {
+  color: var(--error);
+  font-weight: 700;
+}
+
+.jwt-tool pre[data-kind="error"] {
+  color: #ffd6d2;
 }
 
 .form-actions,

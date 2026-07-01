@@ -444,6 +444,108 @@ $$
 
 </details>
 
+# 7. 認証・認可とJWT
+
+## 認証と認可を分ける
+
+認証（Authentication）は「誰であるか」を確認する処理、認可（Authorization）は「その主体が何をしてよいか」を判定する処理です。認証に成功しても、すべての操作が許可されるわけではありません。
+
+| 段階 | 問い | 失敗時の代表的な応答 |
+|---|---|---|
+| 認証 | このリクエストの主体は誰か | `401 Unauthorized` |
+| 認可 | この主体に操作を許可するか | `403 Forbidden` |
+
+`401 Unauthorized` は名前に反して、有効な認証情報がない場合に使います。HTTP認証を要求する401応答では、利用可能な認証方式を `WWW-Authenticate` ヘッダーで示します。認証情報は有効だが権限がない場合は `403 Forbidden` が対応します。
+
+```http
+GET /users/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOi...
+```
+
+<details class="formal-note">
+<summary>数学的に見る: 認証関数と認可関係</summary>
+
+主体の集合を $I$、認証情報の集合を $T$ とします。認証処理を部分性のある関数
+
+$$
+\operatorname{authenticate}: T \to \operatorname{Option}(I)
+$$
+
+とします。無効な認証情報なら $\operatorname{None}$、有効なら主体 $i\in I$ を返します。
+
+認可規則は、許可された主体、メソッド、URIの関係
+
+$$
+\mathcal{A}\subseteq I\times M\times U
+$$
+
+として表せます。認証結果が $i$ であるリクエスト $(m,u)$ を許可する条件は
+
+$$
+(i,m,u)\in\mathcal{A}
+$$
+
+です。このように認証関数と認可関係は別の対象です。
+
+</details>
+
+## JWTの構造
+
+署名付きJWTは、Base64urlで表現された3つの部分をピリオドで連結します。
+
+```text
+base64url(header).base64url(payload).base64url(signature)
+```
+
+- **Header:** 署名アルゴリズムやトークン種別
+- **Payload:** `sub`、`iss`、`aud`、`exp` などのクレーム
+- **Signature:** HeaderとPayloadが改変されていないことを検証する値
+
+Base64urlは暗号化ではありません。HeaderとPayloadはトークンを入手した人が読めるため、パスワードや秘密情報を格納してはいけません。
+
+代表的な登録済みクレームには次があります。
+
+| クレーム | 意味 |
+|---|---|
+| `iss` | 発行者（Issuer） |
+| `sub` | 対象となる主体（Subject） |
+| `aud` | 想定する受信者（Audience） |
+| `exp` | 有効期限（Expiration Time） |
+| `nbf` | 使用可能になる時刻（Not Before） |
+| `iat` | 発行時刻（Issued At） |
+| `jti` | JWTの識別子 |
+
+## 検証で確認するもの
+
+JWTを受け取ったAPIは、少なくとも用途に応じて次を確認します。
+
+1. 許可したアルゴリズムで署名されていること
+2. 正しい鍵で署名を検証できること
+3. `iss` が期待する発行者であること
+4. `aud` に自分自身が含まれること
+5. 現在時刻が `exp` と `nbf` の範囲内であること
+6. そのトークン種別をこのAPIで受け入れてよいこと
+
+トークンのHeaderに書かれたアルゴリズムを無条件に信用してはいけません。API側が許可するアルゴリズムを設定し、署名とクレームの両方を検証します。
+
+```{=html}
+<section class="jwt-tool" aria-labelledby="jwt-tool-title">
+  <h2 id="jwt-tool-title">JWTインスペクター</h2>
+  <p>HeaderとPayloadをブラウザ内でデコードします。署名の検証は行いません。</p>
+  <label>
+    <span>JWT</span>
+    <textarea data-jwt-input rows="5" spellcheck="false">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTEiLCJyb2xlIjoiYWRtaW4iLCJpc3MiOiJyZXN0LWxlYXJuIiwiYXVkIjoidXNlcnMtYXBpIiwiZXhwIjoxODkzNDU2MDAwfQ.not-a-real-signature</textarea>
+  </label>
+  <button class="primary-button" type="button" data-decode-jwt>デコード</button>
+  <p class="jwt-warning">デコード結果を認証や認可に使用しないでください。</p>
+  <pre data-jwt-output aria-live="polite">—</pre>
+</section>
+```
+
+<div class="misconception">
+<strong>よくある誤解:</strong> JWTを使えばサーバーが完全に「状態を持たない」わけではありません。鍵のローテーション、ユーザーの無効化、トークン失効など、運用上の状態管理が必要になる場合があります。また、REST APIにJWTは必須ではありません。
+</div>
+
 # APIシミュレーター
 
 次の仮想APIはブラウザ内だけで動き、外部へ通信しません。メソッドとパスを変え、操作前後の状態を比較してください。`GET /users?q=ali&sort=name&order=asc&page=1&per_page=10` のような一覧クエリも試せます。
@@ -539,6 +641,28 @@ $$
   </div>
   <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
 </section>
+
+<section class="quiz" data-quiz>
+  <h2>問5</h2>
+  <p>有効な認証情報はあるものの、対象リソースを操作する権限がない場合の代表的なステータスコードはどれですか。</p>
+  <div class="quiz-options">
+    <button type="button" data-quiz-option>401</button>
+    <button type="button" data-quiz-option data-correct="true">403</button>
+    <button type="button" data-quiz-option>404</button>
+  </div>
+  <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+</section>
+
+<section class="quiz" data-quiz>
+  <h2>問6</h2>
+  <p>JWTのHeaderとPayloadをBase64urlデコードできたとき、何が確認できますか。</p>
+  <div class="quiz-options quiz-options-long">
+    <button type="button" data-quiz-option data-correct="true">内容を読めるだけで、署名の正当性は確認できない</button>
+    <button type="button" data-quiz-option>正しい発行者が作ったことを確認できる</button>
+    <button type="button" data-quiz-option>有効期限内であることを確認できる</button>
+  </div>
+  <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+</section>
 ```
 
 # まとめ
@@ -549,4 +673,4 @@ $$
 - 安全性と冪等性は異なる性質
 - HTTPステータスとアプリケーション固有エラーを組み合わせる
 
-次の段階では、検索・ソート・ページネーション、OpenAPI、認証と認可、バージョニング、テストへ進みます。
+次の段階では、APIバージョニングとテストへ進みます。
