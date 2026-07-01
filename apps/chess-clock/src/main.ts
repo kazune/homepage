@@ -18,6 +18,8 @@ const phaseElements = [0, 1].map((index) => document.querySelector<HTMLElement>(
 const moveElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-moves="${index}"]`)!);
 const statusElement = document.querySelector<HTMLElement>("[data-status]")!;
 const pauseButton = document.querySelector<HTMLButtonElement>("[data-action=pause]")!;
+const pauseIcon = pauseButton.querySelector<SVGElement>("[data-pause-icon]")!;
+const resumeIcon = pauseButton.querySelector<SVGElement>("[data-resume-icon]")!;
 const settingsButton = document.querySelector<HTMLButtonElement>("[data-action=settings]")!;
 const resetButton = document.querySelector<HTMLButtonElement>("[data-action=reset]")!;
 const dialog = document.querySelector<HTMLDialogElement>("[data-settings]")!;
@@ -140,7 +142,10 @@ function render(now = performance.now()): void {
     playerButtons.find((button) => Number(button.dataset.player) === index)?.classList.toggle("expired", expired === index);
   });
   pauseButton.disabled = active === null || expired !== null;
-  pauseButton.textContent = paused ? "再開" : "一時停止";
+  pauseButton.ariaLabel = paused ? "再開" : "一時停止";
+  pauseButton.title = paused ? "再開" : "一時停止";
+  pauseIcon.classList.toggle("d-none", paused);
+  resumeIcon.classList.toggle("d-none", !paused);
   settingsButton.disabled = active !== null && !paused;
   if (expired !== null) statusElement.textContent = `PLAYER ${expired + 1} 時間切れ`;
   else if (active === null) statusElement.textContent = "時計をタップして相手側を開始";

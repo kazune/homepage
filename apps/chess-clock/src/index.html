@@ -17,10 +17,27 @@
       </button>
 
       <section class="controls" aria-label="時計の操作">
-        <button type="button" data-action="pause" disabled>一時停止</button>
+        <button type="button" class="icon-button" data-action="pause" aria-label="一時停止" title="一時停止" disabled>
+          <svg data-pause-icon viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 5h3v14H7zm7 0h3v14h-3z" />
+          </svg>
+          <svg class="d-none" data-resume-icon viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m8 5 11 7-11 7z" />
+          </svg>
+        </button>
         <p class="status" data-status>時計をタップして開始</p>
-        <button type="button" data-action="settings">設定</button>
-        <button type="button" data-action="reset">リセット</button>
+        <button type="button" class="icon-button" data-action="settings" aria-label="設定" title="設定">
+          <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+            <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.94 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.57 15 1.7 1.7 0 0 0 3 14H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 10 3.08V3h4v.08a1.7 1.7 0 0 0 1.06 1.52 1.7 1.7 0 0 0 1.88-.34L17 4.2 19.83 7l-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.92 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z" />
+          </svg>
+        </button>
+        <button type="button" class="icon-button" data-action="reset" aria-label="リセット" title="リセット">
+          <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+        </button>
       </section>
 
       <button class="player player-bottom" type="button" data-player="0" aria-label="プレイヤー1の時計">
