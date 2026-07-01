@@ -1,4 +1,10 @@
 type Mode = "fischer" | "byoyomi";
+type ClockConfig = {
+  mode: Mode;
+  initialMs: number;
+  incrementMs: number;
+  byoyomiMs: number;
+};
 type Player = {
   mainMs: number;
   byoMs: number;
@@ -16,17 +22,14 @@ const settingsButton = document.querySelector<HTMLButtonElement>("[data-action=s
 const resetButton = document.querySelector<HTMLButtonElement>("[data-action=reset]")!;
 const dialog = document.querySelector<HTMLDialogElement>("[data-settings]")!;
 const form = document.querySelector<HTMLFormElement>("[data-settings-form]")!;
-const fischerFields = document.querySelector<HTMLElement>("[data-fischer]")!;
-const byoyomiFields = document.querySelector<HTMLElement>("[data-byoyomi]")!;
-const incrementInput = form.elements.namedItem("increment") as HTMLInputElement;
-const byoyomiInput = form.elements.namedItem("byoyomi") as HTMLInputElement;
+const separateInput = form.elements.namedItem("separate") as HTMLInputElement;
+const separateSettings = document.querySelector<HTMLElement>("[data-separate-settings]")!;
+const settingsSections = Array.from(document.querySelectorAll<HTMLElement>("[data-settings-player]"));
 
-let mode: Mode = "fischer";
-let initialMs = 5 * 60_000;
-let incrementMs = 3_000;
-let byoyomiMs = 10_000;
+let configs: ClockConfig[] = [0, 1].map(() => ({ mode: "fischer", initialMs: 5 * 60_000, incrementMs: 3_000, byoyomiMs: 0 }));
 let soundEnabled = true;
 let vibrationEnabled = true;
+let separateInitialized = false;
 let players: Player[] = [];
 let active: number | null = null;
 let paused = false;
@@ -36,7 +39,12 @@ let animationId = 0;
 let wakeLock: { release(): Promise<void> } | null = null;
 
 function resetState(): void {
-  players = [0, 1].map(() => ({ mainMs: initialMs, byoMs: byoyomiMs, inByoyomi: initialMs === 0, moves: 0 }));
+  players = configs.map((config) => ({
+    mainMs: config.initialMs,
+    byoMs: config.byoyomiMs,
+    inByoyomi: config.initialMs === 0,
+    moves: 0,
+  }));
   active = null;
   paused = false;
   expired = null;
@@ -82,8 +90,9 @@ function pressPlayer(index: number): void {
   if (paused || active !== index) return;
   settle(now);
   const player = players[index];
-  if (mode === "fischer") player.mainMs += incrementMs;
-  if (mode === "byoyomi" && player.inByoyomi) player.byoMs = byoyomiMs;
+  const config = configs[index];
+  if (config.mode === "fischer") player.mainMs += config.incrementMs;
+  if (config.mode === "byoyomi" && player.inByoyomi) player.byoMs = config.byoyomiMs;
   player.moves += 1;
   active = index === 0 ? 1 : 0;
   turnStartedAt = now;
@@ -122,9 +131,10 @@ function formatTime(ms: number): string {
 function render(now = performance.now()): void {
   players.forEach((player, index) => {
     const value = currentValues(index, now);
+    const config = configs[index];
     const shownMs = value.inByoyomi ? value.byoMs : value.mainMs;
     timeElements[index].textContent = formatTime(shownMs);
-    phaseElements[index].textContent = value.inByoyomi && mode === "byoyomi" && byoyomiMs > 0 ? "秒読み" : "持ち時間";
+    phaseElements[index].textContent = value.inByoyomi && config.mode === "byoyomi" && config.byoyomiMs > 0 ? "秒読み" : "持ち時間";
     moveElements[index].textContent = `${player.moves}手`;
     playerButtons.find((button) => Number(button.dataset.player) === index)?.classList.toggle("active", active === index && !paused);
     playerButtons.find((button) => Number(button.dataset.player) === index)?.classList.toggle("expired", expired === index);
@@ -189,16 +199,65 @@ async function releaseWakeLock(): Promise<void> {
   wakeLock = null;
 }
 
-function selectedMode(): Mode {
-  return new FormData(form).get("mode") === "byoyomi" ? "byoyomi" : "fischer";
+function sectionPrefix(section: HTMLElement): string {
+  const player = section.dataset.settingsPlayer;
+  return player === "shared" ? "shared" : `p${Number(player) + 1}`;
 }
 
-function updateModeFields(): void {
-  const nextMode = selectedMode();
-  fischerFields.hidden = nextMode !== "fischer";
-  byoyomiFields.hidden = nextMode !== "byoyomi";
-  incrementInput.disabled = nextMode !== "fischer";
-  byoyomiInput.disabled = nextMode !== "byoyomi";
+function sectionMode(section: HTMLElement): Mode {
+  return section.querySelector<HTMLInputElement>(`input[name="${sectionPrefix(section)}-mode"]:checked`)!.value as Mode;
+}
+
+function updateSection(section: HTMLElement, enabled: boolean): void {
+  const mode = sectionMode(section);
+  section.querySelectorAll<HTMLInputElement>("input").forEach((input) => { input.disabled = !enabled; });
+  const fischerFields = section.querySelector<HTMLElement>("[data-fischer]")!;
+  const byoyomiFields = section.querySelector<HTMLElement>("[data-byoyomi]")!;
+  fischerFields.hidden = mode !== "fischer";
+  byoyomiFields.hidden = mode !== "byoyomi";
+  fischerFields.querySelector<HTMLInputElement>("input")!.disabled = !enabled || mode !== "fischer";
+  byoyomiFields.querySelector<HTMLInputElement>("input")!.disabled = !enabled || mode !== "byoyomi";
+}
+
+function copySharedSettings(): void {
+  const shared = settingsSections.find((section) => section.dataset.settingsPlayer === "shared")!;
+  const sourcePrefix = sectionPrefix(shared);
+  for (const section of settingsSections.filter((item) => item !== shared)) {
+    const targetPrefix = sectionPrefix(section);
+    for (const field of ["minutes", "seconds", "increment", "byoyomi"]) {
+      const source = form.elements.namedItem(`${sourcePrefix}-${field}`) as HTMLInputElement;
+      const target = form.elements.namedItem(`${targetPrefix}-${field}`) as HTMLInputElement;
+      target.value = source.value;
+    }
+    const mode = sectionMode(shared);
+    (form.elements.namedItem(`${targetPrefix}-mode`) as RadioNodeList).value = mode;
+  }
+}
+
+function updateSettingsVisibility(): void {
+  const separate = separateInput.checked;
+  if (separate && !separateInitialized) {
+    copySharedSettings();
+    separateInitialized = true;
+  }
+  separateSettings.hidden = !separate;
+  settingsSections.forEach((section) => {
+    const isShared = section.dataset.settingsPlayer === "shared";
+    section.hidden = separate ? isShared : !isShared;
+    updateSection(section, separate ? !isShared : isShared);
+  });
+}
+
+function readConfig(section: HTMLElement): ClockConfig {
+  const prefix = sectionPrefix(section);
+  const value = (name: string): number => Number((form.elements.namedItem(`${prefix}-${name}`) as HTMLInputElement).value);
+  const mode = sectionMode(section);
+  return {
+    mode,
+    initialMs: (value("minutes") * 60 + value("seconds")) * 1000,
+    incrementMs: mode === "fischer" ? value("increment") * 1000 : 0,
+    byoyomiMs: mode === "byoyomi" ? value("byoyomi") * 1000 : 0,
+  };
 }
 
 playerButtons.forEach((button) => button.addEventListener("click", () => pressPlayer(Number(button.dataset.player))));
@@ -208,25 +267,28 @@ resetButton.addEventListener("click", () => {
 });
 settingsButton.addEventListener("click", () => dialog.showModal());
 form.addEventListener("change", (event) => {
-  if ((event.target as HTMLInputElement).name === "mode") updateModeFields();
+  const target = event.target as HTMLInputElement;
+  if (target === separateInput) updateSettingsVisibility();
+  else if (target.name.endsWith("-mode")) updateSection(target.closest<HTMLElement>("[data-settings-player]")!, true);
 });
 document.querySelector<HTMLButtonElement>("[data-cancel]")!.addEventListener("click", () => dialog.close());
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
   const data = new FormData(form);
-  const minutes = Number(data.get("minutes"));
-  const seconds = Number(data.get("seconds"));
-  initialMs = (minutes * 60 + seconds) * 1000;
-  mode = selectedMode();
-  incrementMs = Number(data.get("increment")) * 1000;
-  byoyomiMs = mode === "byoyomi" ? Number(data.get("byoyomi")) * 1000 : 0;
+  const enabledSections = separateInput.checked
+    ? settingsSections.filter((section) => section.dataset.settingsPlayer !== "shared")
+    : [settingsSections.find((section) => section.dataset.settingsPlayer === "shared")!];
+  const nextConfigs = enabledSections.map(readConfig);
   soundEnabled = data.get("sound") === "on";
   vibrationEnabled = data.get("vibration") === "on";
-  if (initialMs === 0 && (mode !== "byoyomi" || byoyomiMs === 0)) {
-    alert("持ち時間または秒読みを1秒以上に設定してください。");
+  const invalidPlayer = nextConfigs.findIndex((config) => config.initialMs === 0 && config.byoyomiMs === 0);
+  if (invalidPlayer >= 0) {
+    const label = separateInput.checked ? `PLAYER ${invalidPlayer + 1}の` : "";
+    alert(`${label}持ち時間または秒読みを1秒以上に設定してください。`);
     return;
   }
+  configs = separateInput.checked ? nextConfigs : [nextConfigs[0], { ...nextConfigs[0] }];
   dialog.close();
   resetState();
 });
@@ -234,5 +296,5 @@ document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible" && active !== null && !paused) void requestWakeLock();
 });
 
-updateModeFields();
+updateSettingsVisibility();
 resetState();

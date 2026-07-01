@@ -52,7 +52,10 @@ dialog { width: min(92vw, 28rem); max-height: 90dvh; border: 1px solid #4b5563; 
 dialog::backdrop { background: rgb(0 0 0 / .72); }
 form { display: grid; gap: 1rem; padding: 1.25rem; overflow: auto; }
 h1 { margin: 0; font-size: 1.35rem; }
-form > label, fieldset { display: grid; gap: .45rem; margin: 0; }
+h2 { margin: 0; font-size: 1.05rem; }
+form > label, fieldset, .player-settings > label { display: grid; gap: .45rem; margin: 0; }
+.player-settings { display: grid; gap: .85rem; border: 1px solid #374151; border-radius: .7rem; padding: .9rem; }
+.separate-settings { display: grid; gap: 1rem; }
 fieldset { border: 1px solid #4b5563; border-radius: .6rem; padding: .75rem; }
 .radio, .check { display: flex; align-items: center; gap: .55rem; }
 input[type="radio"], input[type="checkbox"] { width: 1.3rem; height: 1.3rem; }
