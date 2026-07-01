@@ -70,7 +70,7 @@ menu { display: flex; justify-content: flex-end; gap: .6rem; margin: .25rem 0 0;
 menu .primary { border-color: #16a34a; background: #15803d; }
 
 @media (max-width: 520px) {
-  .controls { grid-template-columns: repeat(3, 1fr); }
+  .controls { grid-template-columns: repeat(3, 1fr); column-gap: 2rem; padding-inline: 1rem; }
   .status { grid-column: 1 / -1; grid-row: 1; }
   .controls button { grid-row: 2; padding-inline: .35rem; }
   .controls .icon-button { width: 100%; }
