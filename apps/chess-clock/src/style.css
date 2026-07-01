@@ -33,9 +33,9 @@ button, input { font: inherit; }
 .player:not(.active):not(.expired) { opacity: .82; }
 .player-name { font-size: clamp(.75rem, 2.5vmin, 1rem); font-weight: 800; letter-spacing: .14em; }
 .time { font-size: clamp(3.3rem, 17vmin, 9rem); font-weight: 750; line-height: .95; font-variant-numeric: tabular-nums; letter-spacing: -.05em; }
-.phase, .moves { font-size: clamp(.75rem, 2.6vmin, 1rem); }
+.phase, .turn { font-size: clamp(.75rem, 2.6vmin, 1rem); }
 .phase { min-height: 1.4em; color: #fde68a; font-weight: 700; }
-.moves { color: #d1d5db; }
+.turn { min-height: 1.4em; color: #d1fae5; font-weight: 800; }
 
 .controls {
   z-index: 2; display: grid; grid-template-columns: auto minmax(8rem, 1fr) auto auto;

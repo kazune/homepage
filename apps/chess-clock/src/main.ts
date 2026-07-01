@@ -9,13 +9,12 @@ type Player = {
   mainMs: number;
   byoMs: number;
   inByoyomi: boolean;
-  moves: number;
 };
 
 const playerButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-player]"));
 const timeElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-time="${index}"]`)!);
 const phaseElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-phase="${index}"]`)!);
-const moveElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-moves="${index}"]`)!);
+const turnElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-turn="${index}"]`)!);
 const statusElement = document.querySelector<HTMLElement>("[data-status]")!;
 const pauseButton = document.querySelector<HTMLButtonElement>("[data-action=pause]")!;
 const pauseIcon = pauseButton.querySelector<SVGElement>("[data-pause-icon]")!;
@@ -45,7 +44,6 @@ function resetState(): void {
     mainMs: config.initialMs,
     byoMs: config.byoyomiMs,
     inByoyomi: config.initialMs === 0,
-    moves: 0,
   }));
   active = null;
   paused = false;
@@ -95,7 +93,6 @@ function pressPlayer(index: number): void {
   const config = configs[index];
   if (config.mode === "fischer") player.mainMs += config.incrementMs;
   if (config.mode === "byoyomi" && player.inByoyomi) player.byoMs = config.byoyomiMs;
-  player.moves += 1;
   active = index === 0 ? 1 : 0;
   turnStartedAt = now;
   beep(540, 0.035);
@@ -131,13 +128,13 @@ function formatTime(ms: number): string {
 }
 
 function render(now = performance.now()): void {
-  players.forEach((player, index) => {
+  players.forEach((_, index) => {
     const value = currentValues(index, now);
     const config = configs[index];
     const shownMs = value.inByoyomi ? value.byoMs : value.mainMs;
     timeElements[index].textContent = formatTime(shownMs);
     phaseElements[index].textContent = value.inByoyomi && config.mode === "byoyomi" && config.byoyomiMs > 0 ? "秒読み" : "持ち時間";
-    moveElements[index].textContent = `${player.moves}手`;
+    turnElements[index].textContent = active === index && expired === null ? "手番" : "";
     playerButtons.find((button) => Number(button.dataset.player) === index)?.classList.toggle("active", active === index && !paused);
     playerButtons.find((button) => Number(button.dataset.player) === index)?.classList.toggle("expired", expired === index);
   });
