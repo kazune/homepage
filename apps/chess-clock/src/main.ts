@@ -15,12 +15,13 @@ const playerButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[
 const timeElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-time="${index}"]`)!);
 const turnElements = [0, 1].map((index) => document.querySelector<HTMLElement>(`[data-turn="${index}"]`)!);
 const statusElement = document.querySelector<HTMLElement>("[data-status]")!;
+const clockView = document.querySelector<HTMLElement>("[data-clock]")!;
 const pauseButton = document.querySelector<HTMLButtonElement>("[data-action=pause]")!;
 const pauseIcon = pauseButton.querySelector<SVGElement>("[data-pause-icon]")!;
 const resumeIcon = pauseButton.querySelector<SVGElement>("[data-resume-icon]")!;
 const settingsButton = document.querySelector<HTMLButtonElement>("[data-action=settings]")!;
 const resetButton = document.querySelector<HTMLButtonElement>("[data-action=reset]")!;
-const dialog = document.querySelector<HTMLDialogElement>("[data-settings]")!;
+const settingsView = document.querySelector<HTMLElement>("[data-settings]")!;
 const form = document.querySelector<HTMLFormElement>("[data-settings-form]")!;
 const separateInput = form.elements.namedItem("separate") as HTMLInputElement;
 const separateSettings = document.querySelector<HTMLElement>("[data-separate-settings]")!;
@@ -233,18 +234,29 @@ function readConfig(section: HTMLElement): ClockConfig {
   };
 }
 
+function showSettings(): void {
+  clockView.classList.add("d-none");
+  settingsView.classList.remove("d-none");
+  settingsView.scrollTop = 0;
+}
+
+function showClock(): void {
+  settingsView.classList.add("d-none");
+  clockView.classList.remove("d-none");
+}
+
 playerButtons.forEach((button) => button.addEventListener("click", () => pressPlayer(Number(button.dataset.player))));
 pauseButton.addEventListener("click", togglePause);
 resetButton.addEventListener("click", () => {
   resetState();
 });
-settingsButton.addEventListener("click", () => dialog.showModal());
+settingsButton.addEventListener("click", showSettings);
 form.addEventListener("change", (event) => {
   const target = event.target as HTMLInputElement;
   if (target === separateInput) updateSettingsVisibility();
   else if (target.name.endsWith("-mode")) updateSection(target.closest<HTMLElement>("[data-settings-player]")!, true);
 });
-document.querySelector<HTMLButtonElement>("[data-cancel]")!.addEventListener("click", () => dialog.close());
+document.querySelector<HTMLButtonElement>("[data-cancel]")!.addEventListener("click", showClock);
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
@@ -259,7 +271,7 @@ form.addEventListener("submit", (event) => {
     return;
   }
   configs = separateInput.checked ? nextConfigs : [nextConfigs[0], { ...nextConfigs[0] }];
-  dialog.close();
+  showClock();
   resetState();
 });
 document.addEventListener("visibilitychange", () => {

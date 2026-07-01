@@ -50,9 +50,9 @@
       </button>
     </main>
 
-    <dialog data-settings>
-      <form method="dialog" data-settings-form>
-        <h1>時計の設定</h1>
+    <section class="settings-page d-none" data-settings aria-labelledby="settings-title">
+      <form data-settings-form>
+        <h1 id="settings-title">時計の設定</h1>
         <label class="check"><input name="separate" type="checkbox" data-separate /> 異なる設定をする</label>
 
         <section class="player-settings" data-settings-player="shared">
@@ -117,11 +117,11 @@
           </section>
         </div>
         <menu>
-          <button type="button" data-cancel>キャンセル</button>
+          <button type="button" data-cancel>戻る</button>
           <button type="submit" value="save" class="primary">適用</button>
         </menu>
       </form>
-    </dialog>
+    </section>
 
     <script src="./assets/main.js"></script>
   </body>

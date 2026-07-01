@@ -52,9 +52,11 @@ button, input { font: inherit; }
 .icon-button .stroke-icon { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .status { margin: 0; text-align: center; color: #d1d5db; font-size: .9rem; }
 
-dialog { width: min(92vw, 28rem); max-height: 90dvh; border: 1px solid #4b5563; border-radius: 1rem; padding: 0; color: #f9fafb; background: #111827; }
-dialog::backdrop { background: rgb(0 0 0 / .72); }
-form { display: grid; gap: 1rem; padding: 1.25rem; overflow: auto; }
+.settings-page {
+  width: 100%; height: 100dvh; overflow-y: auto; color: #f9fafb; background: #111827;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+form { width: min(100%, 32rem); min-height: 100%; display: grid; align-content: start; gap: 1rem; margin: 0 auto; padding: 1.25rem; }
 h1 { margin: 0; font-size: 1.35rem; }
 h2 { margin: 0; font-size: 1.05rem; }
 form > label, fieldset, .player-settings > label { display: grid; gap: .45rem; margin: 0; }
