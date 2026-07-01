@@ -631,6 +631,101 @@ Content-Type: application/json
 <strong>よくある誤解:</strong> `v2` を作っただけでは移行は完了しません。旧版の利用者、期限、移行手順、監視、停止後の応答まで決めることがバージョニング運用です。
 </div>
 
+# 9. APIをテストする
+
+## テストの境界を分ける
+
+APIテストは、対象とする境界によって検出できる問題が異なります。一種類のテストですべてを確認するのではなく、役割を分けます。
+
+| 種類 | 主な対象 | 検出する問題の例 |
+|---|---|---|
+| ユニットテスト | 検証、状態遷移、整形などの小さな単位 | 境界値、分岐、冪等性の崩れ |
+| 統合テスト | ルーティング、永続化、複数操作の連携 | 作成したリソースを取得できない、設定差異 |
+| 契約テスト | OpenAPIなどの公開契約と実際の入出力 | ステータスやスキーマの不一致 |
+| E2Eテスト | クライアントからAPIまでのシステム全体 | 認証やネットワークを含む利用手順の失敗 |
+
+このアプリでは、API状態遷移を `ApiSimulator` としてDOMから分離しています。Node.js上で同じ実装を直接呼び、外部サーバーなしでユニットテストと一連の操作を確認できます。
+
+```sh
+make test
+```
+
+## 仕様の性質をテストする
+
+個別の例だけでなく、前章までに定義した性質をテスト対象にします。
+
+- `GET` の前後でサーバー状態が等しい
+- 同じ `PUT` を2回適用した状態が1回適用した状態と等しい
+- `DELETE` のレスポンスが変わっても、2回目以降の最終状態は変わらない
+- 無効な入力が4xxとなり、状態を変更しない
+- `POST` 後に `Location` のURIから作成したリソースを取得できる
+
+実際のテストでは、PUTの冪等性を次のように確認しています。
+
+```javascript
+const api = new ApiSimulator();
+const body = {
+  name: "Alice Updated",
+  email: "alice@example.com",
+};
+
+api.handleRequest("PUT", "/users/1", body);
+const afterFirst = JSON.stringify(api.snapshot());
+api.handleRequest("PUT", "/users/1", body);
+
+assert.equal(JSON.stringify(api.snapshot()), afterFirst);
+```
+
+<details class="formal-note">
+<summary>数学的に見る: テストを述語として捉える</summary>
+
+状態遷移を
+
+$$
+\delta(s,q)=(s',a)
+$$
+
+とします。期待する性質を判定するテストオラクルは、例えば述語
+
+$$
+P:S\times Q\times S\times A\to\{\operatorname{true},\operatorname{false}\}
+$$
+
+として表せます。あるテストケース $(s,q)$ が成功する条件は
+
+$$
+\delta(s,q)=(s',a)\land P(s,q,s',a)=\operatorname{true}
+$$
+
+です。$\delta(s,q)=(s',a)$ のとき $P_\delta(s,q)=P(s,q,s',a)$ と置きます。
+
+有限個のテスト集合 $T\subseteq S\times Q$ がすべて成功しても、一般には
+
+$$
+\forall(s,q)\in S\times Q,\quad P_\delta(s,q)=\operatorname{true}
+$$
+
+を証明したことにはなりません。境界値分析やプロパティベーステストは、限られた実行回数で反例を見つけやすくする方法です。型、形式仕様、レビューも組み合わせて欠陥を減らします。
+
+</details>
+
+## 契約のずれを検出する
+
+OpenAPIに `200` と書かれていても、実装が `201` を返す可能性はあります。仕様ファイルの構文検査だけでは、この不一致を検出できません。
+
+契約テストでは、実装へリクエストを送り、次をOpenAPIと照合します。
+
+1. パスとメソッドが定義されている
+2. 返されたステータスコードが定義されている
+3. ヘッダーとボディが対応するスキーマを満たす
+4. エラー応答も共通スキーマを満たす
+
+このリポジトリでは現在、APIロジックの自動テストまでを実装しています。OpenAPI文書を読み込んだ自動照合は次の改善項目です。
+
+<div class="misconception">
+<strong>よくある誤解:</strong> カバレッジ100%は、すべての入力や性質を検証したという意味ではありません。通過したコードの割合と、仕様を十分に検証したかどうかは別の指標です。
+</div>
+
 # APIシミュレーター
 
 次の仮想APIはブラウザ内だけで動き、外部へ通信しません。メソッドとパスを変え、操作前後の状態を比較してください。`GET /users?q=ali&sort=name&order=asc&page=1&per_page=10` のような一覧クエリも試せます。
@@ -770,6 +865,28 @@ Content-Type: application/json
   </div>
   <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
 </section>
+
+<section class="quiz" data-quiz>
+  <h2>問9</h2>
+  <p>PUTの冪等性を直接確認するテストはどれですか。</p>
+  <div class="quiz-options quiz-options-long">
+    <button type="button" data-quiz-option>PUTのレスポンスが常に200であることだけを確認する</button>
+    <button type="button" data-quiz-option data-correct="true">同じPUTを1回と2回適用した最終状態を比較する</button>
+    <button type="button" data-quiz-option>PUTの実装行が一度実行されたことを確認する</button>
+  </div>
+  <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+</section>
+
+<section class="quiz" data-quiz>
+  <h2>問10</h2>
+  <p>有限個のテストケースがすべて成功したとき、一般に言えることはどれですか。</p>
+  <div class="quiz-options quiz-options-long">
+    <button type="button" data-quiz-option>すべての入力に対する正しさが数学的に証明された</button>
+    <button type="button" data-quiz-option data-correct="true">実行したケースでは反例が見つからなかった</button>
+    <button type="button" data-quiz-option>契約テストは不要になった</button>
+  </div>
+  <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+</section>
 ```
 
 # まとめ
@@ -780,4 +897,4 @@ Content-Type: application/json
 - 安全性と冪等性は異なる性質
 - HTTPステータスとアプリケーション固有エラーを組み合わせる
 
-次の段階では、ユニットテスト、統合テスト、契約テストへ進みます。
+ここまでの設計原則は独立した規則ではありません。リソース、HTTPメソッド、状態遷移、契約、認証、互換性、テストを一つのAPI設計として整合させることが重要です。
