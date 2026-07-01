@@ -1,0 +1,6 @@
+{
+  "name": "chess-clock",
+  "title": "Chess Clock",
+  "path": "/apps/chess-clock/",
+  "description": "フィッシャー加算と秒読みに対応した2人用チェスクロック"
+}

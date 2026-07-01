@@ -1,0 +1,84 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #030712;
+  touch-action: manipulation;
+}
+
+* { box-sizing: border-box; }
+[hidden], .d-none { display: none !important; }
+
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+button, input { font: inherit; }
+
+.clock {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: #111827;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.player {
+  width: 100%; min-height: 0; border: 0; border-radius: 0; padding: 1rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .2rem; color: #e5e7eb; background: #1f2937; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.player-top > * { transform: rotate(180deg); }
+.player-content { display: flex; flex-direction: column; align-items: center; gap: .2rem; }
+.player.active { background: #166534; color: white; }
+.player.expired { background: #991b1b; color: white; }
+.player:not(.active):not(.expired) { opacity: .82; }
+.player-name { font-size: clamp(.75rem, 2.5vmin, 1rem); font-weight: 800; letter-spacing: .14em; }
+.time { font-size: clamp(3.3rem, 17vmin, 9rem); font-weight: 750; line-height: .95; font-variant-numeric: tabular-nums; letter-spacing: -.05em; }
+.turn { font-size: clamp(.75rem, 2.6vmin, 1rem); }
+.turn { min-height: 1.4em; color: #d1fae5; font-weight: 800; }
+
+.controls {
+  z-index: 2; display: grid; grid-template-columns: auto minmax(8rem, 1fr) auto auto;
+  gap: .5rem; align-items: center; padding: .55rem max(.6rem, env(safe-area-inset-right));
+  background: #030712; border-block: 1px solid #374151;
+}
+.controls button, menu button {
+  min-height: 2.75rem; border: 1px solid #4b5563; border-radius: .55rem;
+  padding: .45rem .8rem; color: #f9fafb; background: #1f2937;
+}
+.controls button:disabled { opacity: .45; }
+.controls .icon-button { width: 2.75rem; padding: .55rem; }
+.icon-button svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+.icon-button .stroke-icon { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.status { margin: 0; text-align: center; color: #d1d5db; font-size: .9rem; }
+
+.settings-page {
+  width: 100%; height: 100dvh; overflow-y: auto; color: #f9fafb; background: #111827;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+form { width: min(100%, 32rem); min-height: 100%; display: grid; align-content: start; gap: 1rem; margin: 0 auto; padding: 1.25rem; }
+h1 { margin: 0; font-size: 1.35rem; }
+h2 { margin: 0; font-size: 1.05rem; }
+form > label, fieldset, .player-settings > label { display: grid; gap: .45rem; margin: 0; }
+.player-settings { display: grid; gap: .85rem; border: 1px solid #374151; border-radius: .7rem; padding: .9rem; }
+.separate-settings { display: grid; gap: 1rem; }
+fieldset { border: 1px solid #4b5563; border-radius: .6rem; padding: .75rem; }
+.radio, .check { display: flex; align-items: center; gap: .55rem; }
+input[type="radio"], input[type="checkbox"] { width: 1.3rem; height: 1.3rem; }
+.input-row { display: flex; align-items: center; gap: .45rem; }
+input[type="number"] { width: 5.2rem; border: 1px solid #6b7280; border-radius: .45rem; padding: .55rem; color: white; background: #1f2937; }
+small { color: #d1d5db; }
+menu { display: flex; justify-content: flex-end; gap: .6rem; margin: .25rem 0 0; padding: 0; }
+menu .primary { border-color: #16a34a; background: #15803d; }
+
+@media (max-width: 520px) {
+  .controls { grid-template-columns: repeat(3, 1fr); column-gap: 2rem; padding-inline: 1rem; }
+  .status { grid-column: 1 / -1; grid-row: 1; }
+  .controls button { grid-row: 2; padding-inline: .35rem; }
+  .controls .icon-button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .player.active .time { animation: pulse 1s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .82; } }
+}
