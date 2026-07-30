@@ -6,6 +6,7 @@ DIST_DIR := dist
 ASSETS_DIR := $(DIST_DIR)/assets
 PNPM ?= pnpm
 TSC ?= $(PNPM) --dir $(abspath $(ROOT_DIR)) exec tsc
+TOOLCHAIN_FILES := $(ROOT_DIR)/package.json $(ROOT_DIR)/pnpm-lock.yaml
 
 TS_SRC := $(SRC_DIR)/main.ts
 HTML_SRC := $(SRC_DIR)/index.html
@@ -33,7 +34,7 @@ $(HTML_OUT): $(HTML_SRC) | $(DIST_DIR)
 $(CSS_OUT): $(CSS_SRC) | $(ASSETS_DIR)
 	cp $(CSS_SRC) $(CSS_OUT)
 
-$(JS_OUT): $(TS_SRC) | $(ASSETS_DIR)
+$(JS_OUT): $(TS_SRC) $(TOOLCHAIN_FILES) | $(ASSETS_DIR)
 	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(abspath $(ASSETS_DIR)) $(abspath $(TS_SRC))
 
 clean:

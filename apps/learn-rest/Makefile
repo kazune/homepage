@@ -7,6 +7,7 @@ ASSETS_DIR := $(DIST_DIR)/assets
 PANDOC ?= pandoc
 PNPM ?= pnpm
 TSC ?= $(PNPM) --dir $(abspath $(ROOT_DIR)) exec tsc
+TOOLCHAIN_FILES := $(ROOT_DIR)/package.json $(ROOT_DIR)/pnpm-lock.yaml
 
 CONTENT_SRC := $(SRC_DIR)/content.md
 TEMPLATE_SRC := $(SRC_DIR)/template.html
@@ -57,7 +58,7 @@ $(HTML_OUT): $(CONTENT_SRC) $(TEMPLATE_SRC) $(OPENAPI_SRC) $(INCLUDE_CODE_FILTER
 $(CSS_OUT): $(CSS_SRC) | $(ASSETS_DIR)
 	cp $(CSS_SRC) $(CSS_OUT)
 
-$(API_JS_OUT) $(JS_OUT): $(TS_SRC) | $(ASSETS_DIR)
+$(API_JS_OUT) $(JS_OUT): $(TS_SRC) $(TOOLCHAIN_FILES) | $(ASSETS_DIR)
 	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(abspath $(ASSETS_DIR)) $(addprefix $(CURDIR)/,$(TS_SRC))
 
 clean:
