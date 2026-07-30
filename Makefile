@@ -8,19 +8,23 @@ RELEASES_DIR := $(DEPLOY_BASE)/releases
 RELEASE_ID := $(or $(RELEASE_ID),$(shell date +%Y%m%d-%H%M%S))
 RELEASE_DIR := $(RELEASES_DIR)/$(RELEASE_ID)
 CURRENT_LINK := $(DEPLOY_BASE)/current
+PNPM ?= pnpm
 
 APP_NAMES := $(filter-out _template,$(patsubst $(APPS_DIR)/%/app.json,%,$(wildcard $(APPS_DIR)/*/app.json)))
 
-.PHONY: all dist build-apps collect apps-index deploy clean list-apps
+.PHONY: all deps dist build-apps collect apps-index deploy clean list-apps
 
 all: dist
 
 dist: build-apps collect apps-index
 
+deps:
+	$(PNPM) install --frozen-lockfile
+
 list-apps:
 	@printf '%s\n' $(APP_NAMES)
 
-build-apps:
+build-apps: deps
 	@set -e; \
 	for app in $(APP_NAMES); do \
 		if [ -f "$(APPS_DIR)/$$app/Makefile" ]; then \
@@ -47,7 +51,7 @@ collect:
 apps-index:
 	@BUILD_REPO_URL="https://github.com/kazune/homepage" \
 	BUILD_COMMIT_ID="$$(git rev-parse --short=12 HEAD 2>/dev/null || printf unknown)" \
-	node scripts/generate-apps-index.mjs
+	$(PNPM) exec node scripts/generate-apps-index.mjs
 
 clean:
 	rm -rf "$(ROOT_DIST_DIR)"

@@ -24,7 +24,7 @@ APIシミュレーターはブラウザ内で完結し、外部へ通信しな�
 
 - Pandoc 3.x
 - Node.js 18以上
-- リポジトリの `npm install` で導入されるTypeScript
+- リポジトリの `pnpm install --frozen-lockfile` で導入されるTypeScript
 
 ## ビルド
 
