@@ -100,11 +100,13 @@ apps/<app-name>/
 Node.jsとpnpmはVoltaで管理する。
 使用するバージョンは `package.json` に固定されている。
 
-依存パッケージは、開発環境とVPSのどちらでも次のコマンドで導入する。
+依存パッケージは、開発環境とVPSのどちらでも次のコマンドで導入できる。
 
 ```bash
 pnpm install --frozen-lockfile
 ```
+
+通常は `make dist` または `make deploy` の中で自動的に実行されるため、個別に実行する必要はない。
 
 TypeScriptはルートの開発依存として導入され、各Makefileから `pnpm exec` 経由で実行される。
 
@@ -116,6 +118,7 @@ make dist
 
 上記で以下を実行する。
 
+* `pnpm install --frozen-lockfile`
 * 各アプリの `make build`
 * `apps/<app-name>/dist` を `dist/apps/<app-name>/` に集約
 

@@ -12,16 +12,19 @@ PNPM ?= pnpm
 
 APP_NAMES := $(filter-out _template,$(patsubst $(APPS_DIR)/%/app.json,%,$(wildcard $(APPS_DIR)/*/app.json)))
 
-.PHONY: all dist build-apps collect apps-index deploy clean list-apps
+.PHONY: all deps dist build-apps collect apps-index deploy clean list-apps
 
 all: dist
 
 dist: build-apps collect apps-index
 
+deps:
+	$(PNPM) install --frozen-lockfile
+
 list-apps:
 	@printf '%s\n' $(APP_NAMES)
 
-build-apps:
+build-apps: deps
 	@set -e; \
 	for app in $(APP_NAMES); do \
 		if [ -f "$(APPS_DIR)/$$app/Makefile" ]; then \
