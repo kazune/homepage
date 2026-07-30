@@ -8,6 +8,7 @@ RELEASES_DIR := $(DEPLOY_BASE)/releases
 RELEASE_ID := $(or $(RELEASE_ID),$(shell date +%Y%m%d-%H%M%S))
 RELEASE_DIR := $(RELEASES_DIR)/$(RELEASE_ID)
 CURRENT_LINK := $(DEPLOY_BASE)/current
+PNPM ?= pnpm
 
 APP_NAMES := $(filter-out _template,$(patsubst $(APPS_DIR)/%/app.json,%,$(wildcard $(APPS_DIR)/*/app.json)))
 
@@ -47,7 +48,7 @@ collect:
 apps-index:
 	@BUILD_REPO_URL="https://github.com/kazune/homepage" \
 	BUILD_COMMIT_ID="$$(git rev-parse --short=12 HEAD 2>/dev/null || printf unknown)" \
-	node scripts/generate-apps-index.mjs
+	$(PNPM) exec node scripts/generate-apps-index.mjs
 
 clean:
 	rm -rf "$(ROOT_DIST_DIR)"

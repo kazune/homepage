@@ -5,7 +5,8 @@ SRC_DIR := src
 DIST_DIR := dist
 ASSETS_DIR := $(DIST_DIR)/assets
 DATA_DIR := $(DIST_DIR)/data
-TSC ?= $(ROOT_DIR)/node_modules/.bin/tsc
+PNPM ?= pnpm
+TSC ?= $(PNPM) --dir $(abspath $(ROOT_DIR)) exec tsc
 
 TS_SRC := $(SRC_DIR)/main.ts
 HTML_SRC := $(SRC_DIR)/index.html
@@ -41,7 +42,7 @@ $(CSS_OUT): $(CSS_SRC) | $(ASSETS_DIR)
 	cp $(CSS_SRC) $(CSS_OUT)
 
 $(JS_OUT): $(TS_SRC) | $(ASSETS_DIR)
-	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(ASSETS_DIR) $(TS_SRC)
+	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(abspath $(ASSETS_DIR)) $(abspath $(TS_SRC))
 
 $(WEAPONS_OUT): $(WEAPONS_SRC) | $(DATA_DIR)
 	cp $(WEAPONS_SRC) $(WEAPONS_OUT)

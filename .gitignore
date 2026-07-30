@@ -15,6 +15,7 @@ pnpm-debug.log*
 
 # Node / TypeScript
 node_modules/
+.pnpm-store/
 *.tsbuildinfo
 
 # Build outputs (generated files)

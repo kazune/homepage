@@ -5,7 +5,8 @@ SRC_DIR := src
 DIST_DIR := dist
 ASSETS_DIR := $(DIST_DIR)/assets
 PANDOC ?= pandoc
-TSC ?= $(ROOT_DIR)/node_modules/.bin/tsc
+PNPM ?= pnpm
+TSC ?= $(PNPM) --dir $(abspath $(ROOT_DIR)) exec tsc
 
 CONTENT_SRC := $(SRC_DIR)/content.md
 TEMPLATE_SRC := $(SRC_DIR)/template.html
@@ -26,12 +27,13 @@ all: build
 build: check-tools $(HTML_OUT) $(CSS_OUT) $(API_JS_OUT) $(JS_OUT)
 
 test: build
-	node --test tests/*.test.mjs
+	$(PNPM) exec node --test tests/*.test.mjs
 
 check-tools:
 	@command -v $(PANDOC) >/dev/null 2>&1 || { echo "error: pandoc is required"; exit 1; }
-	@command -v node >/dev/null 2>&1 || { echo "error: Node.js is required"; exit 1; }
-	@test -x $(TSC) || { echo "error: TypeScript compiler not found; run npm install"; exit 1; }
+	@command -v $(PNPM) >/dev/null 2>&1 || { echo "error: pnpm is required"; exit 1; }
+	@$(PNPM) exec node --version >/dev/null 2>&1 || { echo "error: Node.js is required"; exit 1; }
+	@$(TSC) --version >/dev/null 2>&1 || { echo "error: TypeScript compiler not found; run pnpm install"; exit 1; }
 
 $(DIST_DIR):
 	mkdir -p $(DIST_DIR)
@@ -56,7 +58,7 @@ $(CSS_OUT): $(CSS_SRC) | $(ASSETS_DIR)
 	cp $(CSS_SRC) $(CSS_OUT)
 
 $(API_JS_OUT) $(JS_OUT): $(TS_SRC) | $(ASSETS_DIR)
-	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(ASSETS_DIR) $(TS_SRC)
+	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(abspath $(ASSETS_DIR)) $(addprefix $(CURDIR)/,$(TS_SRC))
 
 clean:
 	rm -rf $(DIST_DIR)

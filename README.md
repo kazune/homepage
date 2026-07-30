@@ -95,6 +95,19 @@ apps/<app-name>/
 * リポジトリ全体の公開物はルートの `dist/` に集約する
 * Apache は最終的に `dist/` を配信するだけにする
 
+## 開発ツール
+
+Node.jsとpnpmはVoltaで管理する。
+使用するバージョンは `package.json` に固定されている。
+
+依存パッケージは、開発環境とVPSのどちらでも次のコマンドで導入する。
+
+```bash
+pnpm install --frozen-lockfile
+```
+
+TypeScriptはルートの開発依存として導入され、各Makefileから `pnpm exec` 経由で実行される。
+
 ## ルートビルド
 
 ```bash
