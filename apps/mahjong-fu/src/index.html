@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#165c46" />
+    <title>麻雀 フ計算</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="tool" aria-labelledby="appTitle">
+        <header class="header">
+          <p class="eyebrow">Japanese Mahjong</p>
+          <h1 id="appTitle">麻雀 フ計算</h1>
+          <p>形を選ぶと、符と内訳をその場で計算します。</p>
+        </header>
+
+        <form data-form>
+          <fieldset class="section-card">
+            <legend>手の形</legend>
+            <div class="choices choices-2">
+              <label class="choice">
+                <input type="radio" name="shape" value="standard" checked />
+                <span>通常形</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="shape" value="seven-pairs" />
+                <span>七対子</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="standard-fields" data-standard-fields>
+            <div class="basic-grid">
+              <fieldset class="section-card">
+                <legend>和了方法</legend>
+                <div class="choices choices-2">
+                  <label class="choice">
+                    <input type="radio" name="win" value="ron" checked />
+                    <span>ロン</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="win" value="tsumo" />
+                    <span>ツモ</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="section-card">
+                <legend>雀頭</legend>
+                <div class="choices choices-wrap">
+                  <label class="choice">
+                    <input type="radio" name="pair" value="ordinary" checked />
+                    <span>数牌・客風</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="pair" value="dragon" />
+                    <span>三元牌</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="pair" value="round" />
+                    <span>場風</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="pair" value="seat" />
+                    <span>自風</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="pair" value="double-wind" />
+                    <span>連風牌</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+
+            <section class="melds-section" aria-labelledby="meldsTitle">
+              <div class="section-heading">
+                <h2 id="meldsTitle">メンツ</h2>
+                <p>明は鳴いたメンツ、暗は手の内で作ったメンツです。</p>
+              </div>
+              <div class="meld-grid">
+                <fieldset class="meld-card" data-meld="1">
+                  <legend>メンツ 1</legend>
+                  <div class="option-row">
+                    <span class="option-label">種類</span>
+                    <div class="choices choices-3">
+                      <label class="choice"><input type="radio" name="meld-1-kind" value="sequence" checked /><span>順子</span></label>
+                      <label class="choice"><input type="radio" name="meld-1-kind" value="triplet" /><span>刻子</span></label>
+                      <label class="choice"><input type="radio" name="meld-1-kind" value="quad" /><span>槓子</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row">
+                    <span class="option-label">状態</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-1-exposure" value="closed" checked /><span>暗</span></label>
+                      <label class="choice"><input type="radio" name="meld-1-exposure" value="open" /><span>明</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row" data-category-row hidden>
+                    <span class="option-label">牌</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-1-category" value="simple" checked /><span>中張牌</span></label>
+                      <label class="choice"><input type="radio" name="meld-1-category" value="terminal-honor" /><span>么九牌</span></label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="meld-card" data-meld="2">
+                  <legend>メンツ 2</legend>
+                  <div class="option-row">
+                    <span class="option-label">種類</span>
+                    <div class="choices choices-3">
+                      <label class="choice"><input type="radio" name="meld-2-kind" value="sequence" checked /><span>順子</span></label>
+                      <label class="choice"><input type="radio" name="meld-2-kind" value="triplet" /><span>刻子</span></label>
+                      <label class="choice"><input type="radio" name="meld-2-kind" value="quad" /><span>槓子</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row">
+                    <span class="option-label">状態</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-2-exposure" value="closed" checked /><span>暗</span></label>
+                      <label class="choice"><input type="radio" name="meld-2-exposure" value="open" /><span>明</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row" data-category-row hidden>
+                    <span class="option-label">牌</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-2-category" value="simple" checked /><span>中張牌</span></label>
+                      <label class="choice"><input type="radio" name="meld-2-category" value="terminal-honor" /><span>么九牌</span></label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="meld-card" data-meld="3">
+                  <legend>メンツ 3</legend>
+                  <div class="option-row">
+                    <span class="option-label">種類</span>
+                    <div class="choices choices-3">
+                      <label class="choice"><input type="radio" name="meld-3-kind" value="sequence" checked /><span>順子</span></label>
+                      <label class="choice"><input type="radio" name="meld-3-kind" value="triplet" /><span>刻子</span></label>
+                      <label class="choice"><input type="radio" name="meld-3-kind" value="quad" /><span>槓子</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row">
+                    <span class="option-label">状態</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-3-exposure" value="closed" checked /><span>暗</span></label>
+                      <label class="choice"><input type="radio" name="meld-3-exposure" value="open" /><span>明</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row" data-category-row hidden>
+                    <span class="option-label">牌</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-3-category" value="simple" checked /><span>中張牌</span></label>
+                      <label class="choice"><input type="radio" name="meld-3-category" value="terminal-honor" /><span>么九牌</span></label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="meld-card" data-meld="4">
+                  <legend>メンツ 4</legend>
+                  <div class="option-row">
+                    <span class="option-label">種類</span>
+                    <div class="choices choices-3">
+                      <label class="choice"><input type="radio" name="meld-4-kind" value="sequence" checked /><span>順子</span></label>
+                      <label class="choice"><input type="radio" name="meld-4-kind" value="triplet" /><span>刻子</span></label>
+                      <label class="choice"><input type="radio" name="meld-4-kind" value="quad" /><span>槓子</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row">
+                    <span class="option-label">状態</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-4-exposure" value="closed" checked /><span>暗</span></label>
+                      <label class="choice"><input type="radio" name="meld-4-exposure" value="open" /><span>明</span></label>
+                    </div>
+                  </div>
+                  <div class="option-row" data-category-row hidden>
+                    <span class="option-label">牌</span>
+                    <div class="choices choices-2">
+                      <label class="choice"><input type="radio" name="meld-4-category" value="simple" checked /><span>中張牌</span></label>
+                      <label class="choice"><input type="radio" name="meld-4-category" value="terminal-honor" /><span>么九牌</span></label>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </section>
+
+            <fieldset class="section-card">
+              <legend>待ち</legend>
+              <div class="choices choices-wrap">
+                <label class="choice"><input type="radio" name="wait" value="ryanmen" checked /><span>両面</span></label>
+                <label class="choice"><input type="radio" name="wait" value="shanpon" /><span>シャンポン</span></label>
+                <label class="choice"><input type="radio" name="wait" value="kanchan" /><span>嵌張</span></label>
+                <label class="choice"><input type="radio" name="wait" value="penchan" /><span>辺張</span></label>
+                <label class="choice"><input type="radio" name="wait" value="tanki" /><span>単騎</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="section-card winning-meld" data-winning-meld-section hidden>
+              <legend>ロンで完成した刻子</legend>
+              <p class="hint">和了牌で完成した暗刻は、符計算では明刻として扱います。</p>
+              <div class="choices choices-wrap" data-winning-meld-options></div>
+            </fieldset>
+          </div>
+        </form>
+
+        <section class="result-card" aria-labelledby="resultTitle" aria-live="polite">
+          <div class="result-summary">
+            <div>
+              <p class="result-label" id="resultTitle">計算結果</p>
+              <output class="result-value" data-result>30符</output>
+            </div>
+            <p class="rounding" data-rounding>合計 30符</p>
+          </div>
+          <dl class="breakdown" data-breakdown></dl>
+          <p class="notice" data-notice hidden></p>
+        </section>
+
+        <p class="footnote">一般的なリーチ麻雀のルールで計算します。連風牌の雀頭は4符です。</p>
+      </section>
+    </main>
+
+    <script src="./assets/main.js"></script>
+  </body>
+</html>
