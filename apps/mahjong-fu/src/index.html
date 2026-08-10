@@ -31,48 +31,46 @@
             </div>
           </fieldset>
 
-          <div class="standard-fields" data-standard-fields>
-            <div class="basic-grid">
-              <fieldset class="section-card">
-                <legend>和了方法</legend>
-                <div class="choices choices-2">
-                  <label class="choice">
-                    <input type="radio" name="win" value="ron" checked />
-                    <span>ロン</span>
-                  </label>
-                  <label class="choice">
-                    <input type="radio" name="win" value="tsumo" />
-                    <span>ツモ</span>
-                  </label>
-                </div>
-              </fieldset>
-
-              <fieldset class="section-card">
-                <legend>雀頭</legend>
-                <div class="choices choices-wrap">
-                  <label class="choice">
-                    <input type="radio" name="pair" value="ordinary" checked />
-                    <span>数牌・客風</span>
-                  </label>
-                  <label class="choice">
-                    <input type="radio" name="pair" value="dragon" />
-                    <span>三元牌</span>
-                  </label>
-                  <label class="choice">
-                    <input type="radio" name="pair" value="round" />
-                    <span>場風</span>
-                  </label>
-                  <label class="choice">
-                    <input type="radio" name="pair" value="seat" />
-                    <span>自風</span>
-                  </label>
-                  <label class="choice">
-                    <input type="radio" name="pair" value="double-wind" />
-                    <span>連風牌</span>
-                  </label>
-                </div>
-              </fieldset>
+          <fieldset class="section-card">
+            <legend>和了方法</legend>
+            <div class="choices choices-2">
+              <label class="choice">
+                <input type="radio" name="win" value="ron" checked />
+                <span>ロン</span>
+              </label>
+              <label class="choice">
+                <input type="radio" name="win" value="tsumo" />
+                <span>ツモ</span>
+              </label>
             </div>
+          </fieldset>
+
+          <div class="standard-fields" data-standard-fields>
+            <fieldset class="section-card">
+              <legend>雀頭</legend>
+              <div class="choices choices-wrap">
+                <label class="choice">
+                  <input type="radio" name="pair" value="ordinary" checked />
+                  <span>数牌・客風</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="pair" value="dragon" />
+                  <span>三元牌</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="pair" value="round" />
+                  <span>場風</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="pair" value="seat" />
+                  <span>自風</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="pair" value="double-wind" />
+                  <span>連風牌</span>
+                </label>
+              </div>
+            </fieldset>
 
             <section class="melds-section" aria-labelledby="meldsTitle">
               <div class="section-heading">
@@ -214,6 +212,20 @@
             <p class="rounding" data-rounding>合計 30符</p>
           </div>
           <dl class="breakdown" data-breakdown></dl>
+          <div class="score-section">
+            <table class="score-table">
+              <caption data-score-caption>1〜4翻の点数</caption>
+              <thead>
+                <tr>
+                  <th scope="col">翻</th>
+                  <th scope="col">子の和了</th>
+                  <th scope="col">親の和了</th>
+                </tr>
+              </thead>
+              <tbody data-score-body></tbody>
+            </table>
+            <p class="score-note" data-score-note></p>
+          </div>
           <p class="notice" data-notice hidden></p>
         </section>
 

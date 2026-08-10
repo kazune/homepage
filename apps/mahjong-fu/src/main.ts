@@ -25,6 +25,9 @@ const winningMeldOptions = query("[data-winning-meld-options]");
 const resultElement = query<HTMLOutputElement>("[data-result]");
 const roundingElement = query("[data-rounding]");
 const breakdownElement = query<HTMLDListElement>("[data-breakdown]");
+const scoreCaptionElement = query<HTMLTableCaptionElement>("[data-score-caption]");
+const scoreBodyElement = query<HTMLTableSectionElement>("[data-score-body]");
+const scoreNoteElement = query("[data-score-note]");
 const noticeElement = query("[data-notice]");
 const meldElements = Array.from(document.querySelectorAll<HTMLElement>("[data-meld]"));
 
@@ -137,16 +140,81 @@ function renderBreakdown(items: FuItem[]) {
   }
 }
 
+function roundUpToHundred(points: number) {
+  return Math.ceil(points / 100) * 100;
+}
+
+function formatPoints(points: number) {
+  return points.toLocaleString("ja-JP");
+}
+
+function scoreText(basePoints: number, win: WinMethod, isDealer: boolean) {
+  if (win === "ron") {
+    const points = roundUpToHundred(basePoints * (isDealer ? 6 : 4));
+    return `${formatPoints(points)}点`;
+  }
+
+  const dealerPayment = roundUpToHundred(basePoints * 2);
+
+  if (isDealer) {
+    return `${formatPoints(dealerPayment)}点オール`;
+  }
+
+  const childPayment = roundUpToHundred(basePoints);
+  return `${formatPoints(childPayment)} / ${formatPoints(dealerPayment)}点`;
+}
+
+function renderScoreTable(fu: number, win: WinMethod) {
+  scoreCaptionElement.textContent = `1〜4翻の点数（${win === "ron" ? "ロン" : "ツモ"}）`;
+  scoreBodyElement.replaceChildren();
+
+  for (let han = 1; han <= 4; han += 1) {
+    const row = document.createElement("tr");
+    const hanCell = document.createElement("th");
+    const childCell = document.createElement("td");
+    const dealerCell = document.createElement("td");
+    const isUnavailable = han === 1 && (fu === 20 || fu === 25);
+    const uncappedBasePoints = fu * 2 ** (han + 2);
+    const isMangan = uncappedBasePoints >= 2000;
+    const basePoints = Math.min(uncappedBasePoints, 2000);
+
+    hanCell.scope = "row";
+    hanCell.textContent = `${han}翻`;
+
+    if (isMangan) {
+      const limitLabel = document.createElement("span");
+      limitLabel.className = "limit-label";
+      limitLabel.textContent = "満貫";
+      hanCell.append(limitLabel);
+    }
+
+    childCell.textContent = isUnavailable ? "—" : scoreText(basePoints, win, false);
+    dealerCell.textContent = isUnavailable ? "—" : scoreText(basePoints, win, true);
+    row.append(hanCell, childCell, dealerCell);
+    scoreBodyElement.append(row);
+  }
+
+  const paymentNote =
+    win === "tsumo"
+      ? "子の和了は「子の支払い / 親の支払い」、親の和了はオール表記です。"
+      : "ロンした人が受け取る点数です。";
+  const unavailableNote =
+    fu === 20 || fu === 25 ? " 20符・25符の1翻は成立しないため「—」で表示します。" : "";
+  scoreNoteElement.textContent = `${paymentNote}${unavailableNote} 積み棒・供託は含まず、切り上げ満貫は採用していません。`;
+}
+
 function setNotice(message: string | null) {
   noticeElement.hidden = message === null;
   noticeElement.textContent = message ?? "";
 }
 
 function renderSevenPairs() {
+  const win = selectedValue<WinMethod>("win");
   resultElement.value = "25符";
   resultElement.textContent = "25符";
   roundingElement.textContent = "七対子は固定25符";
   renderBreakdown([{ label: "七対子", fu: 25 }]);
+  renderScoreTable(25, win);
   setNotice(null);
 }
 
@@ -174,6 +242,7 @@ function renderStandardHand() {
     resultElement.textContent = "20符";
     roundingElement.textContent = "平和ツモ形は20符";
     renderBreakdown([{ label: "平和ツモ形", fu: 20 }]);
+    renderScoreTable(20, win);
     setNotice(null);
     return;
   }
@@ -213,6 +282,7 @@ function renderStandardHand() {
   resultElement.textContent = `${roundedFu}符`;
   roundingElement.textContent = rawFu === roundedFu ? `合計 ${rawFu}符` : `合計 ${rawFu}符 → ${roundedFu}符`;
   renderBreakdown(items);
+  renderScoreTable(roundedFu, win);
 
   const hasClosedTriplet = melds.some(
     (meld) => meld.kind === "triplet" && meld.exposure === "closed",

@@ -111,7 +111,6 @@ h2 {
   font-weight: 800;
 }
 
-.basic-grid,
 .meld-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -227,14 +226,11 @@ h2 {
 }
 
 .result-card {
-  position: sticky;
-  bottom: 0.75rem;
-  z-index: 3;
   overflow: hidden;
   border-color: var(--result);
   color: #ffffff;
   background: var(--result);
-  box-shadow: 0 14px 35px rgba(18, 63, 50, 0.25);
+  box-shadow: none;
 }
 
 .result-summary {
@@ -291,6 +287,66 @@ h2 {
   font-variant-numeric: tabular-nums;
 }
 
+.score-section {
+  padding: 0.95rem 1.2rem 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-table caption {
+  margin-bottom: 0.65rem;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: left;
+}
+
+.score-table th,
+.score-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  padding: 0.55rem 0.4rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.score-table th:first-child {
+  text-align: left;
+}
+
+.score-table thead th {
+  color: #c9ded6;
+  font-size: 0.72rem;
+}
+
+.score-table tbody th,
+.score-table tbody td {
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.limit-label {
+  display: inline-block;
+  margin-left: 0.35rem;
+  border-radius: 999px;
+  padding: 0.12rem 0.35rem;
+  color: #3c2b08;
+  background: #f2d68f;
+  font-size: 0.64rem;
+  vertical-align: 0.1em;
+}
+
+.score-note {
+  margin-top: 0.7rem;
+  color: #c9ded6;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
 .notice {
   padding: 0.75rem 1.2rem;
   color: #fff2c8;
@@ -306,7 +362,6 @@ h2 {
 }
 
 @media (max-width: 680px) {
-  .basic-grid,
   .meld-grid {
     grid-template-columns: 1fr;
   }
@@ -333,5 +388,14 @@ h2 {
     max-height: 9rem;
     overflow-y: auto;
     padding-inline: 1rem;
+  }
+
+  .score-section {
+    overflow-x: auto;
+    padding-inline: 1rem;
+  }
+
+  .score-table {
+    min-width: 20rem;
   }
 }
