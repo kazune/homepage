@@ -75,11 +75,13 @@ h1 {
 }
 
 .speed-value {
-  font-size: clamp(5.8rem, 28vw, 10rem);
+  max-width: 100%;
+  font-size: clamp(4rem, 22vw, 8rem);
   line-height: 0.92;
   font-weight: 800;
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .speed-unit {
