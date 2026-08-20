@@ -114,7 +114,8 @@ a {
 }
 
 .sidebar li ul {
-  display: none;
+  margin-top: 0.35rem;
+  padding-left: 1rem;
 }
 
 .sidebar a {
@@ -157,27 +158,29 @@ h1 {
   letter-spacing: -0.035em;
 }
 
-h1:not(.document-title) {
+h1 {
   padding-bottom: 0.55rem;
   border-bottom: 2px solid var(--line);
-  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-size: clamp(1.9rem, 6vw, 3rem);
 }
 
 .document-title {
-  margin-bottom: 0.35rem;
+  margin: 0 0 0.35rem;
   color: var(--accent-dark);
   font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.45;
 }
 
 h2 {
-  margin: 2rem 0 0.8rem;
-  font-size: 1.2rem;
+  margin: 2.5rem 0 0.8rem;
+  font-size: clamp(1.35rem, 4vw, 1.7rem);
 }
 
-.chapter-title {
-  margin: 0 0 2rem;
-  font-size: clamp(1.9rem, 6vw, 3rem);
-  letter-spacing: -0.04em;
+h3 {
+  margin: 2rem 0 0.7rem;
+  font-size: 1.12rem;
 }
 
 p,
