@@ -358,6 +358,85 @@ th {
   border-top-color: var(--accent) !important;
 }
 
+.companion-nav {
+  margin: 0.8rem 0 2rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #8fb9c2;
+  border-radius: 8px;
+  background: var(--blue-soft);
+}
+
+.companion-nav a {
+  color: #174d58;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.companion-nav a:hover {
+  text-decoration: underline;
+}
+
+.start-guide .content > section {
+  margin-top: 4rem;
+}
+
+.start-guide input[type="checkbox"] {
+  width: 1rem;
+  min-height: auto;
+  margin-right: 0.35rem;
+  accent-color: var(--accent);
+}
+
+@media print {
+  body {
+    background: #fff;
+    font-size: 10.5pt;
+  }
+
+  .site-header,
+  .sidebar,
+  .skip-link,
+  .companion-nav {
+    display: none;
+  }
+
+  .page-layout {
+    display: block;
+    width: auto;
+    padding: 0;
+  }
+
+  .content {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .content > section {
+    break-before: page;
+  }
+
+  .content > section:first-of-type {
+    break-before: auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  table,
+  blockquote,
+  .comparison,
+  .cycle,
+  .key-message {
+    break-inside: avoid;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
 @media (max-width: 860px) {
   .page-layout {
     grid-template-columns: 1fr;
