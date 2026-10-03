@@ -1,0 +1,6 @@
+{
+  "name": "shogi",
+  "title": "将棋",
+  "path": "/apps/shogi/",
+  "description": "持ち駒・禁じ手なし。王を取って決着する、同じ画面で遊ぶ2人用将棋"
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f1e9" />
+    <title>将棋 — 持ち駒・禁じ手なし</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main>
+      <header><a href="../">← Apps</a><h1>将棋</h1><p>持ち駒・禁じ手なし</p></header>
+      <section class="game" aria-label="2人用将棋">
+        <div class="turnbar"><span id="turn">先手の番</span><span id="count">0手</span></div>
+        <p id="status" role="status" aria-live="polite">駒を選ぶと移動先が表示されます。</p>
+        <div class="board-wrap"><div class="files" aria-hidden="true"><span>9</span><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div><div id="board" class="board" aria-label="将棋盤"></div></div>
+        <div id="promotion" class="promotion" hidden><p>成りますか？</p><button id="promote" type="button">成る</button><button id="stay" type="button">成らない</button></div>
+        <div class="controls"><button id="undo" type="button" disabled>待った</button><button id="flip" type="button">盤を反転</button><button id="reset" type="button">最初から</button></div>
+        <section class="captures" aria-label="取られた駒"><p>先手の取られた駒 <span id="lost-0">なし</span></p><p>後手の取られた駒 <span id="lost-1">なし</span></p></section>
+      </section>
+      <details><summary>遊び方とルール</summary><p>同じ画面で2人が交互に操作します。先手は上向き、後手は下向きの駒です。自分の駒を選び、印の付いた移動先を押してください。</p><p>取った駒は除外され、持ち駒・駒打ちはありません。相手の王を取ると勝ちです。王手・詰み・王の安全性・千日手などの禁じ手判定は行いません。</p><p>敵陣の3段へ入る・敵陣内で動く・敵陣から出るときは成りを選べます。成りは任意で、行き場のない駒も許可します。「待った」は成りの選択中も含め、その手全体を取り消します。</p></details>
+    </main>
+    <script type="module" src="./assets/main.js"></script>
+  </body>
+</html>
