@@ -136,7 +136,7 @@ test('lion can stop after one step or jump over friendly blockers to distance tw
   assert.equal(game.pieceAt([5, 5]).id, friend.id);
 });
 
-test('lion protection and immediate counter-capture restrictions are ignored', () => {
+test('lion-vs-lion capture does not activate senjishi on the following turn', () => {
   const game = empty();
   const lion = game.addPiece('lion', 0, [5, 6]);
   const enemy = game.addPiece('lion', 1, [5, 4]);

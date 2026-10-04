@@ -22,7 +22,9 @@ function render(): void {
   const isChu = game.definition.id === "chu";
   document.querySelector("main")!.classList.toggle("chu", isChu);
   element("title").textContent = game.definition.title;
-  document.title = `${game.definition.title} — 持ち駒・禁じ手なし`;
+  const rulesSummary = isChu ? "持ち駒なし・先獅子判定あり" : "持ち駒・禁じ手なし";
+  element("rules-summary").textContent = rulesSummary;
+  document.title = `${game.definition.title} — ${rulesSummary}`;
   element("shogi-rules").hidden = isChu;
   element("chu-rules").hidden = !isChu;
   board.style.setProperty("--columns", String(game.width));
@@ -30,9 +32,10 @@ function render(): void {
   const end = element<HTMLButtonElement>("end-turn");
   end.hidden = !game.activePiece || game.awaitingPromotion;
   end.disabled = !game.canEndTurn;
-  element("turn").textContent = result === "draw" ? "引き分け" : result !== null ? `${player(result)}の勝ち` : `${player(game.turn)}の番`;
+  element("turn").textContent = result === "draw" ? "引き分け" : result !== null ? `${player(result)}の勝ち${game.violation ? "（相手の反則負け）" : ""}` : `${player(game.turn)}の番`;
   element("count").textContent = `${game.history.length}手`;
   element("status").textContent = promotionPiece !== null ? "成る・成らないを選んで、この手を完了してください。"
+    : game.violation ? `${game.violation}「待った」でこの手を取り消せます。`
     : result !== null ? "対局終了。「待った」で戻すか、「最初から」で再開できます。"
     : game.activePiece ? (choices.length === 0 && !game.canEndTurn ? "合法に移動を終了できません。「待った」で戻ってください。" : `${game.pieceTypeOf(game.activePiece).name}の${game.stage + 1}段目の移動先を選んでください。${game.canEndTurn ? "ここで手を終了することもできます。" : ""}`)
     : selected ? `${game.pieceTypeOf(selected).name}の移動先を選んでください。${choices.length === 0 ? "移動できるマスはありません。" : ""}`

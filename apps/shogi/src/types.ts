@@ -36,10 +36,22 @@ export type PieceType = Readonly<{
 export type PromotionContext = Readonly<{
   piece: Piece; path: readonly Position[]; captured: boolean;
 }>;
+export type BoardState = Readonly<{
+  width: number; height: number;
+  pieces: ReadonlyMap<number, Piece>;
+  locations: ReadonlyMap<number, Location>;
+}>;
+export type TurnValidationContext = Readonly<{
+  before: BoardState;
+  after: BoardState;
+  transaction: Transaction;
+  previous: Transaction | undefined;
+}>;
 export type GameDefinition = Readonly<{
   id: string; title: string; width: number; height: number;
   pieceTypes: Readonly<Record<string, PieceType>>;
   initial: readonly Readonly<{ type: string; owner: PlayerId; position: Position }>[];
   canPromote: (context: PromotionContext) => boolean;
+  validateTurn?: (context: TurnValidationContext) => string | null;
 }>;
 export type Outcome = PlayerId | "draw" | null;

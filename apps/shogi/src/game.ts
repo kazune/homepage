@@ -1,11 +1,12 @@
-import type { Piece, PlayerId, Position, Location, Transaction, Effect, Context, SequenceRule, GameDefinition, PieceType, Outcome } from "./types.js";
+import type { Piece, PlayerId, Position, Location, Transaction, SequenceRule, GameDefinition, PieceType, Outcome } from "./types.js";
 import { samePosition } from "./rules.js";
+import { evaluateMovements, type Landing } from "./movement.js";
 import { shogi } from "./games/shogi.js";
 export type * from "./types.js";
 export { samePosition } from "./rules.js";
 export { pieceTypes } from "./games/shogi.js";
 const VOID: Location = { kind: "void" };
-type Candidate = { position: Position; effects: readonly Effect[]; sequences: SequenceRule[] };
+type Candidate = Landing & { sequences: SequenceRule[] };
 type Progress = { pieceId: number; stage: number; sequences: readonly SequenceRule[]; path: Position[]; captured: boolean; promotion: boolean };
 
 export class Game {
@@ -16,6 +17,7 @@ export class Game {
   pending: Transaction | null = null;
   private nextId = 1;
   private progress: Progress | null = null;
+  private readonly violations = new WeakMap<Transaction, string>();
 
   constructor(initial = true, readonly definition: GameDefinition = shogi) {
     if (initial) for (const entry of definition.initial) this.addPiece(entry.type, entry.owner, entry.position);
@@ -51,36 +53,16 @@ export class Game {
     const candidates = new Map<string, Candidate>();
     if (location?.kind !== "board") return candidates;
     const from = location.position;
-    const rotation = piece.owner === 0 ? 1 : -1;
     const sequences = this.progress?.sequences ?? this.pieceTypeOf(piece).sequences;
     for (const sequence of sequences) {
       const stage = sequence.stages[this.stage];
       if (!stage) continue;
-      for (const rule of stage.movements) {
-        const [dx, dy] = rule.vector.map(v => v * rotation);
-        const limit = dx === 0 && dy === 0 ? 1 : rule.range.max ?? Infinity;
-        const effects: Effect[] = [];
-        for (let distance = 1; distance <= limit; distance++) {
-          const position: Position = [from[0] + dx * distance, from[1] + dy * distance];
-          const target = this.pieceAt(position);
-          if (target === undefined) break;
-          const context: Context = { board: this, mover: piece, from, position, distance, target, pieceTypeOf: this.pieceTypeOf };
-          if (distance >= rule.range.min) {
-            const land = rule.land(context);
-            if (land.allow) {
-              const combined = [...effects, ...land.effects ?? []];
-              const key = position.join(",");
-              const previous = candidates.get(key);
-              const signature = (items: readonly Effect[]) => JSON.stringify([...new Set(items.map(e => e.pieceId))].sort((a, b) => a - b));
-              if (previous && signature(previous.effects) !== signature(combined)) throw new Error("同じ着地点の移動効果が異なります");
-              candidates.set(key, { position, effects: combined, sequences: [...new Set([...(previous?.sequences ?? []), sequence])] });
-            }
-          }
-          if (distance === limit) break;
-          const pass = rule.pass(context);
-          if (!pass.allow) break;
-          effects.push(...pass.effects ?? []);
-        }
+      for (const landing of evaluateMovements(this, piece, from, stage.movements, this.pieceTypeOf)) {
+        const key = landing.position.join(",");
+        const previous = candidates.get(key);
+        const signature = (value: Landing) => JSON.stringify([...new Set(value.effects.map(e => e.pieceId))].sort((a, b) => a - b));
+        if (previous && signature(previous) !== signature(landing)) throw new Error("同じ着地点の移動効果が異なります");
+        candidates.set(key, { ...landing, sequences: [...new Set([...(previous?.sequences ?? []), sequence])] });
       }
     }
     return candidates;
@@ -148,7 +130,19 @@ export class Game {
   private finish(): void {
     if (!this.pending) return;
     const after: PlayerId = this.turn === 0 ? 1 : 0;
-    this.history.push({ ...this.pending, playerAfter: after });
+    const transaction: Transaction = { ...this.pending, playerAfter: after };
+    if (this.definition.validateTurn) {
+      const beforeLocations = new Map(this.locations);
+      for (const transfer of [...transaction.transfers].reverse()) beforeLocations.set(transfer.pieceId, transfer.from);
+      const state = { width: this.width, height: this.height, pieces: this.pieces };
+      const reason = this.definition.validateTurn({
+        before: { ...state, locations: beforeLocations },
+        after: { ...state, locations: this.locations },
+        transaction, previous: this.history[this.history.length - 1],
+      });
+      if (reason) this.violations.set(transaction, reason);
+    }
+    this.history.push(transaction);
     this.turn = after;
     this.pending = null;
     this.progress = null;
@@ -166,6 +160,7 @@ export class Game {
 
   get outcome(): Outcome {
     if (this.pending) return null;
+    if (this.violation) return this.history[this.history.length - 1].playerAfter;
     const alive = [false, false];
     for (const [id, location] of this.locations) {
       const piece = this.pieces.get(id)!;
@@ -175,5 +170,11 @@ export class Game {
     if (!alive[0]) return 1;
     if (!alive[1]) return 0;
     return null;
+  }
+
+  get violation(): string | null {
+    if (this.pending) return null;
+    const last = this.history[this.history.length - 1];
+    return last ? this.violations.get(last) ?? null : null;
   }
 }
