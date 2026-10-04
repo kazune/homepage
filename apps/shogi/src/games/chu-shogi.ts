@@ -1,8 +1,8 @@
 import type { GameDefinition, MovementRule, PieceType, Position, SequenceRule } from "../types.js";
-import { step, ray, orthogonal, diagonal, gold, kingDirections, sequence, pieceType as type } from "../rules.js";
+import { step, slide, orthogonal, diagonal, gold, kingDirections, sequence, pieceType as type } from "../rules.js";
 import { validateLionRules } from "./chu-special.js";
 const steps = (directions: readonly Position[]) => directions.map(v => step(v));
-const rays = (directions: readonly Position[]) => directions.map(v => ray(v));
+const slides = (directions: readonly Position[]) => directions.map(v => slide(v));
 const vertical: Position[] = [[0, -1], [0, 1]];
 const horizontal: Position[] = [[-1, 0], [1, 0]];
 const forwardDiagonal: Position[] = [[-1, -1], [1, -1]];
@@ -28,21 +28,21 @@ const lion = {
 };
 const targets = [
   type("prince", "太子", steps(kingDirections), undefined, true),
-  type("stag", "飛鹿", [...rays(vertical), ...steps([...horizontal, ...diagonal])]),
-  type("ox", "飛牛", rays([...vertical, ...diagonal])),
-  type("boar", "奔猪", rays([...horizontal, ...diagonal])),
-  type("whale", "鯨鯢", rays([...vertical, ...backDiagonal])),
-  type("white-horse", "白駒", rays([...vertical, ...forwardDiagonal])),
-  { ...type("falcon", "角鷹", []), sequences: [sequence(rays(kingDirections.filter(([dx, dy]) => dx !== 0 || dy !== -1))), ...partialLion([[0, -1]])] },
-  { ...type("eagle", "飛鷲", []), sequences: [sequence(rays([...orthogonal, ...backDiagonal])), ...partialLion(forwardDiagonal)] },
+  type("stag", "飛鹿", [...slides(vertical), ...steps([...horizontal, ...diagonal])]),
+  type("ox", "飛牛", slides([...vertical, ...diagonal])),
+  type("boar", "奔猪", slides([...horizontal, ...diagonal])),
+  type("whale", "鯨鯢", slides([...vertical, ...backDiagonal])),
+  type("white-horse", "白駒", slides([...vertical, ...forwardDiagonal])),
+  { ...type("falcon", "角鷹", []), sequences: [sequence(slides(kingDirections.filter(([dx, dy]) => dx !== 0 || dy !== -1))), ...partialLion([[0, -1]])] },
+  { ...type("eagle", "飛鷲", []), sequences: [sequence(slides([...orthogonal, ...backDiagonal])), ...partialLion(forwardDiagonal)] },
 ];
 const bases: PieceType[] = [
   type("king", "王将", steps(kingDirections), undefined, true),
-  type("queen", "奔王", rays(kingDirections)), lion,
+  type("queen", "奔王", slides(kingDirections)), lion,
   type("pawn", "歩兵", [step([0, -1])], "gold"),
   type("go-between", "仲人", steps(vertical), "elephant"),
-  type("lance", "香車", rays([[0, -1]]), "white-horse"),
-  type("reverse-chariot", "反車", rays(vertical), "whale"),
+  type("lance", "香車", slides([[0, -1]]), "white-horse"),
+  type("reverse-chariot", "反車", slides(vertical), "whale"),
   type("leopard", "猛豹", steps([...vertical, ...diagonal]), "bishop"),
   type("copper", "銅将", steps([[0, -1], ...forwardDiagonal, [0, 1]]), "side-mover"),
   type("silver", "銀将", steps([[0, -1], ...diagonal]), "vertical-mover"),
@@ -51,12 +51,12 @@ const bases: PieceType[] = [
   type("tiger", "盲虎", steps(kingDirections.filter(([dx, dy]) => dx !== 0 || dy !== -1)), "stag"),
   type("kirin", "麒麟", [...steps(diagonal), ...steps(orthogonal.map(([x, y]) => [x * 2, y * 2] as Position))], "lion"),
   type("phoenix", "鳳凰", [...steps(orthogonal), ...steps(diagonal.map(([x, y]) => [x * 2, y * 2] as Position))], "queen"),
-  type("bishop", "角行", rays(diagonal), "horse"),
-  type("rook", "飛車", rays(orthogonal), "dragon"),
-  type("horse", "龍馬", [...rays(diagonal), ...steps(orthogonal)], "falcon"),
-  type("dragon", "龍王", [...rays(orthogonal), ...steps(diagonal)], "eagle"),
-  type("side-mover", "横行", [...rays(horizontal), ...steps(vertical)], "boar"),
-  type("vertical-mover", "竪行", [...rays(vertical), ...steps(horizontal)], "ox"),
+  type("bishop", "角行", slides(diagonal), "horse"),
+  type("rook", "飛車", slides(orthogonal), "dragon"),
+  type("horse", "龍馬", [...slides(diagonal), ...steps(orthogonal)], "falcon"),
+  type("dragon", "龍王", [...slides(orthogonal), ...steps(diagonal)], "eagle"),
+  type("side-mover", "横行", [...slides(horizontal), ...steps(vertical)], "boar"),
+  type("vertical-mover", "竪行", [...slides(vertical), ...steps(horizontal)], "ox"),
 ];
 const lookup = Object.fromEntries([...bases, ...targets].map(t => [t.id, t]));
 // A promoted gold is a rook, but cannot promote again. Give every promoted

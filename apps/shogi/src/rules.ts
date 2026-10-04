@@ -6,10 +6,11 @@ export const landNormal = ({ mover, target }: Context): Result => {
   if (target.owner === mover.owner) return { allow: false };
   return { allow: true, effects: [{ type: "capture", pieceId: target.id }] };
 };
-export const step = (vector: Position, max: number | null = 1): MovementRule => ({
+export const ray = (vector: Position, max: number | null): MovementRule => ({
   vector, range: { min: 1, max }, pass: passEmpty, land: landNormal,
 });
-export const ray = (vector: Position, max: number | null = null): MovementRule => step(vector, max);
+export const step = (vector: Position): MovementRule => ray(vector, 1);
+export const slide = (vector: Position): MovementRule => ray(vector, null);
 export const orthogonal: readonly Position[] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 export const diagonal: readonly Position[] = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
 export const kingDirections = [...orthogonal, ...diagonal];

@@ -68,6 +68,10 @@ type SequenceStage = Readonly<{
 ### ベクトルと距離
 
 `vector` は1回分の変位、`range` はその反復回数のうち着地できる範囲を表す。
+
+移動定義の基本関数は `ray(vector, max)` とし、反復回数1から `max` までを候補とする。`null` は上限なし。
+`step(vector)` は `ray(vector, 1)`、`slide(vector)` は `ray(vector, null)` の略記とする。
+複数方向の補助関数は `steps`・`slides` と命名する。猛牛などの距離制限付きの走り移動には `ray(vector, 2)` を使う。
 距離は実際のマス数ではなく、ベクトルの適用回数。
 
 - 歩：`[0, -1]` を1回。
