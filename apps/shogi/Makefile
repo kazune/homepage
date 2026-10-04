@@ -17,12 +17,12 @@ $(DIST_DIR)/index.html: src/index.html | $(DIST_DIR)
 $(ASSETS_DIR)/style.css: src/style.css | $(ASSETS_DIR)
 	cp $< $@
 
-$(ASSETS_DIR)/main.js: $(wildcard src/*.ts) $(ROOT_DIR)/package.json $(ROOT_DIR)/pnpm-lock.yaml | $(ASSETS_DIR)
+$(ASSETS_DIR)/main.js: $(wildcard src/*.ts src/games/*.ts) $(ROOT_DIR)/package.json $(ROOT_DIR)/pnpm-lock.yaml | $(ASSETS_DIR)
 	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(abspath $(ASSETS_DIR)) $(abspath src/main.ts)
 
 test:
-	$(TSC) --target ES2020 --module commonjs --strict --skipLibCheck --outDir $(abspath tests/build) $(abspath src/game.ts)
-	node --test tests/game.test.cjs
+	$(TSC) --target ES2020 --module commonjs --strict --skipLibCheck --outDir $(abspath tests/build) $(abspath src/game.ts src/games/chu-shogi.ts)
+	node --test tests/*.test.cjs
 
 clean:
 	rm -rf $(DIST_DIR)
