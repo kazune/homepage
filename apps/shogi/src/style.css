@@ -38,10 +38,12 @@ button:disabled { opacity: .4; cursor: default; }
 details { margin-top: 20px; font-size: .9rem; line-height: 1.8; color: #655b4e; }
 summary { cursor: pointer; }
 @media (max-width: 400px) { main { padding: 16px 8px 28px; } .game { padding: 12px 8px; } .controls button { padding: 8px 10px; } }
-main.chu { max-width: 880px; }
-.chu .board-wrap { overflow-x: auto; padding-bottom: 8px; }
-.chu .board, .chu .files { min-width: 600px; }
-.chu .piece.long { font-size: clamp(14px, 2.2vw, 20px); }
+main.large-board { max-width: 880px; }
+.large-board .board-wrap { overflow-x: auto; padding-bottom: 8px; }
+.large-board .board, .large-board .files { min-width: 600px; }
+.large-board .piece.long { font-size: clamp(14px, 2.2vw, 20px); }
+main.dai { max-width: 1040px; }
+.dai .board, .dai .files { min-width: 750px; }
 .game-select { display: block; margin-top: 16px; }
 select { font: inherit; padding: 8px 12px; border: 1px solid #d2c5af; border-radius: 8px; background: #fffdf8; color: inherit; }
 select:focus-visible { outline: 3px solid #246978; }

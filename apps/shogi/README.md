@@ -1,7 +1,7 @@
 # 将棋
 
 通常の将棋と変則将棋の駒を、共通の移動規則で扱う静的ブラウザアプリ。
-同じ画面で2人が交互に操作する。画面上部で通常将棋（9×9）と中将棋（12×12）を切り替えられる。
+同じ画面で2人が交互に操作する。画面上部で通常将棋（9×9）・中将棋（12×12）・大将棋（15×15）を切り替えられる。
 
 - 通常将棋は持ち駒・駒打ちに対応。捕獲した成り駒は不成に戻して持ち駒にする。王は持ち駒にしない。
 - 二歩と行き所のない駒は、一手の完了後に反則負けと判定する。候補表示からは除外しない。
@@ -21,7 +21,7 @@ make -C apps/shogi test
 公開パスは `/apps/shogi/` とする。バックエンドやデータベースは導入しない。
 
 `src/game.ts` はUIから独立した共通の移動・多段移動・履歴処理、`src/main.ts` は画面操作を担当する。
-`src/games/shogi.ts` と `src/games/chu-shogi.ts` に、駒種・初期配置・成り条件を定義する。
+`src/games/shogi.ts`・`src/games/chu-shogi.ts`・`src/games/dai-shogi.ts` に、駒種・初期配置・成り条件を定義する。
 対局状態はページ内で保持し、再読み込みすると初期配置に戻る。
 
 通常将棋の二歩・行き所のない駒の条件は [日本将棋連盟の対局規則](https://www.shogi.or.jp/match/taikyoku_rules/) を参照した。同じ側の不成の歩が同じ筋に2枚あれば二歩。歩・香は最奥段、桂は最奥2段に不成で置くと反則となる。
@@ -47,3 +47,19 @@ make -C apps/shogi test
 
 配置・駒の動き・成りは [Chu shogi のルール](https://en.wikipedia.org/wiki/Chu_shogi) と [German Chu Shogi Association の駒一覧](https://www.chushogi.de/rules/chu_rules_pieces.htm) を参照した。決着や禁じ手の扱いは本アプリの設計方針に従う。
 先獅子の条件と例外は [日本中将棋連盟の補足規則](https://www.chushogi-renmei.com/kouza/rule_hosoku2004.htm) と [基本規則](https://www.chushogi-renmei.com/kouza/rule.htm) を参照した。
+
+## 大将棋
+
+`/apps/shogi/?game=dai` で直接開ける。
+
+- 15×15盤、各65枚、初期29種類の駒と全成り駒を実装。
+- 中将棋の21種類と成り駒の移動定義を再利用し、石将・鉄将・桂馬・嗔猪・猫刃・悪狼・猛牛・飛龍を追加。追加8種類は金将に成る。
+- 猛牛・飛龍は1〜2マスの直線移動で、途中の駒を飛び越せない。
+- 持ち駒・駒打ちはなく、捕獲した駒は除外する。
+- 獅子・角鷹・飛鷲の二段移動、居食い、じっとに対応。獅子の交換規則は適用しない。
+- 敵陣5段への進入、敵陣に関わる捕獲で任意に成れる。不成のまま敵陣内を取らずに動く場合は成れない。成りは一度だけ。
+- 最奥段での追加の成りの機会は設けない。動けなくなる駒を不成で置いても反則負けにはしない。
+- 王将と太子をすべて失うと負け。二段移動・捕獲・成りを含む手全体を「待った」で取り消せる。
+- 狭い画面では盤を横にスクロールできる。千日手・裸王・詰み・動ける駒がない場合の決着は判定しない。
+
+配置は [Dai shogi の配置図](https://en.wikipedia.org/wiki/Dai_shogi#Setup)、移動と成り・獅子の扱いは [Dr Eric Silverman の大将棋解説](https://drericsilverman.com/2020/04/13/dai-shogi-part-i-how-to-play/) と [駒の移動一覧](https://drericsilverman.com/wp-content/uploads/2020/04/dai-shogi-reference-2-kanji.pdf) を参照した。最奥段の追加の成りについては、例外を設けない方式を採用した。

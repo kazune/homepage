@@ -2,12 +2,14 @@ import { Game, samePosition, type Piece, type Position } from "./game.js";
 
 import { shogi } from "./games/shogi.js";
 import { chuShogi } from "./games/chu-shogi.js";
+import { daiShogi } from "./games/dai-shogi.js";
 
 function element<T extends HTMLElement>(id: string): T { return document.getElementById(id) as T; }
 const board = element<HTMLDivElement>("board");
 const undo = element<HTMLButtonElement>("undo");
 const gameSelect = element<HTMLSelectElement>("game-select");
-const initialDefinition = new URLSearchParams(window.location.search).get("game") === "chu" ? chuShogi : shogi;
+const definitions = [shogi, chuShogi, daiShogi];
+const initialDefinition = definitions.find(d => d.id === new URLSearchParams(window.location.search).get("game")) ?? shogi;
 let game = new Game(true, initialDefinition);
 gameSelect.value = initialDefinition.id;
 let selected: Piece | null = null;
@@ -19,14 +21,13 @@ const player = (owner: number) => owner === 0 ? "先手" : "後手";
 function render(): void {
   const focusedSquare = document.activeElement instanceof HTMLElement ? document.activeElement.dataset.square : undefined;
   const result = game.outcome;
-  const isChu = game.definition.id === "chu";
-  document.querySelector("main")!.classList.toggle("chu", isChu);
+  document.querySelector("main")!.classList.toggle("large-board", game.width > 9);
+  document.querySelector("main")!.classList.toggle("dai", game.definition.id === "dai");
   element("title").textContent = game.definition.title;
   document.title = game.definition.title;
   element("hands").hidden = !game.definition.canDrop;
   element("captures").hidden = !!game.definition.canDrop;
-  element("shogi-rules").hidden = isChu;
-  element("chu-rules").hidden = !isChu;
+  for (const definition of definitions) element(`${definition.id}-rules`).hidden = game.definition.id !== definition.id;
   board.style.setProperty("--columns", String(game.width));
   element("files").style.setProperty("--columns", String(game.width));
   const end = element<HTMLButtonElement>("end-turn");
@@ -56,7 +57,7 @@ function render(): void {
     square.classList.toggle("candidate", candidate);
     square.classList.toggle("selected", piece?.id === selected?.id && !!piece);
     square.classList.toggle("last", lastSquares.some(l => l.kind === "board" && samePosition(l.position, position)));
-    const coordinate = `${game.width - position[0]}${["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"][position[1]]}`;
+    const coordinate = `${game.width - position[0]}${["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三", "十四", "十五"][position[1]]}`;
     square.setAttribute("aria-label", `${coordinate} ${piece ? `${player(piece.owner)}の${game.definition.pieceTypes[piece.type].name}` : "空きマス"}${candidate ? "、移動可能" : ""}`);
     square.setAttribute("aria-pressed", String(piece?.id === selected?.id && !!piece));
     if (piece) {
@@ -163,10 +164,10 @@ element("reset").addEventListener("click", () => {
 });
 gameSelect.addEventListener("change", () => {
   if ((game.history.length || game.pending) && !window.confirm("対局を終了してゲームを切り替えますか？")) { gameSelect.value = game.definition.id; return; }
-  game = new Game(true, gameSelect.value === "chu" ? chuShogi : shogi);
+  game = new Game(true, definitions.find(d => d.id === gameSelect.value) ?? shogi);
   promotionPiece = null; clearSelection();
   const url = new URL(window.location.href);
-  if (game.definition.id === "chu") url.searchParams.set("game", "chu");
+  if (game.definition.id !== "shogi") url.searchParams.set("game", game.definition.id);
   else url.searchParams.delete("game");
   window.history.replaceState(null, "", url);
   render();
