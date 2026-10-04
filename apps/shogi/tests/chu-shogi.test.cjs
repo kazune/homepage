@@ -139,13 +139,14 @@ test('lion can stop after one step or jump over friendly blockers to distance tw
 test('lion-vs-lion capture does not activate senjishi on the following turn', () => {
   const game = empty();
   const lion = game.addPiece('lion', 0, [5, 6]);
-  const enemy = game.addPiece('lion', 1, [5, 4]);
+  const enemy = game.addPiece('lion', 1, [5, 5]);
   const defender = game.addPiece('rook', 1, [5, 2]);
-  assert(positions(game, lion).includes('5,4'));
-  game.move(lion.id, [5, 4]);
+  assert(positions(game, lion).includes('5,5'));
+  game.move(lion.id, [5, 5]);
+  game.endTurn();
   assert.equal(game.locations.get(enemy.id).kind, 'void');
-  assert(positions(game, defender).includes('5,4'));
-  game.move(defender.id, [5, 4]);
+  assert(positions(game, defender).includes('5,5'));
+  game.move(defender.id, [5, 5]);
   if (game.awaitingPromotion) game.completePromotion(defender.id, false);
   assert.equal(game.locations.get(lion.id).kind, 'void');
 });

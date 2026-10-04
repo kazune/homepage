@@ -65,15 +65,15 @@ function hasSupport(state: BoardState, lion: Piece, mover: Piece, types: Readonl
   return false;
 }
 
-// Japanese Chu Shogi Association interpretation: senjishi protects supported
-// lions after a non-lion capture. Adjacent lion capture and tsukegui override it.
-export function validateSenjishi(context: TurnValidationContext, types: Readonly<Record<string, PieceType>>): string | null {
+// Supported lions cannot be taken by a distant lion, or immediately after
+// a non-lion took a lion. Adjacent lion capture and tsukegui override both rules.
+export function validateLionRules(context: TurnValidationContext, types: Readonly<Record<string, PieceType>>): string | null {
   const { before, transaction, previous } = context;
-  if (!previous || previous.playerBefore === transaction.playerBefore) return null;
-  const previousMover = moverOf(previous, before.pieces);
-  if (!previousMover || isLion(previousMover) || !capturesOf(previous, before.pieces).some(isLion)) return null;
+  const previousMover = previous ? moverOf(previous, before.pieces) : undefined;
+  const senjishi = !!previous && previous.playerBefore !== transaction.playerBefore &&
+    !!previousMover && !isLion(previousMover) && capturesOf(previous, before.pieces).some(isLion);
   const mover = moverOf(transaction, before.pieces);
-  if (!mover) return null;
+  if (!mover || (!isLion(mover) && !senjishi)) return null;
   const origin = before.locations.get(mover.id);
   const captures = capturesOf(transaction, before.pieces);
   for (let index = 0; index < captures.length; index++) {
@@ -87,7 +87,9 @@ export function validateSenjishi(context: TurnValidationContext, types: Readonly
       if (tsukegui) continue;
     }
     if (hasSupport(before, victim, mover, types)) {
-      return "先獅子違反：獅子以外の駒で獅子を取られた直後に、足のある相手の獅子を捕獲しました。";
+      return senjishi
+        ? "先獅子違反：獅子以外の駒で獅子を取られた直後に、足のある相手の獅子を捕獲しました。"
+        : "獅子の足の規則違反：足のある相手の獅子を、距離1の捕獲でも付け喰いでもない方法で獅子が捕獲しました。";
     }
   }
   return null;

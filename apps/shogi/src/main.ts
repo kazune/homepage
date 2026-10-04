@@ -22,7 +22,7 @@ function render(): void {
   const isChu = game.definition.id === "chu";
   document.querySelector("main")!.classList.toggle("chu", isChu);
   element("title").textContent = game.definition.title;
-  const rulesSummary = isChu ? "持ち駒なし・先獅子判定あり" : "持ち駒・禁じ手なし";
+  const rulesSummary = isChu ? "持ち駒なし・獅子の特殊規則あり" : "持ち駒・禁じ手なし";
   element("rules-summary").textContent = rulesSummary;
   document.title = `${game.definition.title} — ${rulesSummary}`;
   element("shogi-rules").hidden = isChu;

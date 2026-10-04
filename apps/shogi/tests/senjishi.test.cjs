@@ -9,10 +9,11 @@ function setup({ support = true, retaliator = 'rook', position = [2, 4], shadow 
   game.addPiece('king', 1, [11, 0]);
   const protectedLion = game.addPiece('lion', 0, [2, 6]);
   const takenLion = game.addPiece('lion', 1, [8, 4]);
-  const first = game.addPiece(capturer, 0, [8, 6]);
+  const first = game.addPiece(capturer, 0, capturer === 'lion' ? [8, 5] : [8, 6]);
   if (support) game.addPiece('rook', 0, shadow ? [2, 2] : [2, 8]);
   const reply = game.addPiece(retaliator, 1, position);
   game.move(first.id, [8, 4]);
+  if (game.canEndTurn) game.endTurn();
   assert.equal(game.pending, null);
   assert.equal(game.outcome, null);
   return { game, protectedLion, takenLion, first, reply };

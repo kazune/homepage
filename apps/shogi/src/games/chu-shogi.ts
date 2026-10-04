@@ -1,6 +1,6 @@
 import type { GameDefinition, MovementRule, PieceType, Position, SequenceRule } from "../types.js";
 import { step, orthogonal, diagonal, gold, kingDirections, sequence, pieceType as type } from "../rules.js";
-import { validateSenjishi } from "./chu-special.js";
+import { validateLionRules } from "./chu-special.js";
 const steps = (directions: readonly Position[]) => directions.map(v => step(v));
 const rays = (directions: readonly Position[]) => directions.map(v => step(v, null));
 const vertical: Position[] = [[0, -1], [0, 1]];
@@ -80,7 +80,7 @@ for (const owner of [0, 1] as const) rows.forEach((row, depth) => row.forEach((i
 }));
 export const chuShogi: GameDefinition = {
   id: "chu", title: "中将棋", width: 12, height: 12, pieceTypes: chuPieceTypes, initial,
-  validateTurn: context => validateSenjishi(context, chuPieceTypes),
+  validateTurn: context => validateLionRules(context, chuPieceTypes),
   canPromote: ({ piece, path, captured }) => {
     const inZone = (p: Position) => piece.owner === 0 ? p[1] <= 3 : p[1] >= 8;
     const entered = path.some((p, index) => index > 0 && inZone(p) && !inZone(path[index - 1]));
