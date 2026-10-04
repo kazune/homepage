@@ -16,6 +16,7 @@ gameSelect.value = initialDefinition.id;
 let selected: Piece | null = null;
 let choices: readonly Position[] = [];
 let flipped = false;
+let announcedNotice: string | null = null;
 const player = (owner: number) => owner === 0 ? "先手" : "後手";
 const rankName = (rank: number): string => {
   const digits = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
@@ -121,6 +122,14 @@ function render(): void {
       }
     }
     element(`lost-${owner}`).textContent = [...counts].map(([id, n]) => `${game.definition.pieceTypes[id].name}${n > 1 ? `×${n}` : ""}`).join("・") || "なし";
+  }
+  const blocked = !!game.activePiece && choices.length === 0 && !game.canEndTurn;
+  const notice = game.awaitingPromotion ? null
+    : result !== null ? `${element("turn").textContent}\n${element("status").textContent}`
+    : blocked ? element("status").textContent : null;
+  if (notice !== announcedNotice) {
+    announcedNotice = notice;
+    if (notice) window.alert(notice);
   }
 }
 
