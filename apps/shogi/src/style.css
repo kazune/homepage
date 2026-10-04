@@ -44,6 +44,12 @@ main.large-board { max-width: 880px; }
 .large-board .piece.long { font-size: clamp(14px, 2.2vw, 20px); }
 main.dai { max-width: 1040px; }
 .dai .board, .dai .files { min-width: 750px; }
+main.taikyoku { max-width: 1900px; }
+.taikyoku .board-wrap { max-height: 75vh; overflow: auto; }
+.taikyoku .board, .taikyoku .files { min-width: 1800px; }
+.taikyoku .files { position: sticky; top: 0; background: #fffdf8; z-index: 2; }
+.taikyoku .piece.long { font-size: 16px; }
+.taikyoku .piece.very-long { font-size: 10px; line-height: 1.1; word-break: break-all; }
 .game-select { display: block; margin-top: 16px; }
 select { font: inherit; padding: 8px 12px; border: 1px solid #d2c5af; border-radius: 8px; background: #fffdf8; color: inherit; }
 select:focus-visible { outline: 3px solid #246978; }

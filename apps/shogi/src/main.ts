@@ -3,12 +3,13 @@ import { Game, samePosition, type Piece, type Position } from "./game.js";
 import { shogi } from "./games/shogi.js";
 import { chuShogi } from "./games/chu-shogi.js";
 import { daiShogi } from "./games/dai-shogi.js";
+import { taikyokuShogi } from "./games/taikyoku-shogi.js";
 
 function element<T extends HTMLElement>(id: string): T { return document.getElementById(id) as T; }
 const board = element<HTMLDivElement>("board");
 const undo = element<HTMLButtonElement>("undo");
 const gameSelect = element<HTMLSelectElement>("game-select");
-const definitions = [shogi, chuShogi, daiShogi];
+const definitions = [shogi, chuShogi, daiShogi, taikyokuShogi];
 const initialDefinition = definitions.find(d => d.id === new URLSearchParams(window.location.search).get("game")) ?? shogi;
 let game = new Game(true, initialDefinition);
 gameSelect.value = initialDefinition.id;
@@ -17,12 +18,18 @@ let choices: readonly Position[] = [];
 let promotionPiece: number | null = null;
 let flipped = false;
 const player = (owner: number) => owner === 0 ? "先手" : "後手";
+const rankName = (rank: number): string => {
+  const digits = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+  const tens = Math.floor(rank / 10);
+  return `${tens ? `${tens > 1 ? digits[tens] : ""}十` : ""}${digits[rank % 10]}`;
+};
 
 function render(): void {
   const focusedSquare = document.activeElement instanceof HTMLElement ? document.activeElement.dataset.square : undefined;
   const result = game.outcome;
   document.querySelector("main")!.classList.toggle("large-board", game.width > 9);
   document.querySelector("main")!.classList.toggle("dai", game.definition.id === "dai");
+  document.querySelector("main")!.classList.toggle("taikyoku", game.definition.id === "taikyoku");
   element("title").textContent = game.definition.title;
   document.title = game.definition.title;
   element("hands").hidden = !game.definition.canDrop;
@@ -57,7 +64,7 @@ function render(): void {
     square.classList.toggle("candidate", candidate);
     square.classList.toggle("selected", piece?.id === selected?.id && !!piece);
     square.classList.toggle("last", lastSquares.some(l => l.kind === "board" && samePosition(l.position, position)));
-    const coordinate = `${game.width - position[0]}${["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三", "十四", "十五"][position[1]]}`;
+    const coordinate = `${game.width - position[0]}${rankName(position[1] + 1)}`;
     square.setAttribute("aria-label", `${coordinate} ${piece ? `${player(piece.owner)}の${game.definition.pieceTypes[piece.type].name}` : "空きマス"}${candidate ? "、移動可能" : ""}`);
     square.setAttribute("aria-pressed", String(piece?.id === selected?.id && !!piece));
     if (piece) {
@@ -67,6 +74,7 @@ function render(): void {
       glyph.classList.toggle("enemy", flipped ? piece.owner === 0 : piece.owner === 1);
       glyph.classList.toggle("promoted", !!game.pieceTypeOf(piece).promoted);
       glyph.classList.toggle("long", name.length > 1);
+      glyph.classList.toggle("very-long", name.length > 3);
       glyph.textContent = name;
       square.append(glyph);
     }
