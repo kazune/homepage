@@ -21,7 +21,7 @@ $(ASSETS_DIR)/main.js: $(wildcard src/*.ts src/games/*.ts) $(ROOT_DIR)/package.j
 	$(TSC) --target ES2020 --module ES2020 --strict --skipLibCheck --outDir $(abspath $(ASSETS_DIR)) $(abspath src/main.ts)
 
 test:
-	$(TSC) --target ES2020 --module commonjs --strict --skipLibCheck --outDir $(abspath tests/build) $(abspath src/game.ts src/games/chu-shogi.ts src/games/dai-shogi.ts src/games/taikyoku-shogi.ts)
+	$(TSC) --target ES2020 --module commonjs --strict --skipLibCheck --outDir $(abspath tests/build) $(abspath src/game.ts src/games/tori-shogi.ts src/games/chu-shogi.ts src/games/dai-shogi.ts src/games/taikyoku-shogi.ts)
 	node --test tests/*.test.cjs
 
 clean:
