@@ -1,5 +1,5 @@
 import type { GameDefinition, Position } from "../types.js";
-import { step, orthogonal, diagonal, pieceType as type } from "../rules.js";
+import { step, ray, orthogonal, diagonal, pieceType as type } from "../rules.js";
 import { chuPieceTypes } from "./chu-shogi.js";
 
 // Dai shares Chu's 21 base pieces and their promotions. Its eight additional
@@ -12,8 +12,8 @@ const additions = [
   type("angry-boar", "嗔猪", orthogonal.map(v => step(v))),
   type("cat-sword", "猫刃", diagonal.map(v => step(v))),
   type("evil-wolf", "悪狼", wolfDirections.map(v => step(v))),
-  type("violent-ox", "猛牛", orthogonal.map(v => step(v, 2))),
-  type("flying-dragon", "飛龍", diagonal.map(v => step(v, 2))),
+  type("violent-ox", "猛牛", orthogonal.map(v => ray(v, 2))),
+  type("flying-dragon", "飛龍", diagonal.map(v => ray(v, 2))),
 ];
 export const daiPieceTypes = {
   ...chuPieceTypes,

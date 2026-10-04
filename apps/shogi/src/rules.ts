@@ -9,6 +9,7 @@ export const landNormal = ({ mover, target }: Context): Result => {
 export const step = (vector: Position, max: number | null = 1): MovementRule => ({
   vector, range: { min: 1, max }, pass: passEmpty, land: landNormal,
 });
+export const ray = (vector: Position, max: number | null = null): MovementRule => step(vector, max);
 export const orthogonal: readonly Position[] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 export const diagonal: readonly Position[] = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
 export const kingDirections = [...orthogonal, ...diagonal];

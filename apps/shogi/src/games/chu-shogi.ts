@@ -1,8 +1,8 @@
 import type { GameDefinition, MovementRule, PieceType, Position, SequenceRule } from "../types.js";
-import { step, orthogonal, diagonal, gold, kingDirections, sequence, pieceType as type } from "../rules.js";
+import { step, ray, orthogonal, diagonal, gold, kingDirections, sequence, pieceType as type } from "../rules.js";
 import { validateLionRules } from "./chu-special.js";
 const steps = (directions: readonly Position[]) => directions.map(v => step(v));
-const rays = (directions: readonly Position[]) => directions.map(v => step(v, null));
+const rays = (directions: readonly Position[]) => directions.map(v => ray(v));
 const vertical: Position[] = [[0, -1], [0, 1]];
 const horizontal: Position[] = [[-1, 0], [1, 0]];
 const forwardDiagonal: Position[] = [[-1, -1], [1, -1]];
@@ -41,7 +41,7 @@ const bases: PieceType[] = [
   type("queen", "奔王", rays(kingDirections)), lion,
   type("pawn", "歩兵", [step([0, -1])], "gold"),
   type("go-between", "仲人", steps(vertical), "elephant"),
-  type("lance", "香車", [step([0, -1], null)], "white-horse"),
+  type("lance", "香車", rays([[0, -1]]), "white-horse"),
   type("reverse-chariot", "反車", rays(vertical), "whale"),
   type("leopard", "猛豹", steps([...vertical, ...diagonal]), "bishop"),
   type("copper", "銅将", steps([[0, -1], ...forwardDiagonal, [0, 1]]), "side-mover"),

@@ -1,21 +1,21 @@
 import type { GameDefinition, Position } from "../types.js";
-import { step, orthogonal, diagonal, gold, pieceType as type } from "../rules.js";
+import { step, ray, orthogonal, diagonal, gold, pieceType as type } from "../rules.js";
 export const pieceTypes = Object.fromEntries([
   type("pawn", "歩", [step([0, -1])], "tokin"),
-  type("lance", "香", [step([0, -1], null)], "promoted-lance"),
+  type("lance", "香", [ray([0, -1])], "promoted-lance"),
   type("knight", "桂", [step([-1, -2]), step([1, -2])], "promoted-knight"),
   type("silver", "銀", [[0, -1] as Position, ...diagonal].map(v => step(v)), "promoted-silver"),
   type("gold", "金", gold.map(v => step(v))),
-  type("bishop", "角", diagonal.map(v => step(v, null)), "horse"),
-  type("rook", "飛", orthogonal.map(v => step(v, null)), "dragon"),
+  type("bishop", "角", diagonal.map(v => ray(v)), "horse"),
+  type("rook", "飛", orthogonal.map(v => ray(v)), "dragon"),
   type("king", "王", [...orthogonal, ...diagonal].map(v => step(v)), undefined, true),
   ...[
     type("tokin", "と", gold.map(v => step(v))),
     type("promoted-lance", "成香", gold.map(v => step(v))),
     type("promoted-knight", "成桂", gold.map(v => step(v))),
     type("promoted-silver", "成銀", gold.map(v => step(v))),
-    type("horse", "馬", [...diagonal.map(v => step(v, null)), ...orthogonal.map(v => step(v))]),
-    type("dragon", "龍", [...orthogonal.map(v => step(v, null)), ...diagonal.map(v => step(v))]),
+    type("horse", "馬", [...diagonal.map(v => ray(v)), ...orthogonal.map(v => step(v))]),
+    type("dragon", "龍", [...orthogonal.map(v => ray(v)), ...diagonal.map(v => step(v))]),
   ].map(t => ({ ...t, promoted: true })),
 ].map(t => [t.id, t]));
 const initial: GameDefinition["initial"][number][] = [];
