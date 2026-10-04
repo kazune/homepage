@@ -15,7 +15,6 @@ let game = new Game(true, initialDefinition);
 gameSelect.value = initialDefinition.id;
 let selected: Piece | null = null;
 let choices: readonly Position[] = [];
-let promotionPiece: number | null = null;
 let flipped = false;
 const player = (owner: number) => owner === 0 ? "先手" : "後手";
 const rankName = (rank: number): string => {
@@ -42,13 +41,12 @@ function render(): void {
   end.disabled = !game.canEndTurn;
   element("turn").textContent = result === "draw" ? "引き分け" : result !== null ? `${player(result)}の勝ち${game.violation ? "（相手の反則負け）" : ""}` : `${player(game.turn)}の番`;
   element("count").textContent = `${game.history.length}手`;
-  element("status").textContent = promotionPiece !== null ? "成る・成らないを選んで、この手を完了してください。"
+  element("status").textContent = game.awaitingPromotion ? "確認ダイアログで成る・成らないを選んでください。"
     : game.violation ? `${game.violation}「待った」でこの手を取り消せます。`
     : result !== null ? "対局終了。「待った」で戻すか、「最初から」で再開できます。"
     : game.activePiece ? (choices.length === 0 && !game.canEndTurn ? "合法に移動を終了できません。「待った」で戻ってください。" : `${game.pieceTypeOf(game.activePiece).name}の${game.stage + 1}段目の移動先を選んでください。${game.canEndTurn ? "ここで手を終了することもできます。" : ""}`)
     : selected ? `${game.pieceTypeOf(selected).name}の${game.locations.get(selected.id)?.kind === "hand" ? "打ち先" : "移動先"}を選んでください。${choices.length === 0 ? "移動できるマスはありません。" : ""}`
     : "自分の駒を選ぶと移動先が表示されます。";
-  element("promotion").hidden = promotionPiece === null;
   undo.disabled = !game.pending && game.history.length === 0;
   const last = game.pending ?? game.history[game.history.length - 1];
   const lastSquares = last?.transfers.flatMap(t => [t.from, t.to]).filter(l => l.kind === "board") ?? [];
@@ -131,15 +129,22 @@ function syncSelection(): void {
   if (game.activePiece && !game.awaitingPromotion) { selected = game.activePiece; choices = game.candidates(selected); }
   else clearSelection();
 }
+function confirmPromotion(pieceId: number): void {
+  clearSelection();
+  render();
+  const type = game.pieceTypeOf(game.pieces.get(pieceId)!);
+  const promotedName = game.definition.pieceTypes[type.promoteTo!].name;
+  game.completePromotion(pieceId, window.confirm(`「${type.name}」を成らせて「${promotedName}」にしますか？\nOK：成る／キャンセル：成らない`));
+  undo.focus();
+}
 function clickSquare(position: Position): void {
-  if (promotionPiece !== null || game.outcome !== null) return;
+  if (game.awaitingPromotion || game.outcome !== null) return;
   if (selected && choices.some(p => samePosition(p, position))) {
     const id = selected.id;
     if (game.locations.get(id)?.kind === "hand") game.drop(id, position);
-    else if (game.move(id, position)) promotionPiece = id;
+    else if (game.move(id, position)) confirmPromotion(id);
     syncSelection();
     render();
-    if (promotionPiece !== null) element("promote").focus();
     return;
   }
   if (game.activePiece) return;
@@ -148,32 +153,22 @@ function clickSquare(position: Position): void {
   else clearSelection();
   render();
 }
-for (const [id, promote] of [["promote", true], ["stay", false]] as const) {
-  element(id).addEventListener("click", () => {
-    if (promotionPiece === null) return;
-    game.completePromotion(promotionPiece, promote);
-    promotionPiece = null;
-    render();
-    undo.focus();
-  });
-}
-undo.addEventListener("click", () => { game.undo(); promotionPiece = null; clearSelection(); render(); });
+undo.addEventListener("click", () => { game.undo(); clearSelection(); render(); });
 element("end-turn").addEventListener("click", () => {
   const id = game.activePiece?.id;
   if (id === undefined || !game.canEndTurn) return;
-  if (game.endTurn()) promotionPiece = id;
+  if (game.endTurn()) confirmPromotion(id);
   syncSelection(); render();
-  if (promotionPiece !== null) element("promote").focus();
 });
 element("flip").addEventListener("click", () => { flipped = !flipped; render(); });
 element("reset").addEventListener("click", () => {
   if ((game.history.length || game.pending) && !window.confirm("対局を最初からやり直しますか？")) return;
-  game = new Game(true, game.definition); promotionPiece = null; clearSelection(); render();
+  game = new Game(true, game.definition); clearSelection(); render();
 });
 gameSelect.addEventListener("change", () => {
   if ((game.history.length || game.pending) && !window.confirm("対局を終了してゲームを切り替えますか？")) { gameSelect.value = game.definition.id; return; }
   game = new Game(true, definitions.find(d => d.id === gameSelect.value) ?? shogi);
-  promotionPiece = null; clearSelection();
+  clearSelection();
   const url = new URL(window.location.href);
   if (game.definition.id !== "shogi") url.searchParams.set("game", game.definition.id);
   else url.searchParams.delete("game");

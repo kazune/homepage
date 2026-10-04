@@ -28,10 +28,7 @@ button { font: inherit; cursor: pointer; color: inherit; }
 button:focus-visible, summary:focus-visible { outline: 3px solid #246978; outline-offset: 2px; z-index: 1; }
 button:disabled { opacity: .4; cursor: default; }
 .controls { display: flex; gap: 8px; margin: 18px 0; flex-wrap: wrap; }
-.controls button, .promotion button { border: 1px solid #d2c5af; background: #faf5ea; padding: 9px 14px; border-radius: 8px; }
-.promotion { margin-top: 12px; padding: 12px; background: #edf1df; border-radius: 8px; }
-.promotion p { margin: 0 0 8px; }
-.promotion button { margin-right: 8px; }
+.controls button { border: 1px solid #d2c5af; background: #faf5ea; padding: 9px 14px; border-radius: 8px; }
 .captures { border-top: 1px solid #e4dbcb; font-size: .8rem; color: #766a59; }
 .captures p { margin: 10px 0 0; }
 .captures span { display: block; margin-top: 3px; color: #40382e; }
