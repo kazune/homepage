@@ -52,6 +52,8 @@ export type GameDefinition = Readonly<{
   pieceTypes: Readonly<Record<string, PieceType>>;
   initial: readonly Readonly<{ type: string; owner: PlayerId; position: Position }>[];
   canPromote: (context: PromotionContext) => boolean;
+  captureToHand?: (piece: Piece) => string | null;
+  canDrop?: (piece: Piece, position: Position) => boolean;
   validateTurn?: (context: TurnValidationContext) => string | null;
 }>;
 export type Outcome = PlayerId | "draw" | null;

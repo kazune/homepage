@@ -46,3 +46,9 @@ main.chu { max-width: 880px; }
 select { font: inherit; padding: 8px 12px; border: 1px solid #d2c5af; border-radius: 8px; background: #fffdf8; color: inherit; }
 select:focus-visible { outline: 3px solid #246978; }
 #end-turn { background: #e5edcf; border-color: #9baa77; }
+.hands { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid #e4dbcb; padding-top: 12px; }
+.hands[hidden] { display: none; }
+.hands h2 { font-size: .85rem; margin: 0 0 8px; color: #766a59; }
+.hand { display: flex; gap: 6px; flex-wrap: wrap; font-size: .9rem; }
+.hand button { border: 1px solid #d2c5af; background: #faf5ea; border-radius: 6px; padding: 8px 10px; }
+.hand button.selected { background: #e6aa50; border-color: #8c5418; }

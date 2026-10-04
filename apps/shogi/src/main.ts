@@ -22,8 +22,9 @@ function render(): void {
   const isChu = game.definition.id === "chu";
   document.querySelector("main")!.classList.toggle("chu", isChu);
   element("title").textContent = game.definition.title;
-  element("rules-summary").hidden = isChu;
-  document.title = isChu ? game.definition.title : `${game.definition.title} — 持ち駒・禁じ手なし`;
+  document.title = game.definition.title;
+  element("hands").hidden = !game.definition.canDrop;
+  element("captures").hidden = !!game.definition.canDrop;
   element("shogi-rules").hidden = isChu;
   element("chu-rules").hidden = !isChu;
   board.style.setProperty("--columns", String(game.width));
@@ -37,7 +38,7 @@ function render(): void {
     : game.violation ? `${game.violation}「待った」でこの手を取り消せます。`
     : result !== null ? "対局終了。「待った」で戻すか、「最初から」で再開できます。"
     : game.activePiece ? (choices.length === 0 && !game.canEndTurn ? "合法に移動を終了できません。「待った」で戻ってください。" : `${game.pieceTypeOf(game.activePiece).name}の${game.stage + 1}段目の移動先を選んでください。${game.canEndTurn ? "ここで手を終了することもできます。" : ""}`)
-    : selected ? `${game.pieceTypeOf(selected).name}の移動先を選んでください。${choices.length === 0 ? "移動できるマスはありません。" : ""}`
+    : selected ? `${game.pieceTypeOf(selected).name}の${game.locations.get(selected.id)?.kind === "hand" ? "打ち先" : "移動先"}を選んでください。${choices.length === 0 ? "移動できるマスはありません。" : ""}`
     : "自分の駒を選ぶと移動先が表示されます。";
   element("promotion").hidden = promotionPiece === null;
   undo.disabled = !game.pending && game.history.length === 0;
@@ -79,6 +80,30 @@ function render(): void {
     element("files").append(span);
   }
   for (const owner of [0, 1]) {
+    const hand = element(`hand-${owner}`);
+    hand.replaceChildren();
+    const groups = new Map<string, Piece[]>();
+    for (const piece of game.pieces.values()) {
+      if (piece.owner === owner && game.locations.get(piece.id)?.kind === "hand") {
+        groups.set(piece.type, [...groups.get(piece.type) ?? [], piece]);
+      }
+    }
+    if (!groups.size) hand.textContent = "なし";
+    for (const [type, pieces] of groups) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = `${game.definition.pieceTypes[type].name} ×${pieces.length}`;
+      button.disabled = owner !== game.turn || !!game.pending || result !== null;
+      button.classList.toggle("selected", pieces.some(p => p.id === selected?.id));
+      button.setAttribute("aria-pressed", String(pieces.some(p => p.id === selected?.id)));
+      button.setAttribute("aria-label", `${player(owner)}の持ち駒 ${game.definition.pieceTypes[type].name} ${pieces.length}枚`);
+      button.addEventListener("click", () => {
+        if (pieces.some(p => p.id === selected?.id)) clearSelection();
+        else { selected = pieces[0]; choices = game.candidates(selected); }
+        render();
+      });
+      hand.append(button);
+    }
     const counts = new Map<string, number>();
     for (const transaction of [...game.history, ...(game.pending ? [game.pending] : [])]) {
       const mover = transaction.transfers.find(t => t.from.kind === "board" && t.to.kind === "board")?.pieceId;
@@ -101,7 +126,8 @@ function clickSquare(position: Position): void {
   if (promotionPiece !== null || game.outcome !== null) return;
   if (selected && choices.some(p => samePosition(p, position))) {
     const id = selected.id;
-    if (game.move(id, position)) promotionPiece = id;
+    if (game.locations.get(id)?.kind === "hand") game.drop(id, position);
+    else if (game.move(id, position)) promotionPiece = id;
     syncSelection();
     render();
     if (promotionPiece !== null) element("promote").focus();

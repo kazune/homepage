@@ -19,6 +19,10 @@ export const pieceTypes = Object.fromEntries([
   ].map(t => ({ ...t, promoted: true })),
 ].map(t => [t.id, t]));
 const initial: GameDefinition["initial"][number][] = [];
+const unpromoted: Readonly<Record<string, string>> = {
+  tokin: "pawn", "promoted-lance": "lance", "promoted-knight": "knight",
+  "promoted-silver": "silver", horse: "bishop", dragon: "rook",
+};
 const back = ["lance", "knight", "silver", "gold", "king", "gold", "silver", "knight", "lance"];
 for (const owner of [0, 1] as const) {
   for (let x = 0; x < 9; x++) {
@@ -31,4 +35,24 @@ for (const owner of [0, 1] as const) {
 export const shogi: GameDefinition = {
   id: "shogi", title: "将棋", width: 9, height: 9, pieceTypes, initial,
   canPromote: ({ piece, path }) => path.some(p => piece.owner === 0 ? p[1] <= 2 : p[1] >= 6),
+  captureToHand: piece => pieceTypes[piece.type].royal ? null : unpromoted[piece.type] ?? piece.type,
+  canDrop: piece => !pieceTypes[piece.type].royal && !pieceTypes[piece.type].promoted,
+  validateTurn: ({ after, transaction }) => {
+    const files = new Set<number>();
+    for (const [id, location] of after.locations) {
+      const piece = after.pieces.get(id)!;
+      if (piece.owner !== transaction.playerBefore || location.kind !== "board") continue;
+      const [x, y] = location.position;
+      const depth = piece.owner === 0 ? y : after.height - 1 - y;
+      if (((piece.type === "pawn" || piece.type === "lance") && depth === 0) ||
+          (piece.type === "knight" && depth <= 1)) {
+        return `行き所のない駒：${pieceTypes[piece.type].name}を移動できない段に置きました。`;
+      }
+      if (piece.type === "pawn") {
+        if (files.has(x)) return "二歩：同じ筋に不成の歩を2枚置きました。";
+        files.add(x);
+      }
+    }
+    return null;
+  },
 };

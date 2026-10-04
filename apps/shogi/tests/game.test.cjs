@@ -38,7 +38,7 @@ test('rays can capture a blocker but cannot land beyond it', () => {
   game.move(rook.id, [4, 3]);
   assert.equal(game.locations.get(victim.id).kind, 'void');
   assert.equal(game.locations.get(friend.id).kind, 'board');
-  assert.equal([...game.locations.values()].some(l => l.kind === 'hand'), false);
+  assert.equal([...game.locations.values()].some(l => l.kind === 'hand'), true);
   game.undo();
   assert.equal(game.pieceAt([4, 3]).id, victim.id);
   assert.equal(game.pieceAt([4, 5]).id, rook.id);
@@ -67,7 +67,7 @@ test('capture and promotion are one transaction and undo restores original IDs',
   assert.equal(promoted.type, 'tokin');
   assert.notEqual(promoted.id, pawn.id);
   assert.equal(game.history.length, 1);
-  assert.equal(game.history[0].transfers.length, 4);
+  assert.equal(game.history[0].transfers.length, 5);
   game.undo();
   assert.equal(game.turn, 0);
   assert.equal(game.pieceAt([4, 3]).id, pawn.id);
@@ -76,7 +76,7 @@ test('capture and promotion are one transaction and undo restores original IDs',
   assert(game.pieces.has(promoted.id));
 });
 
-test('undo during promotion rolls back the whole turn; promotion is optional', () => {
+test('undo during promotion rolls back the whole turn; declining mandatory promotion is a foul', () => {
   const game = empty();
   const pawn = game.addPiece('pawn', 0, [4, 1]);
   game.move(pawn.id, [4, 0]);
@@ -86,6 +86,7 @@ test('undo during promotion rolls back the whole turn; promotion is optional', (
   game.move(pawn.id, [4, 0]);
   game.completePromotion(pawn.id, false);
   assert.equal(game.pieceAt([4, 0]).type, 'pawn');
+  assert.match(game.violation, /行き所/);
   game.turn = 0;
   assert.deepEqual(game.candidates(pawn), []);
 });

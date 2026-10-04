@@ -70,6 +70,15 @@ export class Game {
 
   candidates(piece: Piece): readonly Position[] {
     if (piece.owner !== this.turn || this.awaitingPromotion || (this.progress && this.progress.pieceId !== piece.id) || this.outcome !== null) return [];
+    if (this.locations.get(piece.id)?.kind === "hand") {
+      if (this.pending || !this.definition.canDrop) return [];
+      const positions: Position[] = [];
+      for (let y = 0; y < this.height; y++) for (let x = 0; x < this.width; x++) {
+        const position: Position = [x, y];
+        if (this.pieceAt(position) === null && this.definition.canDrop(piece, position)) positions.push(position);
+      }
+      return positions;
+    }
     return [...this.evaluate(piece).values()].map(c => c.position);
   }
 
@@ -95,7 +104,15 @@ export class Game {
       this.progress = { pieceId, stage: 0, sequences: [], path: [from.position], captured: false, promotion: false };
     }
     const progress = this.progress!;
-    for (const effect of candidate.effects) this.transfer(effect.pieceId, VOID);
+    for (const effect of candidate.effects) {
+      const captured = this.pieces.get(effect.pieceId)!;
+      this.transfer(captured.id, VOID);
+      const type = this.definition.captureToHand?.(captured);
+      if (type) {
+        const replacement = this.addPiece(type, piece.owner);
+        this.transfer(replacement.id, { kind: "hand" });
+      }
+    }
     this.transfer(pieceId, { kind: "board", position: to });
     progress.stage++;
     progress.sequences = candidate.sequences;
@@ -103,6 +120,17 @@ export class Game {
     progress.captured ||= candidate.effects.length > 0;
     if (!progress.sequences.some(s => s.stages.length > progress.stage) && this.canEndTurn) this.endTurn();
     return this.awaitingPromotion;
+  }
+
+  drop(pieceId: number, to: Position): void {
+    const piece = this.pieces.get(pieceId);
+    if (!piece || piece.owner !== this.turn || this.locations.get(pieceId)?.kind !== "hand" ||
+        this.pending || this.outcome !== null || this.pieceAt(to) !== null || !this.definition.canDrop?.(piece, to)) {
+      throw new Error("駒を打てません");
+    }
+    this.pending = { playerBefore: this.turn, playerAfter: this.turn, transfers: [] };
+    this.transfer(pieceId, { kind: "board", position: to });
+    this.finish();
   }
 
   endTurn(): boolean {
