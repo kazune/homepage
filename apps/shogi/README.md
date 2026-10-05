@@ -18,6 +18,7 @@ make -C apps/shogi test
 ```
 
 設計方針は [DESIGN.md](./DESIGN.md) を参照。
+新しい将棋を追加するときは [追加手順・既存APIとの対応・検証項目](./DESIGN.md#新しい将棋を追加する手順) を参照。
 
 実装は `src/` の TypeScript に置き、ブラウザ用の成果物はビルドで `dist/` に生成する。
 公開パスは `/apps/shogi/` とする。バックエンドやデータベースは導入しない。
