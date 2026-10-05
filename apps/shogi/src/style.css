@@ -57,3 +57,7 @@ select:focus-visible { outline: 3px solid #246978; }
 .hand { display: flex; gap: 6px; flex-wrap: wrap; font-size: .9rem; }
 .hand button { border: 1px solid #d2c5af; background: #faf5ea; border-radius: 6px; padding: 8px 10px; }
 .hand button.selected { background: #e6aa50; border-color: #8c5418; }
+.dobutsu .board-wrap { max-width: 360px; margin: 0 auto; }
+.dobutsu .piece { clip-path: none; border-radius: 12px; font-family: inherit; font-size: clamp(12px, 3.4vw, 18px); padding: 6px 2px; gap: 2px; }
+.dobutsu .animal { font-size: clamp(28px, 9vw, 48px); }
+.dobutsu .piece.promoted { background: #ffe0b2; }

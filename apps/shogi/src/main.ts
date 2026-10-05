@@ -1,6 +1,7 @@
 import { Game, samePosition, type Piece, type Position } from "./game.js";
 
 import { shogi } from "./games/shogi.js";
+import { dobutsuShogi } from "./games/dobutsu-shogi.js";
 import { toriShogi } from "./games/tori-shogi.js";
 import { chuShogi } from "./games/chu-shogi.js";
 import { daiShogi } from "./games/dai-shogi.js";
@@ -10,7 +11,7 @@ function element<T extends HTMLElement>(id: string): T { return document.getElem
 const board = element<HTMLDivElement>("board");
 const undo = element<HTMLButtonElement>("undo");
 const gameSelect = element<HTMLSelectElement>("game-select");
-const definitions = [shogi, toriShogi, chuShogi, daiShogi, taikyokuShogi];
+const definitions = [shogi, dobutsuShogi, toriShogi, chuShogi, daiShogi, taikyokuShogi];
 const initialDefinition = definitions.find(d => d.id === new URLSearchParams(window.location.search).get("game")) ?? shogi;
 let game = new Game(true, initialDefinition);
 gameSelect.value = initialDefinition.id;
@@ -31,6 +32,7 @@ function render(): void {
   document.querySelector("main")!.classList.toggle("large-board", game.width > 9);
   document.querySelector("main")!.classList.toggle("dai", game.definition.id === "dai");
   document.querySelector("main")!.classList.toggle("taikyoku", game.definition.id === "taikyoku");
+  document.querySelector("main")!.classList.toggle("dobutsu", game.definition.id === "dobutsu");
   element("title").textContent = game.definition.title;
   document.title = game.definition.title;
   element("hands").hidden = !game.definition.canDrop;
@@ -76,6 +78,16 @@ function render(): void {
       glyph.classList.toggle("long", name.length > 1);
       glyph.classList.toggle("very-long", name.length > 3);
       glyph.textContent = name;
+      if (game.definition.id === "dobutsu") {
+        const animals: Record<string, string> = { lion: "🦁", elephant: "🐘", giraffe: "🦒", chick: "🐤", hen: "🐔" };
+        const animal = document.createElement("span");
+        animal.className = "animal";
+        animal.setAttribute("aria-hidden", "true");
+        animal.textContent = animals[piece.type];
+        const label = document.createElement("span");
+        label.textContent = name;
+        glyph.replaceChildren(animal, label);
+      }
       square.append(glyph);
     }
     square.addEventListener("click", () => clickSquare(position));
