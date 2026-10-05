@@ -35,8 +35,13 @@ function render(): void {
   document.querySelector("main")!.classList.toggle("dobutsu", game.definition.id === "dobutsu");
   element("title").textContent = game.definition.title;
   document.title = game.definition.title;
-  element("hands").hidden = !game.definition.canDrop;
-  element("captures").hidden = !!game.definition.canDrop;
+  const layout = element("board-layout");
+  const topHand = element(`hand-panel-${flipped ? 0 : 1}`);
+  const bottomHand = element(`hand-panel-${flipped ? 1 : 0}`);
+  if (layout.firstElementChild !== topHand) {
+    layout.insertBefore(topHand, element("board-wrap"));
+    layout.append(bottomHand);
+  }
   for (const definition of definitions) element(`${definition.id}-rules`).hidden = game.definition.id !== definition.id;
   board.style.setProperty("--columns", String(game.width));
   element("files").style.setProperty("--columns", String(game.width));
@@ -101,6 +106,9 @@ function render(): void {
     element("files").append(span);
   }
   for (const owner of [0, 1]) {
+    const panel = element(`hand-panel-${owner}`);
+    panel.hidden = !game.definition.canDrop;
+    panel.classList.toggle("active", owner === game.turn && result === null);
     const hand = element(`hand-${owner}`);
     hand.replaceChildren();
     const groups = new Map<string, Piece[]>();
@@ -125,16 +133,7 @@ function render(): void {
       });
       hand.append(button);
     }
-    const counts = new Map<string, number>();
-    for (const transaction of [...game.history, ...(game.pending ? [game.pending] : [])]) {
-      const mover = transaction.transfers.find(t => t.from.kind === "board" && t.to.kind === "board")?.pieceId;
-      for (const transfer of transaction.transfers) {
-        if (transfer.to.kind !== "void" || transfer.pieceId === mover) continue;
-        const piece = game.pieces.get(transfer.pieceId)!;
-        if (piece.owner === owner) counts.set(piece.type, (counts.get(piece.type) ?? 0) + 1);
-      }
-    }
-    element(`lost-${owner}`).textContent = [...counts].map(([id, n]) => `${game.definition.pieceTypes[id].name}${n > 1 ? `×${n}` : ""}`).join("・") || "なし";
+
   }
   const blocked = !!game.activePiece && choices.length === 0 && !game.canEndTurn;
   const notice = game.awaitingPromotion ? null
