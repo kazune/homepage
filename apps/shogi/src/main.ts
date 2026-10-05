@@ -43,7 +43,7 @@ function render(): void {
   const end = element<HTMLButtonElement>("end-turn");
   end.hidden = !game.activePiece || game.awaitingPromotion;
   end.disabled = !game.canEndTurn;
-  element("turn").textContent = result === "draw" ? "引き分け" : result !== null ? `${player(result)}の勝ち${game.violation ? "（相手の反則負け）" : ""}` : `${player(game.turn)}の番`;
+  element("turn").textContent = result === "draw" ? "引き分け" : result !== null ? `${player(result)}の勝ち` : `${player(game.turn)}の番`;
   element("count").textContent = `${game.history.length}手`;
   element("status").textContent = game.awaitingPromotion ? "確認ダイアログで成る・成らないを選んでください。"
     : game.violation ? `${game.violation}「待った」でこの手を取り消せます。`
