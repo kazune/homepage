@@ -1,6 +1,7 @@
 import { Game, samePosition, type Piece, type Position } from "./game.js";
 
 import { shogi } from "./games/shogi.js";
+import { toriShogi } from "./games/tori-shogi.js";
 import { chuShogi } from "./games/chu-shogi.js";
 import { daiShogi } from "./games/dai-shogi.js";
 import { taikyokuShogi } from "./games/taikyoku-shogi.js";
@@ -9,7 +10,7 @@ function element<T extends HTMLElement>(id: string): T { return document.getElem
 const board = element<HTMLDivElement>("board");
 const undo = element<HTMLButtonElement>("undo");
 const gameSelect = element<HTMLSelectElement>("game-select");
-const definitions = [shogi, chuShogi, daiShogi, taikyokuShogi];
+const definitions = [shogi, toriShogi, chuShogi, daiShogi, taikyokuShogi];
 const initialDefinition = definitions.find(d => d.id === new URLSearchParams(window.location.search).get("game")) ?? shogi;
 let game = new Game(true, initialDefinition);
 gameSelect.value = initialDefinition.id;
