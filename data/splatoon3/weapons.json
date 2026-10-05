@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "game": "Splatoon 3",
-  "verifiedAt": "2026-06-09",
+  "verifiedAt": "2026-10-05",
   "sources": [
     {
       "name": "stat.ink API v3 weapon",
@@ -25,12 +25,34 @@
         "price",
         "introduced version"
       ]
+    },
+    {
+      "name": "stat.ink API weapon information",
+      "url": "https://stat.ink/api-info/weapon3?_lang_=ja-JP",
+      "usedFor": [
+        "PET replica stable id, names, weapon number, aliases and matching range"
+      ]
+    },
+    {
+      "name": "Nintendo Splatoon 3 Ver. 11.2.0 update notes",
+      "url": "https://support.nintendo.com/jp/switch/software_support/av5ja/1120.html",
+      "usedFor": [
+        "special points changes in version 11.2.0"
+      ]
+    },
+    {
+      "name": "Nintendo Splatoon 3 Ver. 11.3.0 update notes",
+      "url": "https://support.nintendo.com/jp/switch/software_support/av5ja/1130.html",
+      "usedFor": [
+        "PET replica introduction, equivalent kit and unlock conditions",
+        "special points changes in version 11.3.0"
+      ]
     }
   ],
   "summary": {
     "mainWeaponCount": 65,
-    "weaponKitCount": 173,
-    "gameVersion": "11.1.0"
+    "weaponKitCount": 174,
+    "gameVersion": "11.3.0"
   },
   "weapons": [
     {
@@ -626,6 +648,43 @@
       }
     },
     {
+      "id": "petshooter_replica",
+      "number": 48,
+      "name": {
+        "en": "Plastic-Bottle Shot Replica",
+        "ja": "PETシューター レプリカ"
+      },
+      "class": {
+        "id": "shooter",
+        "en": "Shooters",
+        "ja": "シューター",
+        "displayEn": "Shooter"
+      },
+      "mainWeaponId": "sshooter",
+      "sub": {
+        "id": "splashbomb",
+        "en": "Splat Bomb",
+        "ja": "スプラッシュボム"
+      },
+      "special": {
+        "id": "tripletornado",
+        "en": "Triple Inkstrike",
+        "ja": "トリプルトルネード"
+      },
+      "specialPoints": 190,
+      "unlockLevel": 1,
+      "priceSheldonLicenses": null,
+      "matchingRange": 12.9,
+      "reskinOf": "sshooter_collabo",
+      "aliases": [
+        "plastic_bottle_shot_replica"
+      ],
+      "introduced": {
+        "version": "11.3.0",
+        "season": "Splatoon Raiders"
+      }
+    },
+    {
       "id": "52gal",
       "number": 50,
       "name": {
@@ -649,7 +708,7 @@
         "en": "Killer Wail 5.1",
         "ja": "メガホンレーザー5.1ch"
       },
-      "specialPoints": 200,
+      "specialPoints": 210,
       "unlockLevel": 11,
       "priceSheldonLicenses": 1,
       "matchingRange": 13.3,
@@ -871,7 +930,7 @@
         "en": "Tenta Missiles",
         "ja": "マルチミサイル"
       },
-      "specialPoints": 190,
+      "specialPoints": 180,
       "unlockLevel": 23,
       "priceSheldonLicenses": 1,
       "matchingRange": 17,
@@ -1241,7 +1300,7 @@
         "en": "Ultra Stamp",
         "ja": "ウルトラハンコ"
       },
-      "specialPoints": 190,
+      "specialPoints": 200,
       "unlockLevel": 24,
       "priceSheldonLicenses": 1,
       "matchingRange": 11.2,
@@ -2347,7 +2406,7 @@
         "en": "Tacticooler",
         "ja": "エナジースタンド"
       },
-      "specialPoints": 200,
+      "specialPoints": 210,
       "unlockLevel": 12,
       "priceSheldonLicenses": 1,
       "matchingRange": 18.5,
@@ -2384,7 +2443,7 @@
         "en": "Super Chump",
         "ja": "デコイチラシ"
       },
-      "specialPoints": 180,
+      "specialPoints": 190,
       "unlockLevel": 17,
       "priceSheldonLicenses": 1,
       "matchingRange": 18.5,
@@ -3015,7 +3074,7 @@
         "en": "Zipcaster",
         "ja": "ショクワンダー"
       },
-      "specialPoints": 190,
+      "specialPoints": 180,
       "unlockLevel": 11,
       "priceSheldonLicenses": 1,
       "matchingRange": 18.5,
@@ -3642,7 +3701,7 @@
         "en": "Ink Storm",
         "ja": "アメフラシ"
       },
-      "specialPoints": 210,
+      "specialPoints": 200,
       "unlockLevel": 19,
       "priceSheldonLicenses": 1,
       "matchingRange": 26,
@@ -3679,7 +3738,7 @@
         "en": "Triple Inkstrike",
         "ja": "トリプルトルネード"
       },
-      "specialPoints": 210,
+      "specialPoints": 220,
       "unlockLevel": 3,
       "priceSheldonLicenses": 1,
       "matchingRange": 14.5,
@@ -3716,7 +3775,7 @@
         "en": "Zipcaster",
         "ja": "ショクワンダー"
       },
-      "specialPoints": 180,
+      "specialPoints": 170,
       "unlockLevel": 12,
       "priceSheldonLicenses": 1,
       "matchingRange": 14.5,
@@ -3753,7 +3812,7 @@
         "en": "Triple Inkstrike",
         "ja": "トリプルトルネード"
       },
-      "specialPoints": 210,
+      "specialPoints": 220,
       "unlockLevel": 1,
       "priceSheldonLicenses": null,
       "matchingRange": 14.5,
@@ -4119,7 +4178,7 @@
         "en": "Reefslider",
         "ja": "サメライド"
       },
-      "specialPoints": 190,
+      "specialPoints": 200,
       "unlockLevel": 15,
       "priceSheldonLicenses": 1,
       "matchingRange": 15.5,
@@ -4489,7 +4548,7 @@
         "en": "Splattercolor Screen",
         "ja": "スミナガシート"
       },
-      "specialPoints": 200,
+      "specialPoints": 190,
       "unlockLevel": 23,
       "priceSheldonLicenses": 1,
       "matchingRange": 24.5,
@@ -4748,7 +4807,7 @@
         "en": "Crab Tank",
         "ja": "カニタンク"
       },
-      "specialPoints": 210,
+      "specialPoints": 200,
       "unlockLevel": 17,
       "priceSheldonLicenses": 1,
       "matchingRange": 17,
@@ -5821,7 +5880,7 @@
         "en": "Super Chump",
         "ja": "デコイチラシ"
       },
-      "specialPoints": 190,
+      "specialPoints": 200,
       "unlockLevel": 11,
       "priceSheldonLicenses": 1,
       "matchingRange": 25,
@@ -6078,7 +6137,7 @@
         "en": "Wave Breaker",
         "ja": "ホップソナー"
       },
-      "specialPoints": 200,
+      "specialPoints": 190,
       "unlockLevel": 24,
       "priceSheldonLicenses": 1,
       "matchingRange": 23,

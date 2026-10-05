@@ -13,10 +13,16 @@ Nozzlenoses are treated as part of the shooter family in-game.
 - `id` is the stable stat.ink key and is suitable for localStorage progress keys.
 - `number` follows the in-game / Inkipedia weapon ID order.
 - `name`, `class`, `sub`, and `special` include Japanese and English names.
-- `introduced`, `unlockLevel`, `priceSheldonLicenses`, and `specialPoints` come
-  from the Inkipedia table.
+- `introduced`, `unlockLevel`, `priceSheldonLicenses`, and `specialPoints` use
+  the Inkipedia table and Nintendo's update notes.
 
 ## Sources
 
-The file records its sources in `sources[]`. It was verified against Inkipedia's
-reported Splatoon 3 version and weapon-kit count on 2026-06-09.
+The file records its sources and their uses in `sources[]` and its verification
+date in `verifiedAt`. Sources include stat.ink's weapon information, Inkipedia,
+and Nintendo's update notes.
+
+PETシューター レプリカ shares the スプラシューターコラボ kit. Like the other
+replicas, it has `unlockLevel: 1` and no Sheldon License price; obtaining it
+requires a completed Splatoon Raiders main-story save on the same console and
+user, then collecting it from the lobby terminal.
