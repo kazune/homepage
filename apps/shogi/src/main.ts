@@ -1,6 +1,7 @@
 import { Game, samePosition, type Piece, type Position } from "./game.js";
 
 import { shogi } from "./games/shogi.js";
+import { dobutsuShogi } from "./games/dobutsu-shogi.js";
 import { toriShogi } from "./games/tori-shogi.js";
 import { chuShogi } from "./games/chu-shogi.js";
 import { daiShogi } from "./games/dai-shogi.js";
@@ -10,7 +11,7 @@ function element<T extends HTMLElement>(id: string): T { return document.getElem
 const board = element<HTMLDivElement>("board");
 const undo = element<HTMLButtonElement>("undo");
 const gameSelect = element<HTMLSelectElement>("game-select");
-const definitions = [shogi, toriShogi, chuShogi, daiShogi, taikyokuShogi];
+const definitions = [shogi, dobutsuShogi, toriShogi, chuShogi, daiShogi, taikyokuShogi];
 const initialDefinition = definitions.find(d => d.id === new URLSearchParams(window.location.search).get("game")) ?? shogi;
 let game = new Game(true, initialDefinition);
 gameSelect.value = initialDefinition.id;
@@ -31,17 +32,23 @@ function render(): void {
   document.querySelector("main")!.classList.toggle("large-board", game.width > 9);
   document.querySelector("main")!.classList.toggle("dai", game.definition.id === "dai");
   document.querySelector("main")!.classList.toggle("taikyoku", game.definition.id === "taikyoku");
+  document.querySelector("main")!.classList.toggle("dobutsu", game.definition.id === "dobutsu");
   element("title").textContent = game.definition.title;
   document.title = game.definition.title;
-  element("hands").hidden = !game.definition.canDrop;
-  element("captures").hidden = !!game.definition.canDrop;
+  const layout = element("board-layout");
+  const topHand = element(`hand-panel-${flipped ? 0 : 1}`);
+  const bottomHand = element(`hand-panel-${flipped ? 1 : 0}`);
+  if (layout.firstElementChild !== topHand) {
+    layout.insertBefore(topHand, element("board-wrap"));
+    layout.append(bottomHand);
+  }
   for (const definition of definitions) element(`${definition.id}-rules`).hidden = game.definition.id !== definition.id;
   board.style.setProperty("--columns", String(game.width));
   element("files").style.setProperty("--columns", String(game.width));
   const end = element<HTMLButtonElement>("end-turn");
   end.hidden = !game.activePiece || game.awaitingPromotion;
   end.disabled = !game.canEndTurn;
-  element("turn").textContent = result === "draw" ? "引き分け" : result !== null ? `${player(result)}の勝ち${game.violation ? "（相手の反則負け）" : ""}` : `${player(game.turn)}の番`;
+  element("turn").textContent = result === "draw" ? "引き分け" : result !== null ? `${player(result)}の勝ち` : `${player(game.turn)}の番`;
   element("count").textContent = `${game.history.length}手`;
   element("status").textContent = game.awaitingPromotion ? "確認ダイアログで成る・成らないを選んでください。"
     : game.violation ? `${game.violation}「待った」でこの手を取り消せます。`
@@ -76,6 +83,16 @@ function render(): void {
       glyph.classList.toggle("long", name.length > 1);
       glyph.classList.toggle("very-long", name.length > 3);
       glyph.textContent = name;
+      if (game.definition.id === "dobutsu") {
+        const animals: Record<string, string> = { lion: "🦁", elephant: "🐘", giraffe: "🦒", chick: "🐤", hen: "🐔" };
+        const animal = document.createElement("span");
+        animal.className = "animal";
+        animal.setAttribute("aria-hidden", "true");
+        animal.textContent = animals[piece.type];
+        const label = document.createElement("span");
+        label.textContent = name;
+        glyph.replaceChildren(animal, label);
+      }
       square.append(glyph);
     }
     square.addEventListener("click", () => clickSquare(position));
@@ -89,6 +106,9 @@ function render(): void {
     element("files").append(span);
   }
   for (const owner of [0, 1]) {
+    const panel = element(`hand-panel-${owner}`);
+    panel.hidden = !game.definition.canDrop;
+    panel.classList.toggle("active", owner === game.turn && result === null);
     const hand = element(`hand-${owner}`);
     hand.replaceChildren();
     const groups = new Map<string, Piece[]>();
@@ -113,16 +133,7 @@ function render(): void {
       });
       hand.append(button);
     }
-    const counts = new Map<string, number>();
-    for (const transaction of [...game.history, ...(game.pending ? [game.pending] : [])]) {
-      const mover = transaction.transfers.find(t => t.from.kind === "board" && t.to.kind === "board")?.pieceId;
-      for (const transfer of transaction.transfers) {
-        if (transfer.to.kind !== "void" || transfer.pieceId === mover) continue;
-        const piece = game.pieces.get(transfer.pieceId)!;
-        if (piece.owner === owner) counts.set(piece.type, (counts.get(piece.type) ?? 0) + 1);
-      }
-    }
-    element(`lost-${owner}`).textContent = [...counts].map(([id, n]) => `${game.definition.pieceTypes[id].name}${n > 1 ? `×${n}` : ""}`).join("・") || "なし";
+
   }
   const blocked = !!game.activePiece && choices.length === 0 && !game.canEndTurn;
   const notice = game.awaitingPromotion ? null
