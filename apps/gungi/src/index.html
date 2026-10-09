@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="軍儀の上級ルールを、同じ画面で2人で遊べる静的ブラウザアプリ。">
+    <title>軍儀</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <script type="module" src="./assets/main.js"></script>
+  </head>
+  <body>
+    <main>
+      <header><a href="../">← アプリ一覧</a><div class="heading"><h1>軍儀</h1><span class="tag">上級</span></div><p>積み重ねて、戦局を変える。<span class="subtitle">同じ画面で2人対局</span></p></header>
+      <section class="game" aria-label="軍儀の対局">
+        <div class="status-bar"><strong id="turn"></strong><span id="phase"></span></div>
+        <p id="status" role="status" aria-live="polite"></p>
+        <div id="layout">
+          <section id="hand-panel-1" class="hand-panel" aria-labelledby="hand-title-1"><h2 id="hand-title-1">後手の手駒</h2><div id="hand-1" class="hand"></div></section>
+          <div id="board-wrap"><div id="files" aria-hidden="true"></div><div class="board-frame"><div id="board" aria-label="9×9の盤。各マスに最上段と下段の駒を表示"></div><div id="ranks" aria-hidden="true"></div></div></div>
+          <section id="hand-panel-0" class="hand-panel" aria-labelledby="hand-title-0"><h2 id="hand-title-0">先手の手駒</h2><div id="hand-0" class="hand"></div></section>
+        </div>
+        <section id="action-panel" class="action-panel" hidden aria-labelledby="action-title"><h2 id="action-title"></h2><p id="target-description"></p><div id="action-buttons" class="controls"></div></section>
+        <p id="inspection" class="inspection">マスを選ぶと、下段の駒も確認できます。</p>
+        <div class="controls"><button id="ready" type="button">済み（配置を終える）</button><button id="undo" type="button" disabled>待った</button><button id="flip" type="button">盤を反転</button><button id="resign" type="button" hidden>投了</button><button id="reset" type="button">最初から</button></div>
+        <p id="last" class="last"></p>
+      </section>
+      <details open><summary>駒の動き</summary><label for="piece-help">駒を選択 </label><select id="piece-help"></select><p class="small">先手から見た動き（上が前）。青は移動先、点は飛び越え移動、矢印は盤端まで。駒による遮断と移動先の高さは別に判定します。</p><div id="movement-help" class="movement-help"></div></details>
+      <details><summary>遊び方・上級ルール</summary>
+        <p>先手・後手が交互に、自陣の3行へ駒を配置します。最初は帥から置き、3段まで重ねられます。帥の上には置けません。先手が「済み」を押すと後手だけが配置を続け、後手が「済み」を押すと先手から対局開始です。残した手駒は「新」で使えます。</p>
+        <p>盤上では最上段の駒だけを動かします。段数に応じて移動範囲が広がります。駒と移動先を順に選び、操作が複数ある場合は「取る」「ツケ」などを選びます。動かす駒より高い相手は取れず、ツケもできません。3段の相手へのツケは最上段を取り除いて重ねます。</p>
+        <p>「取る」では、移動先の最上段が相手の場合に、そのマスの相手駒をすべて除外します。味方の下段は残ります。取った駒は再利用できません。「新」は最上段が自駒の最前線と同じ行、またはその手前に置けます。味方の上にも置けます。</p>
+        <p>謀の「ツケ＋寝返り」は、移動先の相手駒と同じ種類・枚数の手駒があるときに選べます。相手駒を自分の手駒と入れ替えます。「新」から相手の上に重ねられるのは謀だけです。</p>
+        <p>砲・筒・弓の前方移動は、自分の段数以下の駒を飛び越せます。他の移動では駒を飛び越せません。</p>
+        <p>帥の捕獲または投了で決着します。王手・詰み・千日手は自動判定しません。詰みや引き分けは2人で確認してください。「待った」は確認後、直前の配置・済み宣言・一手・投了を取り消します。再読み込みで対局は初期状態に戻ります。</p>
+        <p class="small">商品版の上級ルールを基準にした非公式アプリです。<a href="https://www.universal-music.co.jp/other/hunter-gungi__qa/" target="_blank" rel="noopener noreferrer">公式Q&amp;A</a></p>
+      </details>
+    </main>
+  </body>
+</html>
