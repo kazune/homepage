@@ -174,7 +174,12 @@ function clickSquare(position: Position): void {
   else clearSelection();
   render();
 }
-undo.addEventListener("click", () => { game.undo(); clearSelection(); render(); });
+undo.addEventListener("click", () => {
+  if (!window.confirm("本当に待ったをしますか？")) return;
+  game.undo();
+  clearSelection();
+  render();
+});
 element("end-turn").addEventListener("click", () => {
   const id = game.activePiece?.id;
   if (id === undefined || !game.canEndTurn) return;
