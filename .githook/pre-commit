@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+branch=$(git symbolic-ref --quiet --short HEAD || true)
+
+if [ "$branch" = "main" ]; then
+  printf '%s\n' 'main への直接コミットは禁止しています。作業ブランチを作成してください。' >&2
+  printf '%s\n' '例: git switch -c feature/my-change' >&2
+  exit 1
+fi

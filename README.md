@@ -97,6 +97,15 @@ apps/<app-name>/
 
 ## 開発ツール
 
+クローン後、ローカル環境で一度だけ次のコマンドを実行してGitフックを有効にする。
+
+```bash
+sh scripts/init-local.sh
+```
+
+リポジトリのローカル設定 `core.hooksPath` を `.githook` に設定し、`main` への直接コミット（amend を含む）を拒否する。変更は `git switch -c feature/my-change` などで作業ブランチを作成してからコミットする。
+このスクリプトは再実行可能。フックはローカルでの誤操作防止用で、`--no-verify` などによる回避は可能。
+
 Node.jsとpnpmはVoltaで管理する。
 使用するバージョンは `package.json` に固定されている。
 
