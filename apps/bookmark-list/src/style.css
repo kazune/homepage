@@ -16,12 +16,13 @@ button:hover { background: #edf1e9; }
 .primary:hover { background: #244331; }
 :focus-visible { outline: 3px solid #b37e2b; outline-offset: 3px; }
 label { display: block; font-size: .85rem; font-weight: 600; }
-input { width: 100%; border: 1px solid #bdc9bc; border-radius: 6px; padding: 11px 12px; background: white; color: #293c31; margin-top: 7px; font-weight: 400; min-width: 0; }
+input { width: 100%; border: 1px solid #bdc9bc; border-radius: 6px; padding: 11px 12px; background: white; color: #293c31; margin-top: 7px; font-size: 16px; font-weight: 400; min-width: 0; }
 input::placeholder { color: #899186; }
 .section-heading, .view-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .section-heading { margin: 28px 0 14px; }
-.link-row { margin: 0 0 14px; padding: 16px; border: 1px solid #d9dfd3; border-radius: 10px; background: #fff; min-width: 0; }
+.link-row { margin: 0 0 20px; padding: 0 0 16px; border: 0; border-bottom: 1px solid #d9dfd3; min-width: 0; }
 legend { font-size: .75rem; color: #6a7869; padding: 0 6px; }
+.link-row legend { padding: 0; margin-bottom: 12px; }
 .link-row label + label { margin-top: 14px; }
 .remove { margin-top: 14px; color: #8b5145; border: 0; padding: 4px 0; background: transparent; }
 .remove:hover { text-decoration: underline; background: transparent; }
