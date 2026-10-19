@@ -20,7 +20,7 @@ function addRow(link: Bookmark = { name: "", url: "" }, focus = false): void {
   const template = element<HTMLTemplateElement>("row-template");
   const fragment = template.content.cloneNode(true) as DocumentFragment;
   const row = fragment.querySelector<HTMLFieldSetElement>("fieldset")!;
-  const name = row.querySelector<HTMLInputElement>('[name="link-name"]')!;
+  const name = row.querySelector<HTMLInputElement>('[name="link-title"]')!;
   const url = row.querySelector<HTMLInputElement>('[name="link-url"]')!;
   name.value = link.name;
   url.value = link.url;
@@ -140,7 +140,7 @@ element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event
   const revision = loadRevision;
   const format = document.querySelector<HTMLInputElement>('input[name="save-format"]:checked')!.value as SaveFormat;
   const links = Array.from(rows.querySelectorAll("fieldset"), row => ({
-    name: row.querySelector<HTMLInputElement>('[name="link-name"]')!.value,
+    name: row.querySelector<HTMLInputElement>('[name="link-title"]')!.value,
     url: row.querySelector<HTMLInputElement>('[name="link-url"]')!.value,
   }));
   const controls = Array.from(element<HTMLFormElement>("bookmark-form").querySelectorAll<HTMLInputElement | HTMLButtonElement>("input, button"));
@@ -152,14 +152,16 @@ element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event
     const next = prepareListForSave({ title: listTitle.value, links }, current);
     const hash = await encodeList(next, format);
     if (revision !== loadRevision) return;
-    const sharedUrlChanged = current !== null && hash !== location.hash;
+    const detail = current === null
+      ? "URLをコピーして共有できます。"
+      : hash === location.hash
+        ? "内容・共有URLに変更はありませんでした。"
+        : "新しいURLをコピーして共有してください。";
     // Commit the URL before replacing the view, so a failed update keeps the draft.
     history.pushState(null, "", `${location.pathname}${location.search}${hash}`);
     await load();
     if (location.hash !== hash) return;
-    message.textContent = sharedUrlChanged
-      ? "共有URLが変わりました。共有する場合はコピーし直してください。"
-      : `URLに保存しました（${hash.startsWith("#v2=") ? "v2" : "v1"}）。「共有リンクをコピー」から共有できます。`;
+    message.textContent = `保存しました（${hash.startsWith("#v2=") ? "v2" : "v1"}）。${detail}`;
     element("copy").focus();
   } catch (error) {
     if (revision !== loadRevision) return;

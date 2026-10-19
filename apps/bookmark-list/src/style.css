@@ -16,7 +16,7 @@ button:hover { background: #edf1e9; }
 .primary:hover { background: #244331; }
 :focus-visible { outline: 3px solid #b37e2b; outline-offset: 3px; }
 label { display: block; font-size: .85rem; font-weight: 600; }
-input { width: 100%; border: 1px solid #bdc9bc; border-radius: 6px; padding: 11px 12px; background: white; color: #293c31; margin-top: 7px; font-weight: 400; min-width: 0; }
+input { width: 100%; border: 1px solid #bdc9bc; border-radius: 6px; padding: 11px 12px; background: white; color: #293c31; margin-top: 7px; font-size: 16px; font-weight: 400; min-width: 0; }
 input::placeholder { color: #899186; }
 .section-heading, .view-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .section-heading { margin: 28px 0 14px; }
@@ -26,6 +26,7 @@ legend { font-size: .75rem; color: #6a7869; padding: 0 6px; }
 .remove { margin-top: 14px; color: #8b5145; border: 0; padding: 4px 0; background: transparent; }
 .remove:hover { text-decoration: underline; background: transparent; }
 .form-actions, .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.button-label-short { display: none; }
 .form-actions { justify-content: flex-end; margin-top: 20px; }
 .save-format { margin: 24px 0 0; padding: 12px 16px; border: 1px solid #d9dfd3; border-radius: 10px; }
 .save-format label { display: inline-flex; align-items: center; gap: 6px; margin: 4px 16px 4px 0; font-weight: 400; }
@@ -46,6 +47,12 @@ button:disabled { cursor: wait; opacity: .6; }
 #message:empty { display: none; }
 .fallback { margin-top: 20px; }
 footer { border-top: 1px solid #dce1d5; padding-top: 18px; margin-top: 24px; font-size: .75rem; color: #78816f; }
+@media (max-width: 640px) {
+  .link-row { margin: 0 0 20px; padding: 0 0 16px; border: 0; border-bottom: 1px solid #d9dfd3; border-radius: 0; background: transparent; }
+  .link-row legend { padding: 0; margin-bottom: 12px; }
+  .button-label-long { display: none; }
+  .button-label-short { display: inline; }
+}
 @media (max-width: 480px) {
   main { padding: 24px 16px 36px; }
   .view-toolbar { align-items: flex-start; flex-direction: column; }

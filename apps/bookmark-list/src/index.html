@@ -24,9 +24,9 @@
         <div class="view-toolbar">
           <p id="link-count"></p>
           <div class="actions">
-            <button id="new-list" type="button">＋ 新しいリストを作る</button>
+            <button id="new-list" type="button" aria-label="新しいリストを作る"><span class="button-label-long" aria-hidden="true">＋ 新しいリストを作る</span><span class="button-label-short" aria-hidden="true">新規</span></button>
             <button id="edit" type="button">編集</button>
-            <button id="copy" type="button" class="primary">共有リンクをコピー</button>
+            <button id="copy" type="button" class="primary" aria-label="共有リンクをコピー"><span class="button-label-long" aria-hidden="true">共有リンクをコピー</span><span class="button-label-short" aria-hidden="true">共有</span></button>
           </div>
         </div>
         <ul id="bookmark-list" class="bookmarks"></ul>
@@ -39,9 +39,9 @@
 
       <section id="editor" aria-labelledby="editor-title">
         <h2 id="editor-title">ブックマークを作る</h2>
-        <form id="bookmark-form">
-          <label for="list-title">一覧の名前</label>
-          <input id="list-title" name="title" type="text" placeholder="例：通勤で見るページ" required />
+        <form id="bookmark-form" autocomplete="off">
+          <label for="list-title">一覧のタイトル</label>
+          <input id="list-title" name="list-title" type="text" autocomplete="off" placeholder="例：通勤で見るページ" required />
           <div class="section-heading"><h3>リンク</h3></div>
           <div id="rows"></div>
           <button id="add" type="button">＋ リンクを追加</button>
@@ -65,7 +65,7 @@
     <template id="row-template">
       <fieldset class="link-row">
         <legend>リンク</legend>
-        <label>名前<input name="link-name" type="text" placeholder="例：天気予報" required /></label>
+        <label>リンクのタイトル<input name="link-title" type="text" autocomplete="off" placeholder="例：天気予報" required /></label>
         <label>URL<input name="link-url" type="url" placeholder="https://…" inputmode="url" autocomplete="off" spellcheck="false" required /></label>
         <button type="button" class="remove">削除</button>
       </fieldset>
