@@ -1,4 +1,4 @@
-import { decodeList, encodeList, validateList, type Bookmark, type BookmarkList, type SaveFormat } from "./data.js";
+import { decodeList, encodeList, prepareListForSave, type Bookmark, type BookmarkList, type SaveFormat } from "./data.js";
 
 function element<T extends HTMLElement>(id: string): T {
   const node = document.getElementById(id);
@@ -59,6 +59,9 @@ function showViewer(): void {
   element("page-title").textContent = current.title;
   document.title = `${current.title} | 共有ブックマーク`;
   element("link-count").textContent = `${current.links.length}件のリンク`;
+  const updatedAt = element<HTMLTimeElement>("updated-at");
+  updatedAt.dateTime = current.updatedAt;
+  updatedAt.textContent = `最終更新：${new Date(current.updatedAt).toLocaleString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}`;
   const list = element("bookmark-list");
   list.replaceChildren();
   current.links.forEach(link => {
@@ -144,7 +147,7 @@ element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event
   element("save").textContent = "保存しています…";
   formError.textContent = "";
   try {
-    const next = validateList({ title: listTitle.value, links });
+    const next = prepareListForSave({ title: listTitle.value, links }, current);
     const hash = await encodeList(next, format);
     if (revision !== loadRevision) return;
     // Commit the URL before replacing the view, so a failed update keeps the draft.

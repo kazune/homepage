@@ -1,5 +1,5 @@
 export type Bookmark = { name: string; url: string };
-export type BookmarkList = { title: string; links: Bookmark[] };
+export type BookmarkList = { title: string; links: Bookmark[]; updatedAt: string };
 export type SaveFormat = "v1" | "v2" | "auto";
 
 export function normalizeUrl(value: string): string {
@@ -20,7 +20,18 @@ export function validateList(value: unknown): BookmarkList {
     }
     return { name: link.name.trim(), url: normalizeUrl(link.url) };
   });
-  return { title: value.title.trim(), links };
+  const timestamp = "updatedAt" in value ? value.updatedAt : undefined;
+  if (typeof timestamp !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(timestamp) || !Number.isFinite(Date.parse(timestamp)) || new Date(timestamp).toISOString() !== timestamp) {
+    throw new Error("有効な最終更新日時が必要です。");
+  }
+  return { title: value.title.trim(), links, updatedAt: timestamp };
+}
+
+export function prepareListForSave(draft: Omit<BookmarkList, "updatedAt">, previous: BookmarkList | null, now = new Date()): BookmarkList {
+  const next = validateList({ ...draft, updatedAt: now.toISOString() });
+  const unchanged = previous && next.title === previous.title && next.links.length === previous.links.length
+    && next.links.every((link, index) => link.name === previous.links[index].name && link.url === previous.links[index].url);
+  return unchanged ? { ...next, updatedAt: previous.updatedAt } : next;
 }
 
 export async function encodeList(list: BookmarkList, format: SaveFormat = "auto"): Promise<string> {

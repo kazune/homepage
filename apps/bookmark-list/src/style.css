@@ -34,6 +34,7 @@ legend { font-size: .75rem; color: #6a7869; padding: 0 6px; }
 button:disabled { cursor: wait; opacity: .6; }
 .view-toolbar { margin-bottom: 18px; flex-wrap: wrap; }
 #link-count { margin: 0; font-size: .85rem; color: #71806e; }
+.updated-at { display: block; margin-top: 16px; font-size: .75rem; color: #78816f; }
 .bookmarks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .bookmark { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 20px; background: #fff; border: 1px solid #d9dfd3; border-radius: 10px; text-decoration: none; color: inherit; }
 .bookmark:hover { border-color: #769278; background: #fcfdf9; }
