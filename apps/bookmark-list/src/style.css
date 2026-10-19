@@ -29,12 +29,11 @@ legend { font-size: .75rem; color: #6a7869; padding: 0 6px; }
 .form-actions { justify-content: flex-end; margin-top: 20px; }
 .view-toolbar { margin-bottom: 18px; flex-wrap: wrap; }
 #link-count { margin: 0; font-size: .85rem; color: #71806e; }
-.bookmarks { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.bookmarks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .bookmark { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 20px; background: #fff; border: 1px solid #d9dfd3; border-radius: 10px; text-decoration: none; color: inherit; }
 .bookmark:hover { border-color: #769278; background: #fcfdf9; }
-.bookmark-text { min-width: 0; }
+.bookmark-text { flex: 1; min-width: 0; }
 .bookmark-name { display: block; font-weight: 650; overflow-wrap: anywhere; }
-.bookmark-url { display: block; margin-top: 5px; font-size: .75rem; color: #78816f; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .open-icon { color: #587653; flex-shrink: 0; }
 .error { color: #a03928; font-size: .85rem; }
 #message { color: #365945; min-height: 1.6em; font-size: .85rem; margin-top: 20px; }

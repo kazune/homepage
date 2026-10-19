@@ -70,14 +70,11 @@ function showViewer(): void {
     const name = document.createElement("span");
     name.className = "bookmark-name";
     name.textContent = link.name;
-    const url = document.createElement("span");
-    url.className = "bookmark-url";
-    url.textContent = link.url;
     const icon = document.createElement("span");
     icon.className = "open-icon";
     icon.textContent = "↗";
     icon.setAttribute("aria-hidden", "true");
-    text.append(name, url);
+    text.append(name);
     anchor.append(text, icon);
     item.append(anchor);
     list.append(item);
