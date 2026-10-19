@@ -42,10 +42,17 @@
           <div class="section-heading"><h3>リンク</h3></div>
           <div id="rows"></div>
           <button id="add" type="button">＋ リンクを追加</button>
+          <fieldset class="save-format">
+            <legend>保存形式</legend>
+            <label><input type="radio" name="save-format" value="v1" /> v1</label>
+            <label><input type="radio" name="save-format" value="v2" /> v2</label>
+            <label><input type="radio" name="save-format" value="auto" checked /> 自動（デフォルト）</label>
+            <p>v1：非圧縮 ／ v2：gzip圧縮。自動は共有URLが短くなる方を選びます。</p>
+          </fieldset>
           <p id="form-error" class="error" role="alert"></p>
           <div class="form-actions">
             <button id="cancel" type="button" hidden>キャンセル</button>
-            <button type="submit" class="primary">保存して一覧を表示</button>
+            <button id="save" type="submit" class="primary">保存して一覧を表示</button>
           </div>
         </form>
       </section>
