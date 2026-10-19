@@ -42,6 +42,7 @@ function numberRows(): void {
 }
 
 function showEditor(): void {
+  element("intro").hidden = false;
   rows.replaceChildren();
   listTitle.value = current?.title ?? "";
   (current?.links ?? [{ name: "", url: "" }]).forEach(link => addRow(link));
@@ -56,6 +57,7 @@ function showEditor(): void {
 
 function showViewer(): void {
   if (!current) return;
+  element("intro").hidden = true;
   element("page-title").textContent = current.title;
   document.title = `${current.title} | 共有ブックマーク`;
   element("link-count").textContent = `${current.links.length}件のリンク`;
