@@ -1,0 +1,6 @@
+{
+  "name": "bookmark-list",
+  "title": "共有ブックマーク",
+  "path": "/apps/bookmark-list/",
+  "description": "名前とURLをまとめて、ひとつのリンクで共有するブックマーク一覧"
+}
