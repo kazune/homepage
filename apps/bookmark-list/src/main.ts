@@ -152,11 +152,14 @@ element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event
     const next = prepareListForSave({ title: listTitle.value, links }, current);
     const hash = await encodeList(next, format);
     if (revision !== loadRevision) return;
+    const sharedUrlChanged = current !== null && hash !== location.hash;
     // Commit the URL before replacing the view, so a failed update keeps the draft.
     history.pushState(null, "", `${location.pathname}${location.search}${hash}`);
     await load();
     if (location.hash !== hash) return;
-    message.textContent = `URLに保存しました（${hash.startsWith("#v2=") ? "v2" : "v1"}）。「共有リンクをコピー」から共有できます。`;
+    message.textContent = sharedUrlChanged
+      ? "共有URLが変わりました。共有する場合はコピーし直してください。"
+      : `URLに保存しました（${hash.startsWith("#v2=") ? "v2" : "v1"}）。「共有リンクをコピー」から共有できます。`;
     element("copy").focus();
   } catch (error) {
     if (revision !== loadRevision) return;

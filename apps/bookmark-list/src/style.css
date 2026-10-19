@@ -42,7 +42,8 @@ button:disabled { cursor: wait; opacity: .6; }
 .bookmark-name { display: block; font-weight: 650; overflow-wrap: anywhere; }
 .open-icon { color: #587653; flex-shrink: 0; }
 .error { color: #a03928; font-size: .85rem; }
-#message { color: #365945; min-height: 1.6em; font-size: .85rem; margin-top: 20px; }
+#message { color: #365945; font-size: .85rem; margin: 10px 0 32px; }
+#message:empty { display: none; }
 .fallback { margin-top: 20px; }
 footer { border-top: 1px solid #dce1d5; padding-top: 18px; margin-top: 24px; font-size: .75rem; color: #78816f; }
 @media (max-width: 480px) {
