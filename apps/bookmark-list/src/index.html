@@ -39,9 +39,9 @@
 
       <section id="editor" aria-labelledby="editor-title">
         <h2 id="editor-title">ブックマークを作る</h2>
-        <form id="bookmark-form">
-          <label for="list-title">一覧の名前</label>
-          <input id="list-title" name="title" type="text" placeholder="例：通勤で見るページ" required />
+        <form id="bookmark-form" autocomplete="off">
+          <label for="list-title">一覧のタイトル</label>
+          <input id="list-title" name="list-title" type="text" autocomplete="off" placeholder="例：通勤で見るページ" required />
           <div class="section-heading"><h3>リンク</h3></div>
           <div id="rows"></div>
           <button id="add" type="button">＋ リンクを追加</button>
@@ -65,7 +65,7 @@
     <template id="row-template">
       <fieldset class="link-row">
         <legend>リンク</legend>
-        <label>名前<input name="link-name" type="text" placeholder="例：天気予報" required /></label>
+        <label>リンクのタイトル<input name="link-title" type="text" autocomplete="off" placeholder="例：天気予報" required /></label>
         <label>URL<input name="link-url" type="url" placeholder="https://…" inputmode="url" autocomplete="off" spellcheck="false" required /></label>
         <button type="button" class="remove">削除</button>
       </fieldset>

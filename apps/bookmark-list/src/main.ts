@@ -20,7 +20,7 @@ function addRow(link: Bookmark = { name: "", url: "" }, focus = false): void {
   const template = element<HTMLTemplateElement>("row-template");
   const fragment = template.content.cloneNode(true) as DocumentFragment;
   const row = fragment.querySelector<HTMLFieldSetElement>("fieldset")!;
-  const name = row.querySelector<HTMLInputElement>('[name="link-name"]')!;
+  const name = row.querySelector<HTMLInputElement>('[name="link-title"]')!;
   const url = row.querySelector<HTMLInputElement>('[name="link-url"]')!;
   name.value = link.name;
   url.value = link.url;
@@ -140,7 +140,7 @@ element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event
   const revision = loadRevision;
   const format = document.querySelector<HTMLInputElement>('input[name="save-format"]:checked')!.value as SaveFormat;
   const links = Array.from(rows.querySelectorAll("fieldset"), row => ({
-    name: row.querySelector<HTMLInputElement>('[name="link-name"]')!.value,
+    name: row.querySelector<HTMLInputElement>('[name="link-title"]')!.value,
     url: row.querySelector<HTMLInputElement>('[name="link-url"]')!.value,
   }));
   const controls = Array.from(element<HTMLFormElement>("bookmark-form").querySelectorAll<HTMLInputElement | HTMLButtonElement>("input, button"));
