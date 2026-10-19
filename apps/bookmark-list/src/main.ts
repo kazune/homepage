@@ -123,6 +123,11 @@ element("edit").addEventListener("click", () => {
   listTitle.focus();
 });
 element("cancel").addEventListener("click", showViewer);
+element("new-list").addEventListener("click", async () => {
+  history.pushState(null, "", `${location.pathname}${location.search}`);
+  await load();
+  listTitle.focus();
+});
 
 element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event => {
   event.preventDefault();
