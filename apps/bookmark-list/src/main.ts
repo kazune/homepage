@@ -1,4 +1,4 @@
-import { decodeList, encodeList, validateList, type Bookmark, type BookmarkList } from "./data.js";
+import { decodeList, encodeList, prepareListForSave, type Bookmark, type BookmarkList, type SaveFormat } from "./data.js";
 
 function element<T extends HTMLElement>(id: string): T {
   const node = document.getElementById(id);
@@ -13,6 +13,8 @@ const listTitle = element<HTMLInputElement>("list-title");
 const formError = element("form-error");
 const message = element("message");
 let current: BookmarkList | null = null;
+let loadRevision = 0;
+let saving = false;
 
 function addRow(link: Bookmark = { name: "", url: "" }, focus = false): void {
   const template = element<HTMLTemplateElement>("row-template");
@@ -40,12 +42,14 @@ function numberRows(): void {
 }
 
 function showEditor(): void {
+  element("intro").hidden = false;
   rows.replaceChildren();
   listTitle.value = current?.title ?? "";
   (current?.links ?? [{ name: "", url: "" }]).forEach(link => addRow(link));
   element("editor-title").textContent = current ? "ブックマークを編集" : "ブックマークを作る";
   element("cancel").hidden = !current;
   formError.textContent = "";
+  document.querySelector<HTMLInputElement>('input[name="save-format"][value="auto"]')!.checked = true;
   message.textContent = "";
   viewer.hidden = true;
   editor.hidden = false;
@@ -53,9 +57,13 @@ function showEditor(): void {
 
 function showViewer(): void {
   if (!current) return;
+  element("intro").hidden = true;
   element("page-title").textContent = current.title;
   document.title = `${current.title} | 共有ブックマーク`;
   element("link-count").textContent = `${current.links.length}件のリンク`;
+  const updatedAt = element<HTMLTimeElement>("updated-at");
+  updatedAt.dateTime = current.updatedAt;
+  updatedAt.textContent = `最終更新：${new Date(current.updatedAt).toLocaleString("ja-JP", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}`;
   const list = element("bookmark-list");
   list.replaceChildren();
   current.links.forEach(link => {
@@ -84,21 +92,32 @@ function showViewer(): void {
   editor.hidden = true;
 }
 
-function load(): void {
+async function load(): Promise<void> {
+  const revision = ++loadRevision;
+  const hash = location.hash;
   current = null;
   const loadError = element("load-error");
   loadError.hidden = true;
   message.textContent = "";
   element("page-title").textContent = "共有ブックマーク";
   document.title = "共有ブックマーク";
-  if (location.hash) {
+  viewer.hidden = true;
+  editor.hidden = true;
+  if (hash) {
     try {
-      current = decodeList(location.hash);
-    } catch {
-      loadError.textContent = "共有リンクを読み込めませんでした。URLが途中で切れていないか確認してください。新しい一覧を作ることもできます。";
+      message.textContent = "共有リンクを読み込んでいます…";
+      const decoded = await decodeList(hash);
+      if (revision !== loadRevision) return;
+      current = decoded;
+    } catch (error) {
+      if (revision !== loadRevision) return;
+      loadError.textContent = typeof DecompressionStream === "undefined" && hash.startsWith("#v2=") && error instanceof Error
+        ? error.message
+        : "共有リンクを読み込めませんでした。URLが途中で切れていないか確認してください。新しい一覧を作ることもできます。";
       loadError.hidden = false;
     }
   }
+  message.textContent = "";
   if (current) showViewer();
   else showEditor();
 }
@@ -109,23 +128,46 @@ element("edit").addEventListener("click", () => {
   listTitle.focus();
 });
 element("cancel").addEventListener("click", showViewer);
+element("new-list").addEventListener("click", async () => {
+  history.pushState(null, "", `${location.pathname}${location.search}`);
+  await load();
+  listTitle.focus();
+});
 
-element<HTMLFormElement>("bookmark-form").addEventListener("submit", event => {
+element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event => {
   event.preventDefault();
+  if (saving) return;
+  const revision = loadRevision;
+  const format = document.querySelector<HTMLInputElement>('input[name="save-format"]:checked')!.value as SaveFormat;
   const links = Array.from(rows.querySelectorAll("fieldset"), row => ({
     name: row.querySelector<HTMLInputElement>('[name="link-name"]')!.value,
     url: row.querySelector<HTMLInputElement>('[name="link-url"]')!.value,
   }));
+  const controls = Array.from(element<HTMLFormElement>("bookmark-form").querySelectorAll<HTMLInputElement | HTMLButtonElement>("input, button"));
+  saving = true;
+  controls.forEach(control => { control.disabled = true; });
+  element("save").textContent = "保存しています…";
+  formError.textContent = "";
   try {
-    const next = validateList({ title: listTitle.value, links });
-    const hash = encodeList(next);
+    const next = prepareListForSave({ title: listTitle.value, links }, current);
+    const hash = await encodeList(next, format);
+    if (revision !== loadRevision) return;
+    const sharedUrlChanged = current !== null && hash !== location.hash;
     // Commit the URL before replacing the view, so a failed update keeps the draft.
     history.pushState(null, "", `${location.pathname}${location.search}${hash}`);
-    load();
-    message.textContent = "URLに保存しました。「共有リンクをコピー」から共有できます。";
+    await load();
+    if (location.hash !== hash) return;
+    message.textContent = sharedUrlChanged
+      ? "共有URLが変わりました。共有する場合はコピーし直してください。"
+      : `URLに保存しました（${hash.startsWith("#v2=") ? "v2" : "v1"}）。「共有リンクをコピー」から共有できます。`;
     element("copy").focus();
   } catch (error) {
+    if (revision !== loadRevision) return;
     formError.textContent = error instanceof Error ? error.message : "保存できませんでした。";
+  } finally {
+    saving = false;
+    controls.forEach(control => { control.disabled = false; });
+    element("save").textContent = "保存して一覧を表示";
   }
 });
 

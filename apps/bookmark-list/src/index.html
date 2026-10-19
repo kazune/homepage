@@ -14,7 +14,8 @@
         <a class="back" href="../">← アプリ一覧</a>
         <p class="eyebrow">BOOKMARK LIST</p>
         <h1 id="page-title">共有ブックマーク</h1>
-        <p class="intro">リンクをまとめて、ひとつのURLで。</p>
+        <p id="intro" class="intro">リンクをまとめて、ひとつのURLで。</p>
+        <p id="message" role="status" aria-live="polite"></p>
       </header>
 
       <p id="load-error" class="error" role="alert" hidden></p>
@@ -23,11 +24,13 @@
         <div class="view-toolbar">
           <p id="link-count"></p>
           <div class="actions">
+            <button id="new-list" type="button">＋ 新しいリストを作る</button>
             <button id="edit" type="button">編集</button>
             <button id="copy" type="button" class="primary">共有リンクをコピー</button>
           </div>
         </div>
         <ul id="bookmark-list" class="bookmarks"></ul>
+        <time id="updated-at" class="updated-at"></time>
         <div id="copy-fallback" class="fallback" hidden>
           <label for="share-url">共有リンク（選択してコピーしてください）</label>
           <input id="share-url" type="text" readonly />
@@ -42,15 +45,21 @@
           <div class="section-heading"><h3>リンク</h3></div>
           <div id="rows"></div>
           <button id="add" type="button">＋ リンクを追加</button>
+          <fieldset class="save-format">
+            <legend>保存形式</legend>
+            <label><input type="radio" name="save-format" value="v1" /> v1</label>
+            <label><input type="radio" name="save-format" value="v2" /> v2</label>
+            <label><input type="radio" name="save-format" value="auto" checked /> 自動（デフォルト）</label>
+            <p>v1：非圧縮 ／ v2：gzip圧縮。自動は共有URLが短くなる方を選びます。</p>
+          </fieldset>
           <p id="form-error" class="error" role="alert"></p>
           <div class="form-actions">
             <button id="cancel" type="button" hidden>キャンセル</button>
-            <button type="submit" class="primary">保存して一覧を表示</button>
+            <button id="save" type="submit" class="primary">保存して一覧を表示</button>
           </div>
         </form>
       </section>
 
-      <p id="message" role="status" aria-live="polite"></p>
       <footer>一覧の情報はURLに保存されます。このページをブックマークして、いつでも開けます。</footer>
     </main>
     <template id="row-template">

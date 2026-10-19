@@ -27,8 +27,14 @@ legend { font-size: .75rem; color: #6a7869; padding: 0 6px; }
 .remove:hover { text-decoration: underline; background: transparent; }
 .form-actions, .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .form-actions { justify-content: flex-end; margin-top: 20px; }
+.save-format { margin: 24px 0 0; padding: 12px 16px; border: 1px solid #d9dfd3; border-radius: 10px; }
+.save-format label { display: inline-flex; align-items: center; gap: 6px; margin: 4px 16px 4px 0; font-weight: 400; }
+.save-format input { width: auto; margin: 0; accent-color: #365945; }
+.save-format p { font-size: .75rem; color: #78816f; margin: 8px 0 0; }
+button:disabled { cursor: wait; opacity: .6; }
 .view-toolbar { margin-bottom: 18px; flex-wrap: wrap; }
 #link-count { margin: 0; font-size: .85rem; color: #71806e; }
+.updated-at { display: block; margin-top: 16px; font-size: .75rem; color: #78816f; }
 .bookmarks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .bookmark { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 20px; background: #fff; border: 1px solid #d9dfd3; border-radius: 10px; text-decoration: none; color: inherit; }
 .bookmark:hover { border-color: #769278; background: #fcfdf9; }
@@ -36,7 +42,8 @@ legend { font-size: .75rem; color: #6a7869; padding: 0 6px; }
 .bookmark-name { display: block; font-weight: 650; overflow-wrap: anywhere; }
 .open-icon { color: #587653; flex-shrink: 0; }
 .error { color: #a03928; font-size: .85rem; }
-#message { color: #365945; min-height: 1.6em; font-size: .85rem; margin-top: 20px; }
+#message { color: #365945; font-size: .85rem; margin: 10px 0 32px; }
+#message:empty { display: none; }
 .fallback { margin-top: 20px; }
 footer { border-top: 1px solid #dce1d5; padding-top: 18px; margin-top: 24px; font-size: .75rem; color: #78816f; }
 @media (max-width: 480px) {
