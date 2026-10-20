@@ -3,8 +3,7 @@
 [hidden] { display: none !important; }
 body { margin: 0; }
 main { max-width: 760px; margin: auto; padding: 36px 24px 48px; }
-.back { color: #6c786e; font-size: .8rem; text-decoration: none; }
-.eyebrow { font-size: .7rem; letter-spacing: .18em; font-weight: 700; color: #59715d; margin: 32px 0 8px; }
+.eyebrow { font-size: .7rem; letter-spacing: .18em; font-weight: 700; color: #59715d; margin: 0 0 8px; }
 h1 { font-size: clamp(1.7rem, 4vw, 2.2rem); line-height: 1.4; margin: 0; overflow-wrap: anywhere; }
 .intro { color: #6c786e; margin: 10px 0 32px; font-size: .9rem; }
 h2 { font-size: 1.1rem; margin: 0 0 22px; }
@@ -23,7 +22,9 @@ input::placeholder { color: #899186; }
 .link-row { margin: 0 0 14px; padding: 16px; border: 1px solid #d9dfd3; border-radius: 10px; background: #fff; min-width: 0; }
 legend { font-size: .75rem; color: #6a7869; padding: 0 6px; }
 .link-row label + label { margin-top: 14px; }
-.remove { margin-top: 14px; color: #8b5145; border: 0; padding: 4px 0; background: transparent; }
+.row-actions { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.row-actions button:disabled { cursor: default; }
+.remove { margin-left: auto; color: #8b5145; border: 0; padding: 4px 0; background: transparent; }
 .remove:hover { text-decoration: underline; background: transparent; }
 .form-actions, .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .button-label-short { display: none; }

@@ -11,7 +11,6 @@
   <body>
     <main>
       <header class="page-header">
-        <a class="back" href="../">← アプリ一覧</a>
         <p class="eyebrow">BOOKMARK LIST</p>
         <h1 id="page-title">共有ブックマーク</h1>
         <p id="intro" class="intro">リンクをまとめて、ひとつのURLで。</p>
@@ -67,7 +66,11 @@
         <legend>リンク</legend>
         <label>リンクのタイトル<input name="link-title" type="text" autocomplete="off" placeholder="例：天気予報" required /></label>
         <label>URL<input name="link-url" type="url" placeholder="https://…" inputmode="url" autocomplete="off" spellcheck="false" required /></label>
-        <button type="button" class="remove">削除</button>
+        <div class="row-actions">
+          <button type="button" class="move-up">↑</button>
+          <button type="button" class="move-down">↓</button>
+          <button type="button" class="remove">削除</button>
+        </div>
       </fieldset>
     </template>
     <noscript>このアプリを使うにはJavaScriptを有効にしてください。</noscript>

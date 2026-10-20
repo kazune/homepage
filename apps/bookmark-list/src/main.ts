@@ -1,4 +1,4 @@
-import { decodeList, encodeList, prepareListForSave, type Bookmark, type BookmarkList, type SaveFormat } from "./data.js";
+import { DataSizeError, decodeList, encodeList, prepareListForSave, type Bookmark, type BookmarkList, type SaveFormat } from "./data.js";
 
 function element<T extends HTMLElement>(id: string): T {
   const node = document.getElementById(id);
@@ -24,6 +24,18 @@ function addRow(link: Bookmark = { name: "", url: "" }, focus = false): void {
   const url = row.querySelector<HTMLInputElement>('[name="link-url"]')!;
   name.value = link.name;
   url.value = link.url;
+  for (const direction of ["up", "down"] as const) {
+    const button = row.querySelector<HTMLButtonElement>(`.move-${direction}`)!;
+    button.addEventListener("click", () => {
+      const neighbor = direction === "up" ? row.previousElementSibling : row.nextElementSibling;
+      if (!neighbor) return;
+      if (direction === "up") rows.insertBefore(row, neighbor);
+      else rows.insertBefore(neighbor, row);
+      numberRows();
+      // Keep keyboard focus on the moved row, including at either end.
+      (button.disabled ? row.querySelector<HTMLButtonElement>(direction === "up" ? ".move-down" : ".move-up")! : button).focus();
+    });
+  }
   row.querySelector<HTMLButtonElement>(".remove")!.addEventListener("click", () => {
     row.remove();
     numberRows();
@@ -35,9 +47,16 @@ function addRow(link: Bookmark = { name: "", url: "" }, focus = false): void {
 }
 
 function numberRows(): void {
-  rows.querySelectorAll("fieldset").forEach((row, index) => {
+  const items = rows.querySelectorAll("fieldset");
+  items.forEach((row, index) => {
     row.querySelector("legend")!.textContent = `リンク ${index + 1}`;
-    row.querySelector("button")!.setAttribute("aria-label", `リンク${index + 1}を削除`);
+    row.querySelector(".remove")!.setAttribute("aria-label", `リンク${index + 1}を削除`);
+    const up = row.querySelector<HTMLButtonElement>(".move-up")!;
+    const down = row.querySelector<HTMLButtonElement>(".move-down")!;
+    up.setAttribute("aria-label", `リンク${index + 1}を上へ移動`);
+    down.setAttribute("aria-label", `リンク${index + 1}を下へ移動`);
+    up.disabled = saving || index === 0;
+    down.disabled = saving || index === items.length - 1;
   });
 }
 
@@ -111,7 +130,7 @@ async function load(): Promise<void> {
       current = decoded;
     } catch (error) {
       if (revision !== loadRevision) return;
-      loadError.textContent = typeof DecompressionStream === "undefined" && hash.startsWith("#v2=") && error instanceof Error
+      loadError.textContent = error instanceof DataSizeError || (typeof DecompressionStream === "undefined" && hash.startsWith("#v2=") && error instanceof Error)
         ? error.message
         : "共有リンクを読み込めませんでした。URLが途中で切れていないか確認してください。新しい一覧を作ることもできます。";
       loadError.hidden = false;
@@ -169,6 +188,7 @@ element<HTMLFormElement>("bookmark-form").addEventListener("submit", async event
   } finally {
     saving = false;
     controls.forEach(control => { control.disabled = false; });
+    numberRows();
     element("save").textContent = "保存して一覧を表示";
   }
 });
