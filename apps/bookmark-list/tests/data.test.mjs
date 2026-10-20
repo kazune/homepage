@@ -1,10 +1,30 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { gzipSync, gunzipSync } from 'node:zlib';
-import { decodeList, encodeList, prepareListForSave, validateList } from '../dist/assets/data.js';
+import { DataSizeError, decodeList, encodeList, prepareListForSave, validateList } from '../dist/assets/data.js';
 
 const savedAt = '2026-10-19T01:23:45.000Z';
 const later = new Date('2026-10-20T02:34:56.000Z');
+
+test('100KBちょうどのUTF-8 JSONは保存・読み込みでき、1バイト超過は拒否する', async () => {
+  const base = { title: '日本語📚', updatedAt: savedAt, links: [{ name: 'x', url: 'https://example.com/' }] };
+  const padding = 102400 - Buffer.byteLength(JSON.stringify(base));
+  const boundary = { ...base, title: base.title + 'a'.repeat(padding) };
+  const oversized = { ...boundary, title: boundary.title + 'a' };
+  assert.equal(Buffer.byteLength(JSON.stringify(boundary)), 102400);
+  for (const format of ['v1', 'v2', 'auto']) {
+    assert.deepEqual(await decodeList(await encodeList(boundary, format)), boundary);
+    await assert.rejects(encodeList(oversized, format), DataSizeError);
+  }
+  const json = JSON.stringify(oversized);
+  await assert.rejects(decodeList(`#v1=${encodeURIComponent(json)}`), DataSizeError);
+  await assert.rejects(decodeList(`#v2=${gzipSync(json).toString('base64url')}`), DataSizeError);
+});
+
+test('高圧縮データは解凍途中のサイズ超過を拒否する', async () => {
+  const json = JSON.stringify({ title: 'あ'.repeat(1000000), updatedAt: savedAt, links: [{ name: 'test', url: 'https://example.com/' }] });
+  await assert.rejects(decodeList(`#v2=${gzipSync(json).toString('base64url')}`), DataSizeError);
+});
 
 test('共有URLから日本語・記号・クエリ・フラグメントを両形式で復元できる', async () => {
   const list = { title: '通勤 & 日常 📚', updatedAt: savedAt, links: [

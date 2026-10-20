@@ -2,6 +2,18 @@ export type Bookmark = { name: string; url: string };
 export type BookmarkList = { title: string; links: Bookmark[]; updatedAt: string };
 export type SaveFormat = "v1" | "v2" | "auto";
 
+const MAX_DATA_BYTES = 100 * 1024;
+
+export class DataSizeError extends Error {
+  constructor() {
+    super("データサイズは100KB（102,400バイト）以内にしてください。");
+  }
+}
+
+function checkDataSize(json: string): void {
+  if (new TextEncoder().encode(json).byteLength > MAX_DATA_BYTES) throw new DataSizeError();
+}
+
 export function normalizeUrl(value: string): string {
   const url = new URL(value.trim());
   if (url.protocol !== "https:" && url.protocol !== "http:") {
@@ -36,6 +48,7 @@ export function prepareListForSave(draft: Omit<BookmarkList, "updatedAt">, previ
 
 export async function encodeList(list: BookmarkList, format: SaveFormat = "auto"): Promise<string> {
   const json = JSON.stringify(validateList(list));
+  checkDataSize(json);
   const v1 = `#v1=${encodeURIComponent(json)}`;
   if (format === "v1") return v1;
   if (format !== "auto" && format !== "v2") throw new Error("保存形式を選んでください。");
@@ -58,7 +71,9 @@ export async function encodeList(list: BookmarkList, format: SaveFormat = "auto"
 
 export async function decodeList(hash: string): Promise<BookmarkList> {
   if (hash.startsWith("#v1=")) {
-    return validateList(JSON.parse(decodeURIComponent(hash.slice(4))));
+    const json = decodeURIComponent(hash.slice(4));
+    checkDataSize(json);
+    return validateList(JSON.parse(json));
   }
   if (!hash.startsWith("#v2=")) throw new Error("この共有リンクの形式には対応していません。");
   if (typeof DecompressionStream === "undefined") {
@@ -70,6 +85,26 @@ export async function decodeList(hash: string): Promise<BookmarkList> {
   }
   const bytes = Uint8Array.from(atob(payload.replace(/-/g, "+").replace(/_/g, "/")), char => char.charCodeAt(0));
   const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
-  const json = await new Response(stream).text();
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  let size = 0;
+  let json = "";
+  let complete = false;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        complete = true;
+        break;
+      }
+      size += value.byteLength;
+      if (size > MAX_DATA_BYTES) throw new DataSizeError();
+      json += decoder.decode(value, { stream: true });
+    }
+    json += decoder.decode();
+  } finally {
+    if (!complete) await reader.cancel().catch(() => {});
+    reader.releaseLock();
+  }
   return validateList(JSON.parse(json));
 }

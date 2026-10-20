@@ -1,4 +1,4 @@
-import { decodeList, encodeList, prepareListForSave, type Bookmark, type BookmarkList, type SaveFormat } from "./data.js";
+import { DataSizeError, decodeList, encodeList, prepareListForSave, type Bookmark, type BookmarkList, type SaveFormat } from "./data.js";
 
 function element<T extends HTMLElement>(id: string): T {
   const node = document.getElementById(id);
@@ -111,7 +111,7 @@ async function load(): Promise<void> {
       current = decoded;
     } catch (error) {
       if (revision !== loadRevision) return;
-      loadError.textContent = typeof DecompressionStream === "undefined" && hash.startsWith("#v2=") && error instanceof Error
+      loadError.textContent = error instanceof DataSizeError || (typeof DecompressionStream === "undefined" && hash.startsWith("#v2=") && error instanceof Error)
         ? error.message
         : "共有リンクを読み込めませんでした。URLが途中で切れていないか確認してください。新しい一覧を作ることもできます。";
       loadError.hidden = false;
